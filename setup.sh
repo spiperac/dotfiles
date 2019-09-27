@@ -1,12 +1,23 @@
 #!/bin/bash
-mkdir -p ~/.vim/bundle
-apt update && apt install cmake git python3 fonts-powerline curl zsh i3 i3status i3lock
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+sudo apt update
+sudo apt install curl git cmake python3
 
-cp vimrc ~/.vimrc
-cp zshrc ~/.zshrc
+# i3 Installation
+sudo apt install i3 i3lock i3status rofi dmenu
 cp -R i3 ~/.config/
-vim +PluginInstall
+
+# Vim Installation
+sudo apt install vim fonts-powerline
+cp vimrc ~/.vimrc
+mkdir -p ~/.vim/bundle
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+vim +PluginInstall +qall
 python3 ~/.vim/bundle/YouCompleteMe/install.py
+
+# ZSH Installation
+sudo apt install zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+cp zshrc ~/.zshrc
+	
+

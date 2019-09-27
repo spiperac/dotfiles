@@ -1,5 +1,5 @@
-export ZSH="/home/badarg/.oh-my-zsh"
-ZSH_THEME="agnoster" 
+export ZSH="/home/spiperac/.oh-my-zsh"
+ZSH_THEME="bira" 
 HYPHEN_INSENSITIVE="true"
 
 # DISABLE_AUTO_UPDATE="true"
