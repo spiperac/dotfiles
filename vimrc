@@ -6,27 +6,31 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
+
+Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+Plugin 'tomtom/tcomment_vim'
+Plugin 'airblade/vim-gitgutter'
 
 " Themes
 Plugin 'jnurmine/Zenburn'
 
 call vundle#end()            " required
+
 filetype plugin indent on
 set nu
 set clipboard=unnamed
 
-" NERDTree ignore
-let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
-
 " Set theme
 colorscheme zenburn
+
+" NERDTree ignore
+let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
 set encoding=utf-8
 set splitbelow
@@ -63,7 +67,18 @@ au BufNewFile,BufRead *.js, *.html, *.css
     \ set softtabstop=2
     \ set shiftwidth=2
 
-" Autocomplete
+" ----- Custom Bindings ------
+" Leader - \
+" C - Ctrl
 
+" Autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" File Explorer
+map <C-n> :NERDTreeToggle<CR>
+
+" Highlight current line
+:hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+:hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
