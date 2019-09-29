@@ -1,5 +1,20 @@
+" Basic settings
 set nocompatible              " required
 filetype off                  " required
+set mouse=a                   " Enable mouse integration
+set showmatch                 " Highlight matching brackets
+set autoindent
+set copyindent
+set hlsearch
+set incsearch
+set number
+set history=1000
+set undolevels=1000
+set title
+set visualbell
+set noerrorbells
+set nobackup
+set noswapfile
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
