@@ -11,6 +11,7 @@ cp -R i3 ~/.config/
 sudo apt install vim fonts-powerline
 cp vimrc ~/.vimrc
 mkdir -p ~/.vim/bundle
+cp .ycm_extra_conf.py ~/.vim/.ycm_extra_conf.py"
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginInstall +qall
 python3 ~/.vim/bundle/YouCompleteMe/install.py

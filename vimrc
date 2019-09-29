@@ -23,6 +23,12 @@ Plugin 'jnurmine/Zenburn'
 call vundle#end()            " required
 
 filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
 set nu
 set clipboard=unnamed
 
@@ -73,6 +79,8 @@ au BufNewFile,BufRead *.js, *.html, *.css
 
 " Autocomplete
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " File Explorer
