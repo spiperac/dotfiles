@@ -1,4 +1,5 @@
 # Partially stolen from https://bitbucket.org/mblum/libgp/src/2537ea7329ef/.ycm_extra_conf.py
+
 import os
 import ycm_core
 
@@ -31,6 +32,8 @@ flags = [
     '-isystem', '/usr/local/include/eigen3',
     '-I', 'include',
     '-I.',
+    '/usr/include/SDL2',
+    '-lSDL2'
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the

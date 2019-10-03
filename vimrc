@@ -22,6 +22,7 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
@@ -105,3 +106,7 @@ map <C-n> :NERDTreeToggle<CR>
 :hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 :hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR>
+
+" Show powerline always
+set laststatus=2
+
