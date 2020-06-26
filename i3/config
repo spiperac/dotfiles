@@ -141,6 +141,12 @@ bindsym Control+p exec pkill pxdorandom.sh
 
 # Custom config
 
+# Multi-screen screenshots with scrot
+bindsym --release Print exec scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+
+# OSX-like area selection screenshots
+bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
+
 # i3-gaps config
 for_window [class=".*"] border pixel 0
 smart_gaps on
@@ -153,7 +159,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl -- set-sink-volume @DEFA
 bindsym XF86AudioMute exec --no-startup-id pactl -- set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Backgroudn image
-exec_always --no-startup-id feh --bg-scale ./wallpaper.png
+exec_always --no-startup-id feh --bg-scale /home/spiperac/.config/i3/wallpaper.png
 
 # Theme
 
@@ -189,4 +195,7 @@ exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 
 # bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
 
+# Startup applications
+
+exec --no-startup-id nm-applet
 
