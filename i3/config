@@ -167,6 +167,10 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
 bar {
+  position top
+  status_command i3status
+  
+  font pango:DejaVu Sans Mono 12
   colors {
     background #282A36
     statusline #F8F8F2
