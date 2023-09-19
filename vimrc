@@ -16,27 +16,24 @@ set noerrorbells
 set nobackup
 set noswapfile
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Plugins installation
+call plug#begin()
 
-Plugin 'gmarik/Vundle.vim'
+Plug 'tpope/vim-surround'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'vim-syntastic/syntastic'
+Plug 'nvie/vim-flake8'
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-scripts/indentpython.vim'
-Bundle 'Valloric/YouCompleteMe'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-
-Plugin 'tomtom/tcomment_vim'
-Plugin 'airblade/vim-gitgutter'
+Plug 'tomtom/tcomment_vim'
+Plug 'airblade/vim-gitgutter'
 
 " Themes
-Plugin 'jnurmine/Zenburn'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
-call vundle#end()            " required
+call plug#end()           " required
 
 filetype plugin indent on
 " show existing tab with 4 spaces width
@@ -49,7 +46,7 @@ set nu
 set clipboard=unnamed
 
 " Set theme
-colorscheme zenburn
+colorscheme dracula
 
 " NERDTree ignore
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
