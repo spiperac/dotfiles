@@ -1,19 +1,30 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt install curl git cmake python3 -y
+#sudo apt update
+#sudo apt install curl git cmake python3 -y
+
+# Setup fonts
+FONTS_DIR="/home/spiperac/.local/share/fonts"
+mkdir -p $FONTS_DIR
+cp -R ./fonts/Hack/ $FONTS_DIR
+fc-cache -fv
+exit
 
 # i3 Installation
 sudo apt install i3 i3lock i3status rofi dmenu -y
-cp -R i3 ~/.config/
+ln -rs i3 ~/.config/i3
+
+# Rust and Python setup
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+rustup component add rust-analyzer
 
 # Vim Installation
 sudo apt install neovim nodejs -y
-cp -R nvim ~/.config/
+ln -rs nvim ~/.config/nvim
 
 # ZSH Installation
 sudo apt install zsh -y
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-cp zshrc ~/.zshrc
+ln -s zshrc ~/.zshrc
 	
 
