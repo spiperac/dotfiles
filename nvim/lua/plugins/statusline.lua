@@ -1,5 +1,5 @@
 -- Import required modules
-require("nvim-web-devicons")..setup({
+require("nvim-web-devicons").setup({
     default = true,  -- Ensure default icons are loaded
 })
 
