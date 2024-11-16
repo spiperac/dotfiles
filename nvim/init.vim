@@ -15,13 +15,12 @@ endif
 call plug#begin()
 " List your plugins here
 
-Plug 'sheerun/vim-polyglot'
 Plug 'akinsho/toggleterm.nvim'
 Plug 'akinsho/bufferline.nvim'
 Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
-" Themes and fonts
+" Themes and fonts and icons
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
@@ -30,7 +29,7 @@ Plug 'MunifTanjim/nui.nvim'
 " Autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Non-mandatory plugs
+" Non-mandatory plugs ( but nice to have)
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 Plug 'ahmedkhalf/project.nvim'
 Plug 'goolord/alpha-nvim'
