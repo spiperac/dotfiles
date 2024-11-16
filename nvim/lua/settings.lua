@@ -1,3 +1,7 @@
+-- Include plugins
+require('plugins/statusline')
+require('plugins/alpha-config')
+
 -- Neo-tree Configuration
 require('gitsigns').setup()
 
