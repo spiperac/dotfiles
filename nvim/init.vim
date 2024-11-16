@@ -11,7 +11,6 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
 call plug#begin()
 " List your plugins here
 
@@ -21,6 +20,7 @@ Plug 'nvim-neo-tree/neo-tree.nvim'
 Plug 'lewis6991/gitsigns.nvim'
 
 " Themes and fonts and icons
+" nui.nvim is required by neo-tree
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
@@ -30,7 +30,7 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Non-mandatory plugs ( but nice to have)
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'ahmedkhalf/project.nvim'
 Plug 'goolord/alpha-nvim'
 
