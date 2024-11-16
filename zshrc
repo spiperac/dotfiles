@@ -1,5 +1,5 @@
 export ZSH="/home/spiperac/.oh-my-zsh"
-ZSH_THEME="bira" 
+ZSH_THEME="awesomepanda" 
 HYPHEN_INSENSITIVE="true"
 
 # DISABLE_AUTO_UPDATE="true"
