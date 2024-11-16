@@ -45,8 +45,6 @@ colorscheme gruvbox
 
 " Require lua configs
 lua require('settings')
-lua require('statusline')
-lua require('alpha-config')
 let g:neovide_scale_factor=1.0
 
 " Keymaps
