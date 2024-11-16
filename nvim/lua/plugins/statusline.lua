@@ -1,5 +1,8 @@
 -- Import required modules
-local devicons = require("nvim-web-devicons")
+require("alpha-config")
+require("nvim-web-devicons")..setup({
+    default = true,  -- Ensure default icons are loaded
+})
 
 -- Helper function to get the current mode with dynamic colors
 local function get_mode()
