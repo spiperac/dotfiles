@@ -65,7 +65,7 @@ end
 -- Define the statusline
 function StatusLine()
   -- Skip statusline for Neo-tree
-  local excluded_filetypes = { "neo-tree", "NvimTree" }
+  local excluded_filetypes = { "neo-tree", "NvimTree", "toggleterm" }
   if vim.tbl_contains(excluded_filetypes, vim.bo.filetype) then
     return " " -- Empty statusline for Neo-tree
   end
