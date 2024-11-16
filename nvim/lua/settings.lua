@@ -15,7 +15,9 @@ require("neo-tree").setup({
     },
   },
   filesystem = {
-    follow_current_file = true,  -- Option to follow the current file in Neo-tree
+    follow_current_file = {
+	    enabled = true,
+    } -- Option to follow the current file in Neo-tree
     hijack_netrw_behavior = "open_current", -- Ensures Neo-tree replaces netrw
   },
   close_if_last_window = false,  -- Closes Neo-tree if it's the last open window
