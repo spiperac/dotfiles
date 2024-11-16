@@ -23,8 +23,9 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Non-mandatory plugs
-Plug 'mhinz/vim-startify'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+Plug 'ahmedkhalf/project.nvim'
+Plug 'goolord/alpha-nvim'
 
 call plug#end()
 
@@ -37,6 +38,7 @@ colorscheme gruvbox
 " Require lua configs
 lua require('settings')
 lua require('statusline')
+lua require('alpha-config')
 let g:neovide_scale_factor=1.0
 
 " Keymaps

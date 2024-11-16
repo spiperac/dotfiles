@@ -15,6 +15,9 @@ require("neo-tree").setup({
     hijack_netrw_behavior = "open_current", -- Ensures Neo-tree replaces netrw
   },
   close_if_last_window = false,  -- Closes Neo-tree if it's the last open window
+  -- Disable auto-open on startup
+  open_on_setup = false,
+  open_on_setup_file = false,
 })
 
 -- ToggleTerm Configuration
@@ -40,7 +43,22 @@ require("bufferline").setup {
   }
 }
 
--- Startup Functions
+require('telescope').setup({
+  extensions = {
+    projects = {
+      -- Configuration for project.nvim (optional)
+    },
+  },
+})
 
+require('project_nvim').setup({
+  manual_mode = false, -- Automatically detect project roots using `.git` or similar
+  detection_methods = { "pattern" },
+  patterns = { ".git", "Makefile", "package.json" }, -- Root patterns
+})
+
+-- Load Telescope's project extension
+require('telescope').load_extension('projects')
+-- Startup Functions
 
 
