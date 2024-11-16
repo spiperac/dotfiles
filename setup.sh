@@ -8,7 +8,7 @@ sudo apt install i3 i3lock i3status rofi dmenu -y
 cp -R i3 ~/.config/
 
 # Vim Installation
-sudo apt install neovim nodejs npm -y
+sudo apt install neovim nodejs -y
 cp -R nvim ~/.config/
 
 # ZSH Installation
