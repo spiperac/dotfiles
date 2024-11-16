@@ -56,10 +56,17 @@ end
 -- Helper function to get file info
 local function get_file_info()
   local filename = vim.fn.expand("%:t")
+  if filename == "" then
+    return "No Name"
+  end
+
+  -- Get icon and color
   local icon, icon_color = devicons.get_icon_color(filename, vim.bo.filetype, { default = true })
-  local filetype = vim.bo.filetype
-  return string.format("%%#StatusFileIcon#%s%%*%%#StatusFileName#%s [%s]",
-    icon or "", filename or "[No Name]", filetype or "none")
+  icon = icon or ""
+  icon_color = icon_color or "#ffffff" -- Default to white if color is nil
+
+  return string.format("%%#StatusFileIcon#%s%%* %%#StatusFileName#%s [%s]",
+    icon, filename, vim.bo.filetype or "none")
 end
 
 -- Define the statusline
