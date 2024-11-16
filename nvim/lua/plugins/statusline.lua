@@ -1,5 +1,4 @@
 -- Import required modules
-require("alpha-config")
 require("nvim-web-devicons")..setup({
     default = true,  -- Ensure default icons are loaded
 })
