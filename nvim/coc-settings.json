@@ -1,4 +1,9 @@
 {
+  "coc.global_extensions": [
+    "coc-pyright",
+    "coc-rust-analyzer"
+  ],
+  
   // rust
   "rust-analyzer.lens.enable": false,
   "rust-analyzer.lens.run.enable": false,
@@ -12,5 +17,12 @@
   "rust-analyzer.diagnostics.experimental.enable": true,
   "rust-analyzer.rustfmt.rangeFormatting.enable": true,
   "rust-analyzer.serverPath": "/home/spiperac/.cargo/bin/rust-analyzer"
+
+  // Python settings
+  "python.pythonPath": "/usr/bin/python3",
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.analysis.typeCheckingMode": "basic"
 }
 
