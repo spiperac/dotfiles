@@ -3,7 +3,7 @@
 ## Update and isntall packages
 sudo apt update
 sudo apt install curl git cmake python3 -y
-sudo apt install i3 i3lock polybar rofi feh pulseaudio-utils -y
+sudo apt install i3 i3lock polybar rofi feh pulseaudio-utils alacritty -y
 sudo apt install python3 python3-pip
 sudo apt install zsh -y
 sudo apt install neovim nodejs -y
@@ -17,6 +17,8 @@ exit
 
 ## i3 Installation
 ln -rs i3 ~/.config/i3
+ln -rs i3/polybar ~/.config/polybar
+ln -rs i3/alacritty ~/.config/alacritty
 
 ### Rust and Python setup\
 
