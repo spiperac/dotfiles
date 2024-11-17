@@ -1,7 +1,8 @@
 return function()
 	require'nvim-treesitter.configs'.setup {
 	  ensure_installed = {"python",
-			      "rust", 
+			      "rust",
+			      "c",
                               "lua", 
 			      "javascript", 
                               "html", 
@@ -9,9 +10,13 @@ return function()
 			      "terraform",
 			      "markdown",
 			      "bash",
+			      "cmake",
+			      "make",
 			      "arduino",
 			      "yaml",
-			      "toml" }, -- Add your desired languages
+			      "toml",
+			      "php",
+			      "nginx" }, -- Add your desired languages
 	  highlight = {
 	    enable = true, -- Enable Treesitter-based syntax highlighting
 	  },
