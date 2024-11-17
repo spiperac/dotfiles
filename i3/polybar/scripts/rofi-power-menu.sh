@@ -28,6 +28,6 @@ case $chosen in
         confirm_exit && systemctl reboot
         ;;
     $shutdown)
-        confirm_exit && systemctl powe~/.config/i3/rofi/launcher.rasiroff
+        confirm_exit && systemctl poweroff
         ;;
 esac
