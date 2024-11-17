@@ -19,15 +19,13 @@ require("lazy").setup({
   { "nvim-neo-tree/neo-tree.nvim", dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" }, config = require("plugins.neo-tree") },
   { "lewis6991/gitsigns.nvim", config = require("plugins.gitsigns") },
   { "rafi/awesome-vim-colorschemes" },
-  { "nvim-lua/plenary.nvim" },
-  { "nvim-tree/nvim-web-devicons" },
-  { "MunifTanjim/nui.nvim" },
   { "neoclide/coc.nvim", branch = "release", config = require("plugins.coc") },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", config = require("plugins.treesitter") },
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, config = require("plugins.telescope") },
   { "ahmedkhalf/project.nvim", config = require("plugins.project") },
-  { "goolord/alpha-nvim"},
+  { "goolord/alpha-nvim" },
 })
+
 
 -- Include settings and keymaps
 require("settings")
