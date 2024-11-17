@@ -17,7 +17,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec ~/.config/i3/rofi/rofi.sh
 
 # Lock the screen with i3lock
-bindsym $mod+l exec i3lock
+bindsym $mod+l exec i3lock -i ~/.config/i3/wallpapers/6-saturn.PNG
 
 # change focus
 bindsym $mod+j focus left
