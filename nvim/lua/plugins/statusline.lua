@@ -45,7 +45,7 @@ local function get_lsp_diagnostics()
 
   -- Group icons together with individual colors and unified black background
   return table.concat({
-    " %#StatusDiagnosticsBg#",
+    "%#StatusDiagnosticsBg#",
     string.format("%%#StatusError# %d ", counts.errors),
     string.format("%%#StatusWarn# %d ", counts.warnings),
     string.format("%%#StatusHint# %d ", counts.hints),
@@ -65,7 +65,7 @@ local function get_file_info()
   icon_color = icon_color or "#FFFFFF" -- Default to white
 
   local filetype = vim.bo.filetype
-  return string.format("%%#StatusFileIcon#%s%%* %%#StatusFileName#%s [%s]",
+  return string.format("%%#StatusFileIcon#%s %%#StatusFileName#%s [%s] %%*",
     icon, filename or "[No Name]", filetype or "none")
 end
 
@@ -86,7 +86,7 @@ function StatusLine()
   -- Right: Encoding and cursor position
   local encoding = vim.bo.fileencoding or vim.o.encoding
   local position = "%l:%c/%L"
-  local right = string.format(" %s | %s ", encoding, position)
+  local right = string.format(" [ %s  ] | %s ", encoding, position)
 
   return table.concat({ left, center, right })
 end
