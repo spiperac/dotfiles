@@ -1,6 +1,6 @@
 #!/bin/bash
 LOCATION="Novi+Sad"
-WEATHER=$(curl -s "https://wttr.in/$LOCATION?format=1")
+WEATHER=$(curl -s "https://wttr.in/$LOCATION?format=%c%t")
 
 if [ -z "$WEATHER" ]; then
     echo "N/A"
