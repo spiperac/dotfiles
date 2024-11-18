@@ -19,6 +19,7 @@ exit
 ln -rs i3 ~/.config/i3
 ln -rs i3/polybar ~/.config/polybar
 ln -rs i3/alacritty ~/.config/alacritty
+ln -rs scripts/chrome.sh ~/.local/bin/chrome
 
 ### Rust and Python setup\
 
