@@ -54,9 +54,8 @@ exec_always --no-startup-id feh --bg-scale /home/spiperac/.config/i3/wallpapers/
 exec_always --no-startup-id ~/.config/i3/polybar.sh &
 
 # Chrome password sync fix
-exec --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
+exec_always --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
 
 # Startup applications
-exec --no-startup-id nm-applet --sm-disable
-
-
+exec_always --no-startup-id nm-applet --sm-disable
+exec_always --no-startup-id pkill dunst && dunst
