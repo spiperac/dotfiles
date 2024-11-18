@@ -2,8 +2,8 @@ export ZSH="/home/spiperac/.oh-my-zsh"
 ZSH_THEME="awesomepanda" 
 HYPHEN_INSENSITIVE="true"
 
-# DISABLE_AUTO_UPDATE="true"
-# export UPDATE_ZSH_DAYS=13
+DISABLE_AUTO_UPDATE="true"
+#export UPDATE_ZSH_DAYS=13
 
 ENABLE_CORRECTION="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -17,6 +17,9 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+export editor='nvim'
+export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
