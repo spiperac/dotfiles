@@ -11,6 +11,7 @@ LOCAL_BIN_DIR="$HOME/.local/bin"
 APT_DEPENDENCIES=(
     curl git cmake python3 i3 i3lock rofi feh
     pulseaudio-utils alacritty polybar zsh neovim nodejs
+    dunst adwaita-icon-theme
 )
 
 PACMAN_DEPENDENCIES=(
@@ -69,6 +70,12 @@ setup_i3() {
     create_symlink "$REPO_DIR/i3/polybar" ".config/polybar"
     mkdir -p "$LOCAL_BIN_DIR"
     create_symlink "$REPO_DIR/scripts/chrome.sh" ".local/bin/chrome"
+}
+
+# Setup Dunst for notifications
+setup_dunst() {
+    mkdir -p "~/.config/dunst/"
+    create_symlink "$REPO_DIR/dunst" ".config/dunst"
 }
 
 # Setup terminal (Alacritty)
@@ -137,6 +144,7 @@ main() {
     install_python_tools
     setup_fonts
     setup_i3
+    setup_dunst
     setup_terminal
     setup_rust_env
     setup_nvim
