@@ -29,6 +29,8 @@ magenta = '#d3869b'
 cyan    = '#8ec07c'
 white   = '#ebdbb2'
 
+[window]
+opacity = 1
 
 [font]
 size = 14
