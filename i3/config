@@ -48,7 +48,7 @@ client.background       #F8F8F2
 ## Scripts
 
 # Backgroudn image
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/6-saturn.PNG
+exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/IMG_6048.PNG
 
 # Polybar
 exec_always --no-startup-id ~/.config/i3/polybar.sh &
