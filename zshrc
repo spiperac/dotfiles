@@ -1,5 +1,6 @@
 export ZSH="$(eval echo ~$USER)/.oh-my-zsh"
-ZSH_THEME="awesomepanda" 
+#ZSH_THEME="awesomepanda" 
+ZSH_THEME="agnoster"
 HYPHEN_INSENSITIVE="true"
 
 DISABLE_AUTO_UPDATE="true"
