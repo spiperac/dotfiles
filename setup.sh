@@ -66,21 +66,20 @@ setup_fonts() {
 # Setup i3 and related configurations
 setup_i3() {
     mkdir -p "$CONFIG_DIR"
-    create_symlink "$REPO_DIR/i3" ".config/i3"
-    create_symlink "$REPO_DIR/i3/polybar" ".config/polybar"
+    create_symlink "$REPO_DIR/config/i3" ".config/i3"
+    create_symlink "$REPO_DIR/config/polybar" ".config/polybar"
     mkdir -p "$LOCAL_BIN_DIR"
     create_symlink "$REPO_DIR/scripts/chrome.sh" ".local/bin/chrome"
 }
 
 # Setup Dunst for notifications
 setup_dunst() {
-    mkdir -p "~/.config/dunst/"
-    create_symlink "$REPO_DIR/dunst" ".config/dunst"
+    create_symlink "$REPO_DIR/config/dunst" ".config/dunst"
 }
 
 # Setup terminal (Alacritty)
 setup_terminal() {
-    create_symlink "$REPO_DIR/alacritty" ".config/alacritty"
+    create_symlink "$REPO_DIR/config/alacritty" ".config/alacritty"
 }
 
 # Setup Rust environment
@@ -96,7 +95,7 @@ setup_rust_env() {
 
 setup_nvim() {
     echo "Setting up Neovim..."
-    create_symlink "$REPO_DIR/nvim" ".config/nvim"
+    create_symlink "$REPO_DIR/config/nvim" ".config/nvim"
 
     echo "Installing Neovim plugins using Lazy.nvim..."
     if nvim --headless +Lazy! +qall; then
