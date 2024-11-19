@@ -16,6 +16,25 @@ map("n", "gi", "<Plug>(coc-implementation)", opts)
 map("n", "gr", "<Plug>(coc-references)", opts)
 map("n", "K", ":call CocAction('doHover')<CR>", opts)
 
+-- Use Tab to navigate through the completion menu
+vim.api.nvim_set_keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
+vim.api.nvim_set_keymap("i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { noremap = true, expr = true })
+
+-- Use Enter to confirm the selected completion item
+vim.api.nvim_set_keymap("i", "<CR>", 'pumvisible() ? coc#pum#confirm() : "\\<CR>"', { noremap = true, expr = true, silent = true })
+
+-- Show documentation in a preview window
+vim.api.nvim_set_keymap("n", "K", ":lua show_documentation()<CR>", opts)
+
+-- Function for showing documentation
+function show_documentation()
+  if vim.bo.filetype == "vim" or vim.bo.filetype == "help" then
+    vim.cmd("h " .. vim.fn.expand("<cword>"))
+  else
+    vim.fn.CocAction("doHover")
+  end
+end
+
 -- Telescope Key Mappings
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
 map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", opts)
