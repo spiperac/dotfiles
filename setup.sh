@@ -20,7 +20,7 @@ PACMAN_DEPENDENCIES=(
 )
 
 PYTHON_TOOLS=(
-    pylint black flake8
+    pylint black flake8 zscroll
 )
 
 
