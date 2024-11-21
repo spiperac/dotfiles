@@ -22,6 +22,7 @@ source $ZSH/oh-my-zsh.sh
 export editor='nvim'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+alias vim="nvim"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment

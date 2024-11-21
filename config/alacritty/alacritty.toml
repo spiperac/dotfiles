@@ -35,6 +35,10 @@ opacity = 1
 [font]
 size = 14
 
+[scrolling]
+history = 1000
+multiplier = 3
+
 [font.normal]
 family = "Hack Nerd Font"
 style = "Regular"
