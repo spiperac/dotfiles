@@ -11,7 +11,7 @@ LOCAL_BIN_DIR="$HOME/.local/bin"
 APT_DEPENDENCIES=(
     curl git cmake python3 i3 i3lock rofi feh
     pulseaudio-utils alacritty polybar zsh neovim nodejs
-    dunst adwaita-icon-theme npm
+    dunst adwaita-icon-theme npm redshift redshift-gtk
 )
 
 PACMAN_DEPENDENCIES=(
@@ -70,6 +70,9 @@ setup_i3() {
     create_symlink "$REPO_DIR/config/polybar" ".config/polybar"
     mkdir -p "$LOCAL_BIN_DIR"
     create_symlink "$REPO_DIR/scripts/chrome.sh" ".local/bin/chrome"
+    # Redshift
+    # Ubuntus AppArmor wont allow for redshift symlink - currently
+    cp -r "$REPO_DIR/config/redshift" "$CONFIG_DIR/redshift"
 }
 
 # Setup Dunst for notifications

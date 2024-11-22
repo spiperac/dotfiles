@@ -51,6 +51,9 @@ client.background       #F8F8F2
 # Backgroudn image
 exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/bg_4.jpg
 
+# Redshift
+exec_always --no-startup-id redshift-gtk
+
 # Polybar
 exec_always --no-startup-id ~/.config/i3/polybar.sh &
 
