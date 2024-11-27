@@ -17,7 +17,7 @@ APT_DEPENDENCIES=(
 PACMAN_DEPENDENCIES=(
     curl git cmake python python-pip i3 i3lock rofi feh
     alacritty polybar zsh neovim nodejs dunst adwaita-icon-theme
-    npm redshift keychain
+    npm redshift keychain pamixer
 )
 
 PYTHON_TOOLS=(
