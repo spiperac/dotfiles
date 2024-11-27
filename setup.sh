@@ -17,12 +17,19 @@ APT_DEPENDENCIES=(
 PACMAN_DEPENDENCIES=(
     curl git cmake python i3 i3lock rofi feh
     pulseaudio alacritty polybar zsh neovim nodejs
+    dunst adwaita-icon-theme npm redshift
 )
 
 PYTHON_TOOLS=(
     pylint black flake8 git+https://github.com/noctuid/zscroll
 )
 
+fresh_install() {
+    if [ -n "$1" ] && [ "$1" = "fresh" ]; then
+        echo "Argument: $1"
+        exit
+    fi
+}
 
 # Create relative symlinks
 create_symlink() {
@@ -141,17 +148,16 @@ setup_zsh() {
 }
 
 # Main script execution
-main() {
-    install_packages
-    install_python_tools
-    setup_fonts
-    setup_i3
-    setup_dunst
-    setup_terminal
-    setup_rust_env
-    setup_nvim
-    setup_zsh
-    echo "Setup completed successfully."
-}
 
-main
+fresh_install "$1"
+install_packages
+install_python_tools
+setup_fonts
+setup_i3
+setup_dunst
+setup_terminal
+setup_rust_env
+setup_nvim
+setup_zsh
+echo "Setup completed successfully."
+
