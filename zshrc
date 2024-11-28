@@ -23,6 +23,8 @@ export editor='nvim'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 alias vim="nvim"
+alias lg='lazygit'
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -49,5 +51,6 @@ alias vim="nvim"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 eval $(keychain --eval --agents ssh id_rsa)
 
