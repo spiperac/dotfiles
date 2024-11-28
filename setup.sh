@@ -12,6 +12,7 @@ APT_DEPENDENCIES=(
     curl git cmake python3 i3 i3lock rofi feh
     pulseaudio-utils alacritty polybar zsh neovim nodejs
     dunst adwaita-icon-theme npm redshift redshift-gtk
+    pamixer
 )
 
 PACMAN_DEPENDENCIES=(
