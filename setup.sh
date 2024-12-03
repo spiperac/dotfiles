@@ -16,7 +16,7 @@ APT_DEPENDENCIES=(
 )
 
 APT_HYPR=(
-    hyprland 
+    hyprland hyprpaper hyprlock hypridle wofi waybar 
 )
 
 PACMAN_DEPENDENCIES=(
@@ -77,6 +77,10 @@ setup_fonts() {
     cp -R "$FONTS_SOURCE_DIR/." "$FONT_DIR/"
     fc-cache -fv
     echo "Fonts installed and cache updated."
+}
+
+setup_wallpapers() {
+    create_symlink "$REPO_DIR/config/wallpapers" ".config/wallpapers"
 }
 
 # Setup i3 and related configurations
@@ -187,6 +191,7 @@ fresh_install "$1"
 install_packages
 install_python_tools
 setup_fonts
+setup_wallpapers
 setup_i3
 setup_hyprland
 setup_tmux
