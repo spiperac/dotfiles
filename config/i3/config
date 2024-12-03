@@ -51,7 +51,7 @@ client.background       #F8F8F2
 ## Scripts
 
 # Backgroudn image
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/1358524.png
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/1358524.png
 
 # Redshift
 exec_always --no-startup-id pkill redshift && redshift-gtk
