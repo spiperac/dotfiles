@@ -22,7 +22,7 @@ PACMAN_DEPENDENCIES=(
 )
 
 PYTHON_TOOLS=(
-    pylint black flake8 git+https://github.com/noctuid/zscroll
+    pylint black flake8 
 )
 
 fresh_install() {

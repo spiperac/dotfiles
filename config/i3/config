@@ -34,9 +34,7 @@ mode "resize" {
 for_window [class=".*"] border pixel 0 
 gaps vertical 5
 gaps horizontal 5
-gaps inner 10
-
-hide_edge_borders vertical
+gaps inner 20
 
 # Theme Gruvbox
 
@@ -51,7 +49,7 @@ client.background       #F8F8F2
 ## Scripts
 
 # Backgroudn image
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/IMG_6034.PNG
+exec_always --no-startup-id feh --bg-scale ~/.config/i3/wallpapers/1358524.png
 
 # Redshift
 exec_always --no-startup-id pkill redshift && redshift-gtk
