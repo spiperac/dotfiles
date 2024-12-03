@@ -30,7 +30,8 @@ cyan    = '#8ec07c'
 white   = '#ebdbb2'
 
 [window]
-opacity = 0.95
+#opacity = 0.95
+opacity = 1.0
 
 [font]
 size = 14

@@ -31,10 +31,12 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 # i3-gaps config
-for_window [class=".*"] border pixel 1 
+for_window [class=".*"] border pixel 0 
 gaps vertical 5
 gaps horizontal 5
 gaps inner 10
+
+hide_edge_borders vertical
 
 # Theme Gruvbox
 
@@ -63,3 +65,4 @@ exec_always --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=s
 # Startup applications
 exec_always --no-startup-id nm-applet --sm-disable
 exec_always --no-startup-id pkill dunst && dunst
+exec --no-statup-id picom -b
