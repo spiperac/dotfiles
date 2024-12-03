@@ -20,6 +20,7 @@
     separator_color = "#585858"
     icon_position = left
     icon_path = /usr/share/icons/Adwaita/symbolic/status/
+    corner_radius=20
 
 [urgency_low]
     background = "#282828"

@@ -26,35 +26,6 @@ local function get_git_branch()
   return ""
 end
 
--- Helper function to get LSP diagnostics with colors
-local function get_lsp_diagnostics()
-  local diagnostics = vim.diagnostic.get(0)
-  local counts = { errors = 0, warnings = 0, hints = 0, infos = 0 }
-
-  for _, diag in pairs(diagnostics) do
-    if diag.severity == vim.diagnostic.severity.ERROR then
-      counts.errors = counts.errors + 1
-    elseif diag.severity == vim.diagnostic.severity.WARN then
-      counts.warnings = counts.warnings + 1
-    elseif diag.severity == vim.diagnostic.severity.HINT then
-      counts.hints = counts.hints + 1
-    elseif diag.severity == vim.diagnostic.severity.INFO then
-      counts.infos = counts.infos + 1
-    end
-  end
-
-  -- Group icons together with individual colors and unified black background
-  return table.concat({
-    "%#StatusDiagnosticsBg#",
-    string.format("%%#StatusError# %d ", counts.errors),
-    string.format("%%#StatusWarn# %d ", counts.warnings),
-    string.format("%%#StatusHint# %d ", counts.hints),
-    string.format("%%#StatusInfo# %d ", counts.infos),
-    "%*"
-  }, "")
-end
-
-
 -- Helper function to get file info
 local function get_file_info()
   local filename = vim.fn.expand("%:t")
@@ -81,7 +52,7 @@ function StatusLine()
   local left = string.format("%s %s ", get_mode(), get_git_branch())
 
   -- Center: File info and LSP diagnostics
-  local center = string.format("%%#StatusFileName# %%=%s%s", get_file_info(), get_lsp_diagnostics())
+  local center = string.format("%%#StatusFileName# %%=%s", get_file_info())
 
   -- Right: Encoding and cursor position
   local encoding = vim.bo.fileencoding or vim.o.encoding

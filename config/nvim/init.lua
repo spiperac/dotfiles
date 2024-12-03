@@ -22,7 +22,6 @@ require("lazy").setup({
   { "neoclide/coc.nvim", branch = "release", config = require("plugins.coc") },
   { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate", config = require("plugins.treesitter") },
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, config = require("plugins.telescope") },
-  { "ahmedkhalf/project.nvim", config = require("plugins.project") },
   { "goolord/alpha-nvim" },
 })
 
