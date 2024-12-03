@@ -32,6 +32,9 @@ white   = '#ebdbb2'
 [window]
 #opacity = 0.95
 opacity = 1.0
+title = "alacritty"
+class = { instance = "Alacritty", general = "Alacritty" }
+padding = { x=0, y=0 }
 
 [font]
 size = 14

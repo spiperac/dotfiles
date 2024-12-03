@@ -12,13 +12,13 @@ APT_DEPENDENCIES=(
     curl git cmake python3 i3 i3lock rofi feh
     pulseaudio-utils alacritty polybar zsh neovim nodejs
     dunst adwaita-icon-theme npm redshift redshift-gtk
-    pamixer tmux ranger
+    pamixer tmux ranger gsimplecal
 )
 
 PACMAN_DEPENDENCIES=(
     curl git cmake python python-pip i3 i3lock rofi feh
     alacritty polybar zsh neovim nodejs dunst adwaita-icon-theme
-    npm redshift keychain pamixer tmux ranger
+    npm redshift keychain pamixer tmux ranger gsimplecal
 )
 
 PYTHON_TOOLS=(

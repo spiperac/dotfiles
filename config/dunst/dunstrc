@@ -36,3 +36,15 @@
     background = "#282828"
     foreground = "#ebdbb2"
     timeout = 0
+
+[discord] # a name for the filter: this is just used to identify what we are doing here
+    appname = "discord" # this is the application name, see below
+    summary = "*" # this is the filter criterion applied to the message, see below
+    urgency = critical
+    script = ~/.config/dunst/dunst-urgent-notification.sh
+
+[protonmail] # a name for the filter: this is just used to identify what we are doing here
+    appname = "Proton Mail" # this is the application name, see below
+    summary = "*" # this is the filter criterion applied to the message, see below
+    urgency = critical
+    script = ~/.config/dunst/dunst-urgent-notification.sh
