@@ -171,6 +171,7 @@ setup_fonts
 setup_i3
 setup_tmux
 setup_dunst
+setup_ranger
 setup_picom
 setup_terminal
 setup_rust_env
