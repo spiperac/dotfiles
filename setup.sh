@@ -12,13 +12,13 @@ APT_DEPENDENCIES=(
     curl git cmake python3 i3 i3lock rofi feh
     pulseaudio-utils alacritty polybar zsh neovim nodejs
     dunst adwaita-icon-theme npm redshift redshift-gtk
-    pamixer
+    pamixer tmux
 )
 
 PACMAN_DEPENDENCIES=(
     curl git cmake python python-pip i3 i3lock rofi feh
     alacritty polybar zsh neovim nodejs dunst adwaita-icon-theme
-    npm redshift keychain pamixer
+    npm redshift keychain pamixer tmux
 )
 
 PYTHON_TOOLS=(
@@ -83,9 +83,18 @@ setup_i3() {
     cp -r "$REPO_DIR/config/redshift" "$CONFIG_DIR/redshift"
 }
 
+setup_tmux() {
+    create_symlink "$REPO_DIR/config/tmux.conf" ".tmux.conf"
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins
+}
+
 # Setup Dunst for notifications
 setup_dunst() {
     create_symlink "$REPO_DIR/config/dunst" ".config/dunst"
+}
+
+setup_picom() {
+    create_symlink "$REPO_DIR/config/picom.conf" ".config/picom.conf"
 }
 
 # Setup terminal (Alacritty)
@@ -155,7 +164,9 @@ install_packages
 install_python_tools
 setup_fonts
 setup_i3
+setup_tmux
 setup_dunst
+setup_picom
 setup_terminal
 setup_rust_env
 setup_nvim
