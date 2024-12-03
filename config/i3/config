@@ -1,6 +1,7 @@
 include ~/.config/i3/keybinds.conf
 
 set $term alacritty # Setting terminal em to Alacritty
+focus_follows_mouse yes
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -35,6 +36,7 @@ for_window [class=".*"] border pixel 0
 gaps vertical 5
 gaps horizontal 5
 gaps inner 20
+for_window [class="Alacritty"] border pixel 0
 
 # Theme Gruvbox
 
@@ -62,5 +64,6 @@ exec_always --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=s
 
 # Startup applications
 exec_always --no-startup-id nm-applet --sm-disable
-exec_always --no-startup-id pkill dunst && dunst
+exec_always --no-startup-id pkill dunst; dunst &
 exec_always --no-startup-id picom -b --config ~/.config/picom.conf
+

@@ -23,3 +23,4 @@ vim.cmd([[
   highlight NeoTreeFloatBorder guibg=#1d2021 guifg=#665c54
   highlight NeoTreeFloatTitle guibg=#1d2021 guifg=#b8bb26
 ]])
+
