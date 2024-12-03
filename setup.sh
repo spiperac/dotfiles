@@ -12,13 +12,13 @@ APT_DEPENDENCIES=(
     curl git cmake python3 i3 i3lock rofi feh
     pulseaudio-utils alacritty polybar zsh neovim nodejs
     dunst adwaita-icon-theme npm redshift redshift-gtk
-    pamixer tmux
+    pamixer tmux ranger
 )
 
 PACMAN_DEPENDENCIES=(
     curl git cmake python python-pip i3 i3lock rofi feh
     alacritty polybar zsh neovim nodejs dunst adwaita-icon-theme
-    npm redshift keychain pamixer tmux
+    npm redshift keychain pamixer tmux ranger
 )
 
 PYTHON_TOOLS=(
@@ -93,6 +93,11 @@ setup_dunst() {
     create_symlink "$REPO_DIR/config/dunst" ".config/dunst"
 }
 
+# Setup Dunst for notifications
+setup_ranger() {
+    create_symlink "$REPO_DIR/config/ranger" ".config/ranger"
+}
+
 setup_picom() {
     create_symlink "$REPO_DIR/config/picom.conf" ".config/picom.conf"
 }
@@ -154,7 +159,7 @@ setup_zsh() {
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     fi
-    create_symlink "$REPO_DIR/zshrc" ".zshrc"
+    create_symlink "$REPO_DIR/config/zshrc" ".zshrc"
 }
 
 # Main script execution
