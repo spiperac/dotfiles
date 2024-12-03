@@ -15,10 +15,18 @@ APT_DEPENDENCIES=(
     pamixer tmux ranger gsimplecal
 )
 
+APT_HYPR=(
+    hyprland 
+)
+
 PACMAN_DEPENDENCIES=(
     curl git cmake python python-pip i3 i3lock rofi feh
     alacritty polybar zsh neovim nodejs dunst adwaita-icon-theme
     npm redshift keychain pamixer tmux ranger gsimplecal
+)
+
+PACMAN_HYPR=(
+    hyprland hyprpaper
 )
 
 PYTHON_TOOLS=(
@@ -81,6 +89,12 @@ setup_i3() {
     # Redshift
     # Ubuntus AppArmor wont allow for redshift symlink - currently
     cp -r "$REPO_DIR/config/redshift" "$CONFIG_DIR/redshift"
+}
+
+setup_hyprland() {
+    mkdir -p "$CONFIG_DIR"
+    create_symlink "$REPO_DIR/config/hypr" ".config/hypr"
+    create_symlink "$REPO_DIR/config/waybar" ".config/waybar"
 }
 
 setup_tmux() {
@@ -174,6 +188,7 @@ install_packages
 install_python_tools
 setup_fonts
 setup_i3
+setup_hyprland
 setup_tmux
 setup_dunst
 setup_ranger
