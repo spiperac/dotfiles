@@ -33,14 +33,17 @@ window#waybar {
 
 #workspaces button.active {
     color: @green;
-    border-bottom: 2px solid @red;
+    border-bottom: 4px solid @green;
+}
+
+#workspaces button.urgent {
+    color: @red;
 }
 
 #tray {
     padding: 4px 8px;
     border-radius: 12px;
     background-color: rgba(60, 60, 60, 0.8);
-
 }
 
 /* Module Styling */
