@@ -26,6 +26,7 @@
         "battery",
         "battery#bat2",
         "clock",
+        "custom/weather",
         "custom/power"
     ],
 
@@ -164,14 +165,13 @@
     "custom/power": {
         "format" : "⏻ ",
 		"tooltip": false,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
-		}
+        "on-click": "~/.config/waybar/wofi-power.sh",
+    },
+    "custom/weather": {
+        "format": "{}",
+        "tooltip": true,
+        "interval": 3600,
+        "exec": "~/.config/polybar/scripts/weather.sh",
     }
 }
 
