@@ -1,0 +1,68 @@
+/* Gruvbox Dark Theme Colors */
+@define-color bg #282828;
+@define-color fg #ebdbb2;
+@define-color yellow #fabd2f;
+@define-color green #b8bb26;
+@define-color blue #83a598;
+@define-color red #fb4934;
+
+/* Global Styling */
+* {
+    font-family: "Hack Font", monospace;
+    font-size: 20px;
+    background-color: @bg;
+    border-radius: 20px;
+}
+
+window#waybar {
+  box-shadow: 1px 1px 10px 10px @mantle;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+#workspaces {
+    margin-left: 15px;
+}
+
+#workspaces button {
+  padding: 0 0.5em;
+  background-color: @surface0;
+  color: @yellow;
+  margin: 0.25em;
+}
+
+#workspaces button.active {
+    color: @green;
+    border-bottom: 2px solid @red;
+}
+
+#tray {
+    padding: 4px 8px;
+    border-radius: 12px;
+    background-color: rgba(60, 60, 60, 0.8);
+
+}
+
+/* Module Styling */
+#clock, #battery, #pulseaudio, #network {
+    padding: 4px 8px;
+    border-radius: 12px; /* Rounded edges for individual modules */
+    background-color: rgba(60, 60, 60, 0.8);
+}
+
+#clock {
+    color: @yellow;
+}
+
+#battery {
+    color: @green;
+}
+
+#pulseaudio {
+    color: @blue;
+}
+
+#network {
+    color: @red;
+}
+

@@ -26,7 +26,7 @@ PACMAN_DEPENDENCIES=(
 )
 
 PACMAN_HYPR=(
-    hyprland hyprpaper
+    hyprland hyprpaper hyprlock hypridle hyprshot wofi waybar
 )
 
 PYTHON_TOOLS=(
@@ -55,9 +55,12 @@ install_packages() {
         echo "Installing dependencies for APT..."
         sudo apt-get update
         sudo apt-get install -y "${APT_DEPENDENCIES[@]}"
+        sudo add-apt-repository ppa:cppiber/hyprland -y
+        sudo apt-get install -y "${APT_HYPR[@]}"
     elif command -v pacman &> /dev/null; then
         echo "Installing dependencies for Pacman..."
         sudo pacman -Syu --noconfirm "${PACMAN_DEPENDENCIES[@]}"
+        sudo pacman -Syu --noconfirm "${PACMAN_HYPR[@]}"
     else
         echo "Unsupported package manager. Please install packages manually."
         exit 1
