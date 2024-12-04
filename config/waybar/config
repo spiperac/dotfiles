@@ -37,7 +37,6 @@
         "all-outputs": true,
         "warp-on-scroll": false,
         "format": "{name}:{icon}",
-        "format-window-separator": "|",
         "format-icons": {
             "1": " ",
             "2": " ",
@@ -92,7 +91,7 @@
         }
     },
     "tray": {
-        // "icon-size": 21,
+        "icon-size": 25,
         "spacing": 10
     },
     "clock": {
