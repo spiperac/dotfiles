@@ -11,7 +11,6 @@
     "reload_style_on_change": true,
 
 
-
     // Choose the order of the modules
 
     "modules-left": [
@@ -94,7 +93,7 @@
     },
     // {{{ Clock
     "clock": {
-        "format": "{:%H:%M}",
+        "format": "{:%a %H:%M}",
         "tooltip": true,
         "tooltip-format": "<small>{calendar}</small>",
         "on-click": "gnome-calendar",
