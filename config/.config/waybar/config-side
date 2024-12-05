@@ -4,10 +4,10 @@
     // Settings
 
     "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    "spacing": 10, // Gaps between modules (4px)
+    "position": "left", // Waybar position (top|bottom|left|right)
+    "spacing": 2, // Gaps between modules (4px)
     "margin": 5,
+    "width": 30,
     "reload_style_on_change": true,
 
 
@@ -18,7 +18,6 @@
         "hyprland/workspaces",
     ],
     "modules-center": [
-        "mpd",
     ],
     "modules-right": [
         "tray",
@@ -27,7 +26,7 @@
         "battery",
         "battery#bat2",
         "clock",
-        "custom/weather",
+        //"custom/weather",
         "custom/power"
     ],
 
@@ -39,11 +38,16 @@
         "all-outputs": true,
         "align": "left",
         "warp-on-scroll": false,
-        "format": "{icon}",
+        "format": "{name}:{icon}",
         "format-icons": {
+            "1": " ",
+            "2": " ",
+            "3": " ",
+            "4": " ",
+            "5": " ",
             "urgent": "",
-            "default": " ",
-            "active": " ",
+            "focused": "",
+            "default": "",
         }
     },
     "keyboard-state": {
@@ -55,32 +59,6 @@
             "unlocked": ""
         }
     },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
-        "format-disconnected": "Disconnected ",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-        "unknown-tag": "N/A",
-        "interval": 5,
-        "consume-icons": {
-            "on": " "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\"></span> ",
-            "on": " "
-        },
-        "repeat-icons": {
-            "on": " "
-        },
-        "single-icons": {
-            "on": "1 "
-        },
-        "state-icons": {
-            "paused": "",
-            "playing": ""
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
-    },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -89,12 +67,12 @@
         }
     },
     "tray": {
-        "icon-size": 25,
-        "spacing": 10
+        "icon-size": 20,
+        "spacing": 5
     },
     // {{{ Clock
     "clock": {
-        "format": "{:%H:%M}",
+        "format": "{:%H\n%M}",
         "tooltip": true,
         "tooltip-format": "<small>{calendar}</small>",
         "on-click": "gnome-calendar",
@@ -154,10 +132,10 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{icon} {volume}% {format_source}",
+        "format": "{icon}\n{volume}%",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": "󰝟  - muted {format_source}",
+        "format-muted": "󰝟 ",
         "format-source": "  ",
         "format-source-muted": " ",
         "format-icons": {
