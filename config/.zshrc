@@ -34,7 +34,7 @@ alias lg='lazygit'
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
-
+export PATH=/home/spiperac/.local/bin:$PATH
 eval $(keychain --eval --agents ssh id_rsa)
 
 # STARSHIP
