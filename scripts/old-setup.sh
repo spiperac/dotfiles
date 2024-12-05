@@ -40,6 +40,14 @@ fresh_install() {
     fi
 }
 
+# Create relative symlinks
+create_symlink() {
+    local target=$1
+    local link_name=$2
+    rm -rf "$HOME/$link_name"  # Remove existing files or symlinks
+    ln -rs "$target" "$HOME/$link_name"
+    echo "Created relative symlink: $link_name -> $target"
+}
 
 # Install packages based on the package manager
 install_packages() {
@@ -74,10 +82,51 @@ setup_fonts() {
     echo "Fonts installed and cache updated."
 }
 
+setup_wallpapers() {
+    create_symlink "$REPO_DIR/config/wallpapers" ".config/wallpapers"
+}
+
+# Setup i3 and related configurations
+setup_i3() {
+    mkdir -p "$CONFIG_DIR"
+    create_symlink "$REPO_DIR/config/i3" ".config/i3"
+    create_symlink "$REPO_DIR/config/polybar" ".config/polybar"
+    mkdir -p "$LOCAL_BIN_DIR"
+    create_symlink "$REPO_DIR/scripts/chrome.sh" ".local/bin/chrome"
+    # Redshift
+    # Ubuntus AppArmor wont allow for redshift symlink - currently
+    cp -r "$REPO_DIR/config/redshift" "$CONFIG_DIR/redshift"
+}
+
+setup_hyprland() {
+    mkdir -p "$CONFIG_DIR"
+    create_symlink "$REPO_DIR/config/hypr" ".config/hypr"
+    create_symlink "$REPO_DIR/config/waybar" ".config/waybar"
+}
+
 setup_tmux() {
+    create_symlink "$REPO_DIR/config/tmux.conf" ".tmux.conf"
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins
 }
 
+# Setup Dunst for notifications
+setup_dunst() {
+    create_symlink "$REPO_DIR/config/dunst" ".config/dunst"
+}
+
+# Setup Dunst for notifications
+setup_ranger() {
+    create_symlink "$REPO_DIR/config/ranger" ".config/ranger"
+}
+
+setup_picom() {
+    create_symlink "$REPO_DIR/config/picom.conf" ".config/picom.conf"
+}
+
+# Setup terminal (Alacritty)
+setup_terminal() {
+    create_symlink "$REPO_DIR/config/alacritty" ".config/alacritty"
+}
 
 # Setup Rust environment
 setup_rust_env() {
@@ -92,6 +141,9 @@ setup_rust_env() {
 
 setup_nvim() {
     echo "Setting up Neovim..."
+    create_symlink "$REPO_DIR/config/nvim" ".config/nvim"
+
+    echo "Installing Neovim plugins using Lazy.nvim..."
     if nvim --headless +Lazy! +qall; then
         echo "Neovim plugins installed successfully."
     else
@@ -133,6 +185,7 @@ setup_zsh() {
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     fi
+    create_symlink "$REPO_DIR/config/zshrc" ".zshrc"
 }
 
 # Main script execution
@@ -141,10 +194,17 @@ fresh_install "$1"
 install_packages
 install_python_tools
 setup_fonts
+setup_wallpapers
+setup_i3
+setup_hyprland
+setup_tmux
+setup_dunst
+setup_ranger
+setup_picom
+setup_terminal
 setup_rust_env
+setup_nvim
 setup_starship
-
-stow config
 setup_zsh
 echo "Setup completed successfully."
 
