@@ -42,8 +42,10 @@ This repository contains my personal configuration files and scripts to set up m
 
    This will:
    - Install required dependencies.
-   - Symlink configuration files to their proper locations.
+   - Run *stow* to sort out dot files.
    - Install Neovim plugins and CoC extensions.
+   - Setup tmux and zsh.
+   - Setup Hyprland and i3, with multiple plugins.
 
 4. Log out and log back in if the default shell is changed to Zsh.
 
