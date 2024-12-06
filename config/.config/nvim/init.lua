@@ -28,6 +28,7 @@ require("lazy").setup({
 -- Include settings and keymaps
 require("settings")
 require("keymaps")
+require("buffhunter").setup()
 
 -- Include custom plugins
 require("plugins/statusline")
