@@ -1,11 +1,15 @@
 return function()
     require("neo-tree").setup({
+      sources = {
+        "filesystem",  -- File system view
+        "buffers",     -- Buffers view
+      },
 	  popup_border_style = "rounded",
       enable_git_Status = true,
       padding = 1,
 	  window = {
 	    position = "right",
-	    width = 30,
+	    width = 40,
 	    mappings = {
 	      ["q"] = "close_window",
 	    },
