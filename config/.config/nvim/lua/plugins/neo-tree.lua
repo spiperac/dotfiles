@@ -4,7 +4,7 @@ return function()
       enable_git_Status = true,
       padding = 1,
 	  window = {
-	    position = "left",
+	    position = "right",
 	    width = 30,
 	    mappings = {
 	      ["q"] = "close_window",
