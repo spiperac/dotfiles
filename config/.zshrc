@@ -40,3 +40,5 @@ eval $(keychain --eval --agents ssh id_rsa)
 # STARSHIP
 eval "$(starship init zsh)"
 
+
+export PATH=$PATH:/home/spiperac/.spicetify
