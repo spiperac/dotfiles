@@ -22,6 +22,7 @@ require("lazy").setup({
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, config = require("plugins.telescope") },
   { "goolord/alpha-nvim" },
   { "nvim-tree/nvim-web-devicons" },
+  { "marko-cerovac/material.nvim" },
 })
 
 

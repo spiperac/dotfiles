@@ -14,7 +14,8 @@ vim.opt.formatoptions:remove("cro")   -- Disable auto-comment on new lines
 
 
 -- Colorscheme
-vim.cmd("colorscheme molokai")
+vim.g.material_style = "darker"
+vim.cmd("colorscheme material")
 
 -- Customize Neo-tree Background
 vim.cmd([[

@@ -14,6 +14,7 @@
     // Choose the order of the modules
 
     "modules-left": [
+        "custom/justlogo",
         "hyprland/workspaces",
     ],
     "modules-center": [
@@ -170,16 +171,22 @@
         },
         "on-click": "pavucontrol"
     },
+
     "custom/power": {
         "format" : "⏻ ",
 		"tooltip": false,
         "on-click": "~/.config/waybar/wofi-power.sh",
     },
+
     "custom/weather": {
         "format": "{}",
         "tooltip": true,
         "interval": 3600,
         "exec": "~/.config/polybar/scripts/weather.sh",
+    },
+
+    "custom/justlogo": {
+        "format": " 󰕈 ",
     }
 }
 

@@ -20,8 +20,13 @@ window#waybar {
   transition-duration: 0.5s;
 }
 
+#custom-justlogo {
+    font-size: 30;
+    color: @white;
+}
+
 #workspaces {
-    margin-left: 15px;
+    margin-left: 10px;
 }
 
 #workspaces button {
