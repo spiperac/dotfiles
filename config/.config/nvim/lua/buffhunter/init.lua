@@ -1,16 +1,35 @@
 local M = {}
 
-M.setup = function()
-  -- Define custom command :Bufferhunter
-  vim.api.nvim_create_user_command('Bufferhunter', function() require("buffhunter.popup").toggle() end, { nargs = 0 })
+-- Your configuration defaults
+M.config = {
+    width = 0.7,        -- 70% of screen width
+    height = 0.4,       -- 40% of screen height
+    border = "double",  -- Border style
+    icons = true,       -- Enable file icons
+    git_signs = true,   -- Enable git signs
+    keymaps = {
+        close = "q",
+        move_up = "k",
+        move_down = "j",
+        select = "<CR>",
+        delete = "x",
+        hsplit = "s",
+        vsplit = "v"
+    }
+}
 
-  -- Keymap for Bufferhunter command
-  vim.api.nvim_set_keymap('n', '<C-l>', ':Bufferhunter<CR>', { noremap = true, silent = true })
+-- Setup function that will be called by lazy.nvim
+function M.setup(opts)
+    -- Merge user config with defaults
+    M.config = vim.tbl_deep_extend("force", M.config, opts or {})
+    
+    -- Load the popup module
+    require('buffhunter.popup')
+    
+    -- Set commands
+    vim.api.nvim_create_user_command('BuffHunter', function()
+        require('buffhunter.popup').toggle()
+    end, {})
 end
 
--- Expose functions globally
-_G.move_selection = require("buffhunter.popup").move_selection
-_G.open_selected_buffer = require("buffhunter.popup").open_selected_buffer
-
 return M
-

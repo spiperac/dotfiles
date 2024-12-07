@@ -17,7 +17,7 @@ map("n", "gr", "<Plug>(coc-references)", opts)
 map("n", "K", ":call CocAction('doHover')<CR>", opts)
 
 -- Plugin Key Mappings
-map("n", "<leader>b", ':BufferList<CR>', opts)
+map("n", "<C-l>", ':BuffHunter<CR>', opts)
 
 -- Use Tab to navigate through the completion menu
 vim.api.nvim_set_keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
