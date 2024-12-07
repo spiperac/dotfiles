@@ -1,6 +1,4 @@
 return function()
-	require("gitsigns").setup({
-
-    })
+	require("buffhunter").setup()
 end
 

@@ -23,13 +23,13 @@ require("lazy").setup({
   { "goolord/alpha-nvim" },
   { "nvim-tree/nvim-web-devicons" },
   { "marko-cerovac/material.nvim" },
+  { "spiperac/buffhunter.nvim", config = require("plugins.buffhunter") },
 })
 
 
 -- Include settings and keymaps
 require("settings")
 require("keymaps")
-require("buffhunter").setup()
 
 -- Include custom plugins
 require("plugins/statusline")
