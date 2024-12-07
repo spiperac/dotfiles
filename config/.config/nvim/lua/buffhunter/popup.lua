@@ -172,6 +172,8 @@ M.open = function()
         ['<CR>'] = 'open_selected_buffer()',
         ['x'] = 'close_selected_buffer()',
         ['q'] = 'close()',
+        ['s'] = 'open_in_split("s")',
+        ['v'] = 'open_in_split("v")',
         ['<Esc>'] = 'close()'
     }
     
@@ -183,6 +185,14 @@ M.open = function()
 
     M.highlight_selection()
     vim.bo[popup_buf].modifiable = false
+
+    -- Center the view on the selected buffer
+    vim.schedule(function()
+        if popup_win and vim.api.nvim_win_is_valid(popup_win) then
+            vim.api.nvim_win_set_cursor(popup_win, {selected_line, 0})
+            vim.cmd('normal! zz')
+        end
+    end)
 end
 
 M.highlight_selection = function()
@@ -197,13 +207,31 @@ M.highlight_selection = function()
     end
 end
 
--- Rest of the functions remain the same
+
 M.move_selection = function(direction)
     if #buffers > 0 then
         selected_line = math.max(1, math.min(selected_line + direction, #buffers))
         M.highlight_selection()
+        
+        -- Add auto-scrolling
+        if popup_win and vim.api.nvim_win_is_valid(popup_win) then
+            local win_height = vim.api.nvim_win_get_height(popup_win)
+            local current_top = vim.api.nvim_win_get_position(popup_win)[1]
+            local cursor_pos = selected_line - 1
+            
+            -- Check if selection is near bottom
+            if cursor_pos >= current_top + win_height - 2 then
+                vim.api.nvim_win_set_cursor(popup_win, {selected_line, 0})
+                vim.cmd('normal! zz')  -- Center the cursor line
+            -- Check if selection is near top
+            elseif cursor_pos <= current_top + 2 then
+                vim.api.nvim_win_set_cursor(popup_win, {selected_line, 0})
+                vim.cmd('normal! zz')  -- Center the cursor line
+            end
+        end
     end
 end
+
 
 M.close = function()
     if popup_win and vim.api.nvim_win_is_valid(popup_win) then
@@ -238,8 +266,34 @@ M.open_selected_buffer = function()
     end
 end
 
+-- Add new function for opening in split
+M.open_in_split = function(orientation)
+    if #buffers > 0 then
+        local selected_bufnr = buffers[selected_line].bufnr
+        local split_cmd = ""
+        if orientation == "s" then 
+            split_cmd = "split"
+        elseif orientation == "v" then
+            split_cmd = "vsplit"
+        end
+
+        if original_win and vim.api.nvim_win_is_valid(original_win) then
+            M.close()
+            pcall(function()
+                vim.api.nvim_set_current_win(original_win)
+                vim.cmd(split_cmd)  -- Create horizontal split
+                vim.api.nvim_set_current_buf(selected_bufnr)
+            end)
+        else
+            M.close()
+            vim.cmd('split')  -- Create horizontal split
+            pcall(vim.api.nvim_set_current_buf, selected_bufnr)
+        end
+    end
+end
 
 
+-- Closing a buffer from the list by pressing 'x' or what current keyind is
 M.close_selected_buffer = function()
     if #buffers > 0 then
         -- Delete the selected buffer
