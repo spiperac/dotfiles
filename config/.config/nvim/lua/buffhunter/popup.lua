@@ -82,7 +82,7 @@ M.open = function()
     popup_win = vim.api.nvim_open_win(popup_buf, true, opts)
     
     -- Set window options
-    vim.wo[popup_win].winhl = 'Normal:Normal,CursorLine:None,CursorColumn:None'
+    vim.wo[popup_win].winhl = 'Normal:Normal'
     vim.wo[popup_win].winblend = 0
     vim.wo[popup_win].wrap = false
     vim.wo[popup_win].cursorline = false
@@ -116,7 +116,7 @@ M.open = function()
             line = i - 1,
             number = { start_col = 0, end_col = 2, hl = "Number" },
             icon = { start_col = 5, end_col = 5 + #icon, hl = icon_hl },
-            path = { start_col = 5 + #icon + 1, end_col = 5 + #icon + #name + 1, hl = "Comment" },
+            path = { start_col = 5 + #icon + 1, end_col = 5 + #icon + #name + 1, hl = "Number" },
             git = { start_col = #line - #git_status, end_col = #line, hl = git_hl }
         })
     end
@@ -145,7 +145,7 @@ M.open = function()
         -- File path
         vim.api.nvim_buf_set_extmark(popup_buf, ns, hl.line, hl.path.start_col, {
             end_col = hl.path.end_col,
-            hl_group = "Comment"
+            hl_group = "Number"
         })
         
         -- Git status (if exists) - Not working currently
