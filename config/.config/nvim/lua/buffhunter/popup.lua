@@ -17,28 +17,46 @@ local function get_file_icon(filename)
     return "", ""
 end
 
-
 local function get_git_status(bufnr)
     local has_gitsigns, gitsigns = pcall(require, 'gitsigns')
-    if has_gitsigns then
-        local signs = vim.fn.sign_getplaced(bufnr, {group = 'gitsigns'})[1]
-        if signs and signs.signs and #signs.signs > 0 then
-            local sign = signs.signs[1].name
-            if sign:match("GitSignsAdd") then
-                return "●", "GitSignsAdd"  -- This maps to the actual highlight group
-            elseif sign:match("GitSignsChange") then
-                return "●", "GitSignsChange"
-            elseif sign:match("GitSignsDelete") then
-                return "●", "GitSignsDelete"
-            elseif sign:match("GitSignsUntracked") then
-                return "●", "GitSignsUntracked"
-            end
-        end
-        -- For staged/committed files
-        return "●", "NonText"  -- Using NonText for subtle gray color
+    if not has_gitsigns then
+        return "", ""
     end
-    return "", ""
+
+    -- Get buffer status from gitsigns
+    local status = vim.b[bufnr].gitsigns_status_dict
+    if not status then
+        return "", ""
+    end
+
+    local symbol = "●"
+    
+    -- Check if file has been modified since last commit
+    if status.changed and status.changed > 0 then
+        return symbol, "GitChanges"      
+    end
+    
+    -- Check if file has staged changes
+    if status.staged and status.staged > 0 then
+        return symbol, "GitStaged"     
+    end
+    
+    -- Check if file is tracked but clean
+    if status.head then  -- If head exists, file is tracked
+        return symbol, "GitClean"
+    end
+
+    -- Untracked files
+    return symbol, "NonText"
 end
+
+-- Add this function to create the custom highlight groups
+local function setup_highlights()
+    vim.api.nvim_set_hl(0, "GitChanges", { fg = "#E5C07B" })  -- Yellow for modified
+    vim.api.nvim_set_hl(0, "GitStaged", { fg = "#98C379" })   -- Green for staged
+    vim.api.nvim_set_hl(0, "GitClean", { fg = "#56B6C2" })    -- Blue for clean/committed
+end
+
 
 local function get_buffer_indicator(line)
     if line == selected_line then
@@ -51,6 +69,7 @@ end
 M.open = function()
     original_win = vim.api.nvim_get_current_win()
     buffers = vim.fn.getbufinfo({ buflisted = 1 })
+
     -- Set selected line to the currently active buffer
     for i, buf in ipairs(buffers) do
         if buf.bufnr == vim.api.nvim_get_current_buf() then
@@ -58,7 +77,8 @@ M.open = function()
             break
         end
     end
-
+    
+    setup_highlights()
     local width = math.floor(vim.o.columns * 0.7)
     local height = math.floor(vim.o.lines * 0.4)
     local row = math.floor((vim.o.lines - height) / 2)
@@ -97,7 +117,7 @@ M.open = function()
         local icon, icon_hl = get_file_icon(buf.name)
         local git_status, git_hl = get_git_status(buf.bufnr)
         local name = buf.name ~= "" and vim.fn.fnamemodify(buf.name, ":~:.") or "[No Name]"
-        local padding = width - #name - #icon - 8
+        local padding = width - #name - #icon - #git_status - 8
         if padding < 0 then padding = 0 end
         
         local line = string.format("%s %2d %s %s%s%s",
@@ -117,7 +137,11 @@ M.open = function()
             number = { start_col = 0, end_col = 2, hl = "Number" },
             icon = { start_col = 5, end_col = 5 + #icon, hl = icon_hl },
             path = { start_col = 5 + #icon + 1, end_col = 5 + #icon + #name + 1, hl = "Number" },
-            git = { start_col = #line - #git_status, end_col = #line, hl = git_hl }
+            git = { 
+                start_col = #line - #git_status, 
+                end_col = #line, 
+                hl = git_hl 
+            }
         })
     end
 
@@ -148,18 +172,12 @@ M.open = function()
             hl_group = "Number"
         })
         
-        -- Git status (if exists) - Not working currently
+        -- Git status (if exists) - WIP -
         if hl.git.hl ~= "" then
-            -- Create a unique highlight group for this specific git status
-            local hl_group = "BuffHunter" .. hl.git.hl
-            -- Get the original highlight color from gitsigns
-            local orig_hl = vim.api.nvim_get_hl(0, { name = hl.git.hl })
-            -- Create our highlight group with the same foreground color
-            vim.api.nvim_set_hl(0, hl_group, { fg = orig_hl.fg })
-            -- Apply the highlight
             vim.api.nvim_buf_set_extmark(popup_buf, ns, hl.line, hl.git.start_col, {
                 end_col = hl.git.end_col,
-                hl_group = hl_group
+                hl_group = hl.git.hl,
+                hl_mode = "combine"  -- This ensures only specified attributes are applied
             })
         end
     end
@@ -266,7 +284,7 @@ M.open_selected_buffer = function()
     end
 end
 
--- Add new function for opening in split
+-- Add new function for opening in split ( v or s for vertical and horizontal)
 M.open_in_split = function(orientation)
     if #buffers > 0 then
         local selected_bufnr = buffers[selected_line].bufnr
@@ -281,12 +299,12 @@ M.open_in_split = function(orientation)
             M.close()
             pcall(function()
                 vim.api.nvim_set_current_win(original_win)
-                vim.cmd(split_cmd)  -- Create horizontal split
+                vim.cmd(split_cmd)
                 vim.api.nvim_set_current_buf(selected_bufnr)
             end)
         else
             M.close()
-            vim.cmd('split')  -- Create horizontal split
+            vim.cmd(split_cmd)
             pcall(vim.api.nvim_set_current_buf, selected_bufnr)
         end
     end

@@ -20,5 +20,6 @@ return function()
         signcolumn = true,
         auto_attach = true,
         attach_to_untracked = true,
+        debug_mode = true,
 })
 end
