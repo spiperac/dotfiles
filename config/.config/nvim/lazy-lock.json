@@ -1,7 +1,7 @@
 {
   "alpha-nvim": { "branch": "main", "commit": "de72250e054e5e691b9736ee30db72c65d560771" },
   "awesome-vim-colorschemes": { "branch": "master", "commit": "ae5e02298c8de6a5aa98fe4d29a21874cfcc3619" },
-  "buffhunter.nvim": { "branch": "main", "commit": "0d4f2d8ef0f5951b67917eec649ff0b22dd9f58f" },
+  "buffhunter.nvim": { "branch": "main", "commit": "4b95b76a4742116c5f009befc9fc62dbb3e4ddbd" },
   "coc.nvim": { "branch": "release", "commit": "ebe7a08ece39a7ea867cb43497ce83ad722b6f07" },
   "gitsigns.nvim": { "branch": "main", "commit": "5f808b5e4fef30bd8aca1b803b4e555da07fc412" },
   "lazy.nvim": { "branch": "main", "commit": "656cf4309396b7b8b62984e923bf8d8a0013f7d7" },
