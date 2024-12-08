@@ -1,5 +1,6 @@
 return function()
 	require("telescope").setup({
+      previewer = false,
 	  extensions = {
 	    projects = {
 	      detection_methods = { "pattern" },
