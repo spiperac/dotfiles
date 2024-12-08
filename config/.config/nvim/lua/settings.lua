@@ -15,12 +15,12 @@ vim.o.softtabstop = 2
 -- Identations
 vim.o.smartindent = true              -- Smart auto-indenting
 vim.o.autoindent = true               -- Maintain indentation level on new lines
-vim.o.breakident = true
+vim.o.breakindent = true
 vim.opt.formatoptions:remove("cro")   -- Disable auto-comment on new lines
 
 -- Splitting
 vim.o.splitright = true
-vim.o.splitbellow = true
+vim.o.splitbelow = true
 
 -- Cases, to help in searching
 vim.o.ignorecase = true
