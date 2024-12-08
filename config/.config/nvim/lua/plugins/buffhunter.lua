@@ -1,5 +1,6 @@
 return function()
     require('buffhunter').setup {
+      border = 'rounded',
       keymaps = {
         open = '<CR>',         -- Open selected buffer
         close = 'q',           -- Close selected buffer
