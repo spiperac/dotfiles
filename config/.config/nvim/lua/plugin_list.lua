@@ -14,8 +14,6 @@ require("lazy").setup({
     config = require("plugins.gitsigns") 
   },
   
-  { "rafi/awesome-vim-colorschemes" },
-
   { 
     "neoclide/coc.nvim", 
     branch = "release", 
@@ -38,7 +36,6 @@ require("lazy").setup({
 
   { "goolord/alpha-nvim" },
   { "nvim-tree/nvim-web-devicons" },
-  { "marko-cerovac/material.nvim" },
 
   { 
     "spiperac/buffhunter.nvim", 
@@ -55,16 +52,20 @@ require("lazy").setup({
       }
   },
   {
-      "kawre/leetcode.nvim",
-      build = ":TSUpdate html",
-      dependencies = {
-          "nvim-telescope/telescope.nvim",
-          "nvim-lua/plenary.nvim",
-          "MunifTanjim/nui.nvim",
-          "nvim-treesitter/nvim-treesitter",
-          "nvim-tree/nvim-web-devicons",
-      },  
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons",
+    },  
   }
+
+
+  -- Themes 00
+  { "marko-cerovac/material.nvim" },
 
 
 })
