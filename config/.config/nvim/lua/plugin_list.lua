@@ -61,11 +61,9 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
     },  
-  }
+  },
 
 
-  -- Themes 00
-  { "marko-cerovac/material.nvim" },
-
-
+  -- Themes
+  { "marko-cerovac/material.nvim" }
 })
