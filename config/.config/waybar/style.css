@@ -22,7 +22,7 @@ window#waybar {
 
 #custom-justlogo {
     font-size: 30;
-    color: @white;
+    color: @blue;
 }
 
 #workspaces {
