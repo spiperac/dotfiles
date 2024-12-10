@@ -3,7 +3,7 @@ return function()
       border = 'rounded',
       keymaps = {
         open = '<CR>',         -- Open selected buffer
-        close = 'q',           -- Close selected buffer
+        close = '<ESC>',           -- Close selected buffer
         delete = 'x',
         split_h = 's',         -- Open in horizontal split
         split_v = 'v',         -- Open in vertical split
