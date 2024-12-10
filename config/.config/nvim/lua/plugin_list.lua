@@ -14,8 +14,6 @@ require("lazy").setup({
     config = require("plugins.gitsigns") 
   },
   
-  { "rafi/awesome-vim-colorschemes" },
-
   { 
     "neoclide/coc.nvim", 
     branch = "release", 
@@ -38,11 +36,29 @@ require("lazy").setup({
 
   { "goolord/alpha-nvim" },
   { "nvim-tree/nvim-web-devicons" },
-  { "marko-cerovac/material.nvim" },
 
   { 
     "spiperac/buffhunter.nvim", 
     config = require("plugins.buffhunter") 
+  },
+
+  { 
+    "kdheepak/lazygit.nvim", 
+    lazy = true,
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+    },
+    keys = {
+        { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+
   },
 
   -- Noice & Leet
@@ -55,16 +71,18 @@ require("lazy").setup({
       }
   },
   {
-      "kawre/leetcode.nvim",
-      build = ":TSUpdate html",
-      dependencies = {
-          "nvim-telescope/telescope.nvim",
-          "nvim-lua/plenary.nvim",
-          "MunifTanjim/nui.nvim",
-          "nvim-treesitter/nvim-treesitter",
-          "nvim-tree/nvim-web-devicons",
-      },  
-  }
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons",
+    },  
+  },
 
 
+  -- Themes
+  { "marko-cerovac/material.nvim" }
 })

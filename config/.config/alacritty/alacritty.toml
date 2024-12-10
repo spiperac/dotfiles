@@ -35,6 +35,7 @@ opacity = 1.0
 title = "alacritty"
 class = { instance = "Alacritty", general = "Alacritty" }
 padding = { x=0, y=0 }
+decorations_theme_variant = "Dark"
 
 [font]
 size = 14
