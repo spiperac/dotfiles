@@ -30,7 +30,7 @@ vim.o.undofile = true
 vim.o.scrolloff = 8
 -- Colorscheme
 vim.g.material_style = "darker"
-vim.cmd("colorscheme material")
+vim.cmd("colorscheme monokai-pro")
 
 -- Customize Neo-tree Background
 vim.cmd([[
