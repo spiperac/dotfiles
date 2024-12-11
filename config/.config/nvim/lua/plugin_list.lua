@@ -96,5 +96,6 @@ require("lazy").setup({
 
 
   -- Themes
-  { "marko-cerovac/material.nvim" }
+  { "marko-cerovac/material.nvim" },
+  { "loctvl842/monokai-pro.nvim" }
 })
