@@ -20,6 +20,7 @@ plugins=(
   copyfile
   extract
   themes
+  zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
