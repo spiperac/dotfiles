@@ -6,7 +6,7 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 #export UPDATE_ZSH_DAYS=13
 
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
@@ -35,7 +35,7 @@ alias lg='lazygit'
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 export PATH=/home/spiperac/.local/bin:$PATH
-eval $(keychain --eval --agents ssh id_rsa)
+eval $(keychain -q --eval --agents ssh id_rsa)
 
 # STARSHIP
 eval "$(starship init zsh)"
