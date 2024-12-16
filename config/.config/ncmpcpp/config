@@ -1,5 +1,7 @@
 colors_enabled = "yes"
 user_interface = "alternative"
+# Highlight currently playing song in the playlist
+
 
 [header]
 header_visibility = "no"
@@ -10,9 +12,10 @@ state_line_color = "9"
 [playlist]
 playlist_display_mode = "classic"
 song_list_format = "$6%a | $5%t $R$8%l | "
-now_playing_prefix = "$b"
+now_playing_prefix = ">$b"
 now_playing_suffix = "$/b"
 browser_playlist_prefix = "$1»$1 "
+current_item_prefix = $(red)$r
 
 [statusbar]
 progressbar_look = "━O━"

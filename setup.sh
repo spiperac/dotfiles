@@ -74,11 +74,6 @@ setup_fonts() {
     echo "Fonts installed and cache updated."
 }
 
-setup_tmux() {
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm && ~/.tmux/plugins/tpm/bin/install_plugins
-}
-
-
 # Setup Rust environment
 setup_rust_env() {
     echo "Installing Rust..."
