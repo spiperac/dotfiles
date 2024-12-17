@@ -1,5 +1,8 @@
-return function()
-	require("gitsigns").setup({
+return {
+  { 
+    "lewis6991/gitsigns.nvim",
+    config = function()
+    	require("gitsigns").setup({
         signs = {
             add          = { text = '┃' },
             change       = { text = '┃' },
@@ -21,5 +24,9 @@ return function()
         auto_attach = true,
         attach_to_untracked = true,
         debug_mode = true,
-})
-end
+      })
+    end
+  }
+
+}
+
