@@ -11,15 +11,14 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
--- Include plugins first
-require("plugin_list")
+-- Load Lazy.nvim and plugins
+require("lazy").setup("plugins")
 
 -- Include settings and keymaps
 require("settings")
 require("keymaps")
 
 -- Include custom plugins
-require("plugins/statusline")
-require("plugins/alpha")
+require("custom/statusline")
+require("custom/alpha")
 
