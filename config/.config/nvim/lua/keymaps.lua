@@ -20,6 +20,13 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"'
 
 -- Show documentation in a preview window
 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
+
 
 -- Function for showing documentation
 function show_documentation()
