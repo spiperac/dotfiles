@@ -38,7 +38,7 @@ padding = { x=0, y=0 }
 decorations_theme_variant = "Dark"
 
 [font]
-size = 14
+size = 12
 
 [scrolling]
 history = 1000

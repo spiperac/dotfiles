@@ -64,6 +64,16 @@ bar {
   status_command i3status -c ~/.config/i3/i3status/config
   position top
   tray_output primary
+  height 50
+  separator_symbol "-"
+  colors {
+    background #222222
+    #statusline <color>
+    separator #BBBBBB
+
+    focused_workspace  #4c7899 #af3a03 #ffffff
+}
+
 }
 
 ## Scripts
