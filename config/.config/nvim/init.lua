@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+
 -- Load Lazy.nvim and plugins
 require("lazy").setup("plugins")
 
@@ -21,4 +22,3 @@ require("keymaps")
 -- Include custom plugins
 require("custom/statusline")
 require("custom/alpha")
-
