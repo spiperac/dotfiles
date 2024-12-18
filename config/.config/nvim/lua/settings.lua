@@ -28,15 +28,5 @@ vim.o.smartcase = true
 
 vim.o.undofile = true
 vim.o.scrolloff = 8
--- Colorscheme
-vim.g.material_style = "darker"
-vim.cmd("colorscheme monokai-pro")
 
--- Customize Neo-tree Background
-vim.cmd([[
-  highlight NeoTreeNormal guibg=#1d2021 guifg=#ebdbb2
-  highlight NeoTreeNormalNC guibg=#1d2021 guifg=#ebdbb2
-  highlight NeoTreeFloatBorder guibg=#1d2021 guifg=#665c54
-  highlight NeoTreeFloatTitle guibg=#1d2021 guifg=#b8bb26
-]])
 
