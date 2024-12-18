@@ -20,7 +20,7 @@ wireless _first_ {
 }
 
 ethernet _first_ {
-        format_up = " %ip (%speed)"
+        format_up = " %ip"
         format_down = " down"
 }
 
