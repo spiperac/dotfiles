@@ -61,12 +61,16 @@ for_window [class=".*"] border pixel 0
 gaps vertical 5
 gaps horizontal 5
 gaps inner 5
-for_window [class="Alacritty"] border pixel 0
+
+for_window [class="Alacritty"] border pixel 7 
+#for_window [title="tmux"] floating enable
+for_window [class="gnome-calendar"] floating enable
 
 # Theme Gruvbox
 
 # class                 border  bground text    indicator child_border
-client.focused          #d79921 #6272A4 #F8F8F2 #6272A4   #d79921
+#client.focused          #d79921 #6272A4 #F8F8F2 #6272A4   #d79921
+client.focused          #282A36 #6272A4 #F8F8F2 #6272A4   #44475A
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
 client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
 client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
@@ -92,7 +96,7 @@ client.background       #F8F8F2
 ## Scripts
 
 # Backgroudn image
-exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/1358524.png
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/temple.jpg
 
 # Redshift
 exec_always --no-startup-id pkill redshift && redshift-gtk
