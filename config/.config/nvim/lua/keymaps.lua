@@ -12,31 +12,17 @@ map("n", "<ESC>u", ":nohlsearch<CR>", opts)
 -- Plugin Key Mappings
 map("n", "<C-l>", ':BuffHunter<CR>', opts)
 
--- Use Tab to navigate through the completion menu
-vim.api.nvim_set_keymap("i", "<Tab>", 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { noremap = true, expr = true })
-vim.api.nvim_set_keymap("i", "<S-Tab>", 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', { noremap = true, expr = true })
-
--- Use Enter to confirm the selected completion item
-
 -- Show documentation in a preview window
 vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-vim.keymap.set("n", "rn", vim.lsp.buf.rename, opts)
+vim.keymap.set("n", "gr", vim.lsp.buf.references, {})
+vim.keymap.set("n", "rn", vim.lsp.buf.rename, {})
 
+vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, {})
 -- Lazy git
 -- vim.keymap.set("n", "<ladder>lg", ":LazyGit<CR>", opts)
-
--- Function for showing documentation
-function show_documentation()
-  if vim.bo.filetype == "vim" or vim.bo.filetype == "help" then
-    vim.cmd("h " .. vim.fn.expand("<cword>"))
-  else
-    vim.fn.CocAction("doHover")
-  end
-end
 
 -- Telescope Key Mappings
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", opts)
