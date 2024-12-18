@@ -65,6 +65,7 @@ gaps inner 5
 for_window [class="Alacritty"] border pixel 7 
 #for_window [title="tmux"] floating enable
 for_window [class="gnome-calendar"] floating enable
+for_window [class="gnome-calculator"] floating enable
 
 # Theme Gruvbox
 
