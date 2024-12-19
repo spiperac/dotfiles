@@ -28,5 +28,3 @@ vim.o.smartcase = true
 
 vim.o.undofile = true
 vim.o.scrolloff = 8
-
-
