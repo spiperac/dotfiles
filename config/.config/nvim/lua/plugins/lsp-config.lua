@@ -14,6 +14,7 @@ return {
           "rust_analyzer",
           "gopls",
           "pyright",
+          "clangd",
         },
       })
     end,
@@ -37,6 +38,10 @@ return {
       lspconfig.gopls.setup({
 
         capabilities = capabilities,
+      })
+
+      lspconfig.clangd.setup({
+        capabilities = capabilities
       })
     end,
   },

@@ -1,6 +1,6 @@
 export ZSH="$(eval echo ~$USER)/.oh-my-zsh"
 #ZSH_THEME="awesomepanda" 
-ZSH_THEME="agnoster"
+ZSH_THEME="cloud"
 HYPHEN_INSENSITIVE="true"
 
 DISABLE_AUTO_UPDATE="true"
@@ -40,7 +40,7 @@ export PATH=~/.config/emacs/bin:$PATH
 eval $(keychain -q --eval --agents ssh id_rsa)
 
 # STARSHIP
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 
 export PATH=$PATH:/home/spiperac/.spicetify
