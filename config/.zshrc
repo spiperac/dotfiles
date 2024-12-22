@@ -12,10 +12,6 @@ ENABLE_CORRECTION="false"
 plugins=(
   git
   docker
-  nmap
-  battery
-  aws
-  azure
   colorize
   copyfile
   extract
@@ -30,17 +26,10 @@ source $ZSH/oh-my-zsh.sh
 export editor='nvim'
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+# ssh
+export PATH=/home/spiperac/.local/bin:$PATH
+eval $(keychain -q --eval --agents ssh id_rsa)
+export PATH=$PATH:/home/spiperac/.spicetify
+
 alias vim="nvim"
 alias lg='lazygit'
-
-# ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
-export PATH=/home/spiperac/.local/bin:$PATH
-export PATH=~/.config/emacs/bin:$PATH
-eval $(keychain -q --eval --agents ssh id_rsa)
-
-# STARSHIP
-# eval "$(starship init zsh)"
-
-
-export PATH=$PATH:/home/spiperac/.spicetify
