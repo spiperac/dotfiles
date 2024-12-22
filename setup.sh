@@ -112,11 +112,6 @@ setup_nvim() {
     echo "Neovim setup completed."
 }
 
-# Setup STARSHIP
-setup_starship() {
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
-}
-
 # Setup Zsh and Oh My Zsh
 setup_zsh() {
     echo "Setting up Zsh..."
@@ -138,7 +133,6 @@ install_packages
 install_python_tools
 setup_fonts
 setup_rust_env
-setup_starship
 
 stow config
 setup_zsh
