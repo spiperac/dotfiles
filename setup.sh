@@ -93,22 +93,6 @@ setup_nvim() {
         echo "Failed to install Neovim plugins. Check your Lazy.nvim configuration."
     fi
 
-    echo "Installing CoC extensions..."
-    if [ -f "$HOME/.config/nvim/coc-settings.json" ]; then
-        if extensions=$(jq -r '.["coc.global_extensions"][]' "$HOME/.config/nvim/coc-settings.json" 2>/dev/null); then
-            if [ -n "$extensions" ]; then
-                echo "$extensions" | xargs -n 1 nvim --headless +'CocInstall -sync' +qall
-                echo "CoC extensions installed."
-            else
-                echo "No CoC extensions defined in coc-settings.json."
-            fi
-        else
-            echo "Error parsing coc-settings.json. Ensure it contains valid JSON and includes coc.global_extensions."
-        fi
-    else
-        echo "coc-settings.json not found. Skipping CoC extensions installation."
-    fi
-
     echo "Neovim setup completed."
 }
 
@@ -133,6 +117,7 @@ install_packages
 install_python_tools
 setup_fonts
 setup_rust_env
+setup_nvim
 
 stow config
 setup_zsh
