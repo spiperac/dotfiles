@@ -1,0 +1,99 @@
+---
+- hosts: localhost
+  become: true  # Run tasks with sudo
+  gather_facts: true  # Required to detect OS
+
+  tasks:
+    - name: Ensure system is updated
+      apt:
+        update_cache: true
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Ensure system is updated
+      dnf:
+        name: "*"
+        state: latest
+      when: ansible_distribution == "Fedora"
+
+    - name: Install packages on Ubuntu
+      apt:
+        name:
+          - curl
+          - git
+          - cmake
+          - python3
+          - python3-pip
+          - i3
+          - i3lock
+          - rofi
+          - feh
+          - alacritty
+          - polybar
+          - zsh
+          - neovim
+          - nodejs
+          - dunst
+          - adwaita-icon-theme
+          - npm
+          - pamixer
+          - tmux
+          - ranger
+          - golang-go
+          - rustc
+          - cargo
+        state: present
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install packages on Fedora
+      dnf:
+        name:
+          - curl
+          - git
+          - cmake
+          - python3
+          - python3-pip
+          - i3
+          - i3lock
+          - rofi
+          - feh
+          - alacritty
+          - polybar
+          - zsh
+          - neovim
+          - nodejs
+          - dunst
+          - adwaita-icon-theme
+          - npm
+          - pamixer
+          - tmux
+          - ranger
+          - golang
+          - rust
+          - cargo
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Download and install Nerd Fonts
+      become: false
+      shell: |
+        mkdir -p ~/.local/share/fonts
+        cd ~/.local/share/fonts
+        curl -fLo "Hack Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
+        fc-cache -fv
+      args:
+        creates: ~/.local/share/fonts/Hack\ Regular\ Nerd\ Font\ Complete.ttf
+
+    - name: Auto-install Lazy.nvim plugins
+      become: false
+      shell: |
+        nvim --headless +Lazy! +qall
+      args:
+        executable: /bin/zsh  # Replace with your preferred shell if necessary
+      environment:
+        XDG_CONFIG_HOME: ~/.config
+        XDG_DATA_HOME: ~/.local/share
+
+    - name: Change default shell to zsh
+      shell: chsh -s $(which zsh)
+      when: ansible_env.SHELL != "/bin/zsh"
+
