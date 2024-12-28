@@ -15,8 +15,8 @@ return {
       }
     end,
 
-    dev = true,
-    dir = "~/projects/buffhunter.nvim"
+--    dev = true,
+--    dir = "~/projects/buffhunter.nvim"
 
   },
 } 

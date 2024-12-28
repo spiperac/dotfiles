@@ -28,8 +28,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # ssh
 export PATH=/home/spiperac/.local/bin:$PATH
-eval $(keychain -q --eval --agents ssh id_rsa)
-export PATH=$PATH:/home/spiperac/.spicetify
+#eval $(keychain -q --eval --agents ssh id_rsa)
 
 alias vim="nvim"
 alias lg='lazygit'
