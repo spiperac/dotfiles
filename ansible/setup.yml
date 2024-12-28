@@ -4,22 +4,12 @@
   gather_facts: true  # Required to detect OS
 
   tasks:
-    - name: Ensure system is updated
-      apt:
-        update_cache: true
-      when: ansible_distribution == "Ubuntu"
-
-    - name: Ensure system is updated
-      dnf:
-        name: "*"
-        state: latest
-      when: ansible_distribution == "Fedora"
-
     - name: Install packages on Ubuntu
       apt:
         name:
           - curl
           - git
+          - stow
           - cmake
           - python3
           - python3-pip
@@ -43,6 +33,18 @@
           - cargo
         state: present
       when: ansible_distribution == "Ubuntu"
+
+    - name: Enable Ghostty
+      community.general.copr:
+        state: enabled
+        name: pgdev/ghostty
+      when: ansible_distribution == "Fedora"
+
+    - name: Enable LazyGit
+      community.general.copr:
+        state: enabled
+        name: atim/lazygit
+      when: ansible_distribution == "Fedora"
 
     - name: Install packages on Fedora
       dnf:
@@ -88,12 +90,9 @@
       shell: |
         nvim --headless +Lazy! +qall
       args:
-        executable: /bin/zsh  # Replace with your preferred shell if necessary
+        executable: /bin/bash
       environment:
         XDG_CONFIG_HOME: ~/.config
         XDG_DATA_HOME: ~/.local/share
 
-    - name: Change default shell to zsh
-      shell: chsh -s $(which zsh)
-      when: ansible_env.SHELL != "/bin/zsh"
 
