@@ -7,6 +7,7 @@ return {
         background_clear = {
           "telescope",
         },
+        transparent_background = true,
         ident_blankline = {
           context_highlight = "pro",
         },
