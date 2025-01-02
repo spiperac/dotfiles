@@ -32,3 +32,4 @@ export PATH=/home/spiperac/.local/bin:$PATH
 
 alias vim="nvim"
 alias lg='lazygit'
+alias zola="flatpak run org.getzola.zola"

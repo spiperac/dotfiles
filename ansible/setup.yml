@@ -31,6 +31,7 @@
           - golang-go
           - rustc
           - cargo
+          - rust-analyzer
         state: present
       when: ansible_distribution == "Ubuntu"
 
