@@ -73,8 +73,22 @@
           - golang
           - rust
           - cargo
+          - rust-analyzer
         state: present
       when: ansible_distribution == "Fedora"
+
+    - name: Install flatpak packages
+      community.general.flatpak:
+        name:
+          - org.gnome.Extensions
+          - org.getzola.zola
+          - com.viber.Viber
+          - com.jeffser.Alpaca
+          - dev.restfox.Restfox
+          - com.github.johnfactotum.Foliate
+          - ca.desrt.dconf-editor
+          - com.github.IsmaelMartinez.teams_for_linux
+          - com.github.neithern.g4music
 
     - name: Download and install Nerd Fonts
       become: false
