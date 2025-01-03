@@ -29,6 +29,9 @@ install_packages() {
       elif command -v dnf &> /dev/null; then
         echo "Installing dependencies for DNF..."
         sudo dnf install -y ansible
+      elif command -v pkg &> /dev/null; then
+          echo "Installing dependencies for FreeBSD..."
+          sudo pkg install -y ansible
     else
         echo "Unsupported package manager. Please install packages manually."
         exit 1
