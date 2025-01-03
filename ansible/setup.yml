@@ -35,6 +35,36 @@
         state: present
       when: ansible_distribution == "Ubuntu"
 
+    - name: Install packages on FreeBSD
+      pkgng:
+        name:
+          - curl
+          - git
+          - stow
+          - cmake
+          - python3
+          - py39-pip
+          - i3
+          - i3lock
+          - rofi
+          - feh
+          - alacritty
+          - polybar
+          - zsh
+          - neovim
+          - node
+          - dunst
+          - adwaita-icon-theme
+          - npm
+          - pamixer
+          - tmux
+          - ranger
+          - go
+          - rust
+          - rust-analyzer
+        state: present
+      when: ansible_distribution == "FreeBSD"
+
     - name: Enable Ghostty
       community.general.copr:
         state: enabled
