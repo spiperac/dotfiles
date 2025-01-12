@@ -1,0 +1,26 @@
+(undo-tree-save-format-version . 1)
+"8d2570a248f414a8de8e01a96aef86ed622a3214"
+[nil nil nil nil (26499 53056 477228 208000) 0 nil]
+([nil nil ((778 . 1017) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -778) (453 . 777) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(leuven-theme lsp-pyright go-mode evil company)))" 0 324 (fontified nil)) . -453) (t 26499 51095 614311 461000)) nil (26499 53056 477224 581000) 0 nil])
+([nil current ((778 . 1017) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -778) (453 . 777) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '(leuven-theme lsp-pyright go-mode evil company)))" 0 324 (fontified nil)) . -453) (t 26499 53056 479329 783000)) nil (26499 55627 178423 140000) 0 nil])
+nil

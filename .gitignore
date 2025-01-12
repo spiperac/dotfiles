@@ -1,2 +1,24 @@
+eln-cache/*
+lsp/*
+auto-save-list/*
+.cache/*
+.cache/
+.cache
 database
 lazy-lock.json
+# Byte-compiled files
+*.elc
+
+# Package archives
+elpa/
+
+# Auto-save and backup files
+*.~ 
+*.bak
+.#*
+
+# Custom files
+custom.el
+
+# Project-specific files
+.projectile
