@@ -1,12 +1,14 @@
-;(use-package leuven-theme
-;  :ensure t
-;  :config
-;  (load-theme 'leuven-dark t))
-
-(use-package doom-themes
+(use-package gruvbox-theme
   :ensure t
   :config
-  (load-theme 'doom-one t))
+  (load-theme 'gruvbox-dark-hard t))
+(set-frame-parameter nil 'internal-border-width 0)
+(add-to-list 'default-frame-alist '(undecorated . t))
+
+;;(use-package doom-themes
+;;  :ensure t
+;;  :config
+;;  (load-theme 'doom-one t))
 
 (use-package all-the-icons
   :ensure t)

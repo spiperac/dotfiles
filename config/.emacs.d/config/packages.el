@@ -46,11 +46,17 @@
 (add-hook 'eglot-managed-mode-hook
           (lambda () (setq-local company-backends '((company-capf)))))
 
+(use-package eldoc-box
+  :ensure t
+  :config
+  (setq eldoc-box-doc-enable t)) ; Enables doc with syntax highlighting
+
 (use-package company-quickhelp
   :ensure t
   :config
   (company-quickhelp-mode 1))
 (setq company-quickhelp-delay 0.5) 
+(global-company-mode 1)
 
 (use-package flycheck
   :ensure t
