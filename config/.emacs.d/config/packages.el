@@ -89,5 +89,8 @@
   (projectile-mode 1))
 
 
-
-
+;; Vertico posframe launch box
+(use-package vertico-posframe
+  :ensure t 
+  :config)
+             

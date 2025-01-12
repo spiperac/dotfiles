@@ -3,6 +3,7 @@
 (load "languages")
 (load "ui")
 (load "keybinds")
+(load "custom_fn")
 
 (setq x-select-enable-clipboard t)
 (setq x-select-enable-primary t)

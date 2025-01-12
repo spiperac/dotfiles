@@ -10,4 +10,18 @@
 (use-package all-the-icons
   :ensure t)
 
+(use-package doom-modeline
+  :ensure t 
+  :init (doom-modeline-mode 1)
+  :config (column-number-mode 1)
+  )
 
+(use-package spacious-padding
+  :ensure t 
+  :hook (after-init . spacious-padding-mode))
+
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+            
