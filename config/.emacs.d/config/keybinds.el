@@ -1,4 +1,4 @@
-(global-set-key (kbd "C-c n") 'treemacs)
+; (global-set-key (kbd "C-c n") 'treemacs)
 
 ;; LSP
 (with-eval-after-load 'eglot

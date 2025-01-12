@@ -20,11 +20,27 @@
 
 (use-package treemacs
   :ensure t
+  :bind ("C-c n" . treemacs)
+  :custom
+  (treemacs-is-never-other-window t)
+  :hook
+  (treemacs-mode . treemacs-project-follow-mode)
+  )
+
+(use-package ivy
+  :ensure t
   :config
-  (setq treemacs-follow-mode t)
-  (add-hook 'treemacs-mode-hook
-            (lambda () 
-              (treemacs-refresh))))
+  (ivy-mode 1))
+
+(use-package undo-tree
+  :ensure t
+  :init (global-undo-tree-mode))
+
+;; Evil
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1))
 
 ;; LSP Configuration
 

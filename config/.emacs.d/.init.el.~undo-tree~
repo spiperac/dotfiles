@@ -1,5 +1,5 @@
 (undo-tree-save-format-version . 1)
-"09419ab6ca321d23d9f2521f09cfb607940e90af"
+"f6a7c47165e33eedd67a97185dc7c9390dba0617"
 [nil nil nil nil (26499 53056 477228 208000) 0 nil]
 ([nil nil ((778 . 1017) (#("(custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -67,7 +67,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages '(eglot leuven-theme lsp-pyright go-mode evil company)))" 0 330 (fontified nil)) . -453) (t 26500 11691 635562 594000)) nil (26500 12864 504208 736000) 0 nil])
-([nil current ((801 . 1040) (#("(custom-set-faces
+([nil nil ((801 . 1040) (#("(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -79,4 +79,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages '(eglot leuven-theme lsp-pyright go-mode evil company)))" 0 330 (fontified nil)) . -453) (t 26500 12864 515232 190000)) nil (26500 16742 515702 92000) 0 nil])
+([nil current ((810 . 1049) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -810) (807 . 809) (#("
+" 0 1 (fontified nil)) . -807) (726 . 808) (#(" " 0 1 (fontified nil)) . 726) (453 . 727) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 347 (fontified nil)) . -453) (t 26500 16742 529519 800000)) nil (26500 18635 409325 51000) 0 nil])
 nil

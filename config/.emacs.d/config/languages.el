@@ -1,9 +1,7 @@
 (add-hook 'python-mode-hook 'eglot-ensure)
 
 ;; Python
-(use-package lsp-pyright
-  :ensure t
-  :hook (python-mode . lsp))
+(add-hook 'python-mode-hook 'eglot-ensure)
 
 ;; Golang
 (use-package go-mode
