@@ -1,13 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # Variables
 REPO_DIR="$(pwd)" # Get the current directory (where setup.sh is run from)
 CONFIG_DIR="$HOME/.config"
 LOCAL_BIN_DIR="$HOME/.local/bin"
 
-PYTHON_TOOLS=(
-    pylint black flake8 
-)
 
 fresh_install() {
     if [ -n "$1" ] && [ "$1" = "fresh" ]; then
@@ -38,13 +35,6 @@ install_packages() {
     fi
 }
 
-# Install Python tools
-install_python_tools() {
-    echo "Installing Python tools..."
-    pip3 install --user --break-system-packages "${PYTHON_TOOLS[@]}" 
-    echo "Python tools installed: ${PYTHON_TOOLS[*]}"
-}
-
 # Run ansible playbooks
 run_ansible() {
   echo "Running ansible"
@@ -69,7 +59,6 @@ setup_zsh() {
 
 fresh_install "$1"
 install_packages
-install_python_tools
 run_ansible
 
 stow config

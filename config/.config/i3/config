@@ -97,7 +97,7 @@ client.background       #F8F8F2
 ## Scripts
 
 # Backgroudn image
-exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/temple.jpg
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/cthull.jpg
 
 # Redshift
 exec_always --no-startup-id pkill redshift && redshift-gtk

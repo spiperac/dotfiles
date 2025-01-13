@@ -30,15 +30,15 @@ cyan    = '#8ec07c'
 white   = '#ebdbb2'
 
 [window]
-#opacity = 0.99
-opacity = 1.0
+opacity = 0.98
+#opacity = 1.0
 title = "alacritty"
 class = { instance = "Alacritty", general = "Alacritty" }
 padding = { x=0, y=0 }
 decorations_theme_variant = "Dark"
 
 [font]
-size = 13
+size = 12
 
 [scrolling]
 history = 1000

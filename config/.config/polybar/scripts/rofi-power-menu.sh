@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 rofi_command="rofi -theme ~/.config/i3/rofi/launcher.rasi"
 
@@ -25,9 +25,9 @@ case $chosen in
         confirm_exit && pkill -KILL -u $USER
         ;;
     $reboot)
-        confirm_exit && systemctl reboot
+        confirm_exit && /sbin/reboot
         ;;
     $shutdown)
-        confirm_exit && systemctl poweroff
+        confirm_exit && /sbin/shutdown -p now
         ;;
 esac
