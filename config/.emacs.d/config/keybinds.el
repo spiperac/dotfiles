@@ -1,5 +1,3 @@
-; (global-set-key (kbd "C-c n") 'treemacs)
-
 ;; LSP
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)

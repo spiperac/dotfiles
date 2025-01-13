@@ -23,6 +23,7 @@
   :bind ("C-c n" . treemacs)
   :custom
   (treemacs-is-never-other-window t)
+  (treemacs-position 'right)
   :hook
   (treemacs-mode . treemacs-project-follow-mode)
   )
@@ -61,30 +62,21 @@
 ;; Ensure eglot and company work together
 (add-hook 'eglot-managed-mode-hook
           (lambda () (setq-local company-backends '((company-capf)))))
+(global-company-mode 1)
 
 (use-package eldoc-box
   :ensure t
   :config
   (setq eldoc-box-doc-enable t)) ; Enables doc with syntax highlighting
 
-(use-package company-quickhelp
-  :ensure t
-  :config
-  (company-quickhelp-mode 1))
-(setq company-quickhelp-delay 0.5) 
-(global-company-mode 1)
-
 (use-package flycheck
   :ensure t
   :init (global-flycheck-mode))
 
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode 1))
-
 (use-package projectile
   :ensure t
+  :init
+  (setq projectile-keymap-prefix (kbd "C-c p")) ;; Set keymap prefix before loading
   :config
   (projectile-mode 1))
 
@@ -92,5 +84,8 @@
 ;; Vertico posframe launch box
 (use-package vertico-posframe
   :ensure t 
-  :config)
+  :custom
+  (vertico-posframe-parameters
+      '((left-fringe . 8)
+        (right-fringe . 8))))
              

@@ -7,6 +7,7 @@
 (set-frame-parameter nil 'internal-border-width 0)
 (add-to-list 'default-frame-alist '(undecorated . t))
 
+
 (use-package all-the-icons
   :ensure t)
 
@@ -16,9 +17,9 @@
   :config (column-number-mode 1)
   )
 
-(use-package spacious-padding
-  :ensure t 
-  :hook (after-init . spacious-padding-mode))
+;(use-package spacious-padding
+;  :ensure t 
+;  :hook (after-init . spacious-padding-mode))
 
 (use-package dashboard
   :ensure t

@@ -1,134 +1,290 @@
 (undo-tree-save-format-version . 1)
-"f6a7c47165e33eedd67a97185dc7c9390dba0617"
-[nil nil nil nil (26499 53056 477228 208000) 0 nil]
-([nil nil ((778 . 1017) (#("(custom-set-faces
+"8fe8934ff0ae69016e7d0704c0876ad6f710c3b4"
+[nil nil nil nil (26500 49078 134561 459000) 0 nil]
+([nil nil ((829 . 1068) (#("(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -778) (453 . 777) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(leuven-theme lsp-pyright go-mode evil company)))" 0 324 (fontified nil)) . -453) (t 26499 51095 614311 461000)) nil (26499 53056 477224 581000) 0 nil])
-([nil nil ((778 . 1017) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -778) (453 . 777) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(leuven-theme lsp-pyright go-mode evil company)))" 0 324 (fontified nil)) . -453) (t 26499 53056 479329 783000)) nil (26499 55627 178423 140000) 0 nil])
-([nil nil ((784 . 1023) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -784) (453 . 783) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(leuven-theme lsp-pyright go-mode evil company)))" 0 324 (fontified nil)) . -453) (t 26500 8523 834125 191000)) nil (26500 8727 962626 807000) 0 nil])
-([nil nil ((784 . 1023) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -784) (453 . 783) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(eglot leuven-theme lsp-pyright go-mode evil company)))" 0 330 (fontified nil)) . -453) (t 26500 8727 974038 314000)) nil (26500 9223 243250 239000) 0 nil])
-([nil nil ((784 . 1023) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -784) (453 . 783) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(eglot leuven-theme lsp-pyright go-mode evil company)))" 0 330 (fontified nil)) . -453) (t 26500 9223 254324 294000)) nil (26500 11691 624194 278000) 0 nil])
-([nil nil ((784 . 1023) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -784) (453 . 783) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(eglot leuven-theme lsp-pyright go-mode evil company)))" 0 330 (fontified nil)) . -453) (t 26500 11691 635562 594000)) nil (26500 12864 504208 736000) 0 nil])
-([nil nil ((801 . 1040) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -801) (798 . 800) (#("
-" 0 1 (fontified nil)) . -798) (726 . 799) (#(" " 0 1 (fontified nil)) . 726) (453 . 727) (#("(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(eglot leuven-theme lsp-pyright go-mode evil company)))" 0 330 (fontified nil)) . -453) (t 26500 12864 515232 190000)) nil (26500 16742 515702 92000) 0 nil])
-([nil nil ((810 . 1049) (#("(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -810) (807 . 809) (#("
-" 0 1 (fontified nil)) . -807) (726 . 808) (#(" " 0 1 (fontified nil)) . 726) (453 . 727) (#("(custom-set-variables
+ )" 0 239 (fontified nil)) . -829) (826 . 828) (#("
+" 0 1 (fontified nil)) . -826) (745 . 827) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 347 (fontified nil)) . -453) (t 26500 16742 529519 800000)) nil (26500 18635 409325 51000) 0 nil])
-([nil nil ((810 . 1049) (#("(custom-set-faces
+   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -472) (t 26500 49058 314916 50000)) nil (26500 49078 134557 141000) 0 nil])
+([nil nil ((829 . 1068) (#("(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -810) (807 . 809) (#("
-" 0 1 (fontified nil)) . -807) (726 . 808) (#(" " 0 1 (fontified nil)) . 726) (453 . 727) (#("(custom-set-variables
+ )" 0 239 (fontified nil)) . -829) (826 . 828) (#("
+" 0 1 (fontified nil)) . -826) (745 . 827) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -453) (t 26500 18635 414884 500000)) nil (26500 20047 585034 854000) 0 nil])
-([nil nil ((810 . 1049) (#("(custom-set-faces
+   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -472) (t 26500 49078 136065 230000)) nil (26500 49113 437489 802000) 0 nil])
+([nil nil ((829 . 1068) (#("(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -810) (807 . 809) (#("
-" 0 1 (fontified nil)) . -807) (726 . 808) (#(" " 0 1 (fontified nil)) . 726) (453 . 727) (#("(custom-set-variables
+ )" 0 239 (fontified nil)) . -829) (826 . 828) (#("
+" 0 1 (fontified nil)) . -826) (745 . 827) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -453) (t 26500 20047 596496 634000)) nil (26500 20081 779181 372000) 0 nil])
-([nil current ((810 . 1049) (#("(custom-set-faces
+   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -472) (t 26500 49113 438330 963000)) nil (26500 49139 118274 523000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )" 0 239 (fontified nil)) . -810) (807 . 809) (#("
-" 0 1 (fontified nil)) . -807) (726 . 808) (#(" " 0 1 (fontified nil)) . 726) (453 . 727) (#("(custom-set-variables
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -453) (t 26500 20081 791020 666000)) nil (26500 20508 248423 590000) 0 nil])
+   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 356 (fontified nil)) . -472) (t 26500 49139 119524 278000)) nil (26500 49153 89887 833000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 49153 91621 933000)) nil (26500 50619 211513 166000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 50619 214063 331000)) nil (26500 50639 138671 651000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 50639 140220 883000)) nil (26500 51480 721663 878000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 51480 723694 634000)) nil (26500 51545 169100 450000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 51545 170254 928000)) nil (26500 52417 403693 637000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 52417 405332 622000)) nil (26500 52799 960247 580000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 52799 962937 623000)) nil (26500 54330 739332 882000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 54330 741627 792000)) nil (26500 54401 447761 471000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 54401 449213 944000)) nil (26500 54556 770853 516000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 54556 772501 619000)) nil (26500 54657 973903 337000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 54657 975355 483000)) nil (26500 55500 815174 750000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 55500 817535 353000)) nil (26500 63035 618660 970000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 63035 620262 878000)) nil (26500 63360 551144 957000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 63360 552674 652000)) nil (26500 63389 631638 134000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 63389 633920 92000)) nil (26500 63469 645964 912000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26500 63469 647595 380000)) nil (26501 5389 464268 645000) 0 nil])
+([nil nil ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26501 5389 466867 392000)) nil (26501 7148 526498 135000) 0 nil])
+([nil current ((846 . 1085) (#("(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )" 0 239 (fontified nil)) . -846) (843 . 845) (#("
+" 0 1 (fontified nil)) . -843) (745 . 844) (#(" " 0 1 (fontified nil)) . 745) (472 . 746) (#("(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))" 0 373 (fontified nil)) . -472) (t 26501 7148 528298 415000)) nil (26501 7727 427504 321000) 0 nil])
 nil

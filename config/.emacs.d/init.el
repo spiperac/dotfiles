@@ -3,6 +3,7 @@
 (load "languages")
 (load "ui")
 (load "keybinds")
+(load "orgs")
 (load "custom_fn")
 
 (setq x-select-enable-clipboard t)
@@ -25,7 +26,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))
+   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
