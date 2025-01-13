@@ -28,10 +28,6 @@
   (treemacs-mode . treemacs-project-follow-mode)
   )
 
-(use-package ivy
-  :ensure t
-  :config
-  (ivy-mode 1))
 
 (use-package undo-tree
   :ensure t
@@ -82,10 +78,28 @@
 
 
 ;; Vertico posframe launch box
+
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode))
+
 (use-package vertico-posframe
-  :ensure t 
+  :ensure t
   :custom
-  (vertico-posframe-parameters
-      '((left-fringe . 8)
-        (right-fringe . 8))))
-             
+  (vertico-posframe-poshandler 'posframe-poshandler-frame-center)
+  :config
+  (vertico-posframe-mode 1))
+
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles . (partial-completion))))))
+
+(use-package consult
+  :ensure t)
+
+(setq consult-project-root-function #'consult--project-root) ;; Enable project-based search
+

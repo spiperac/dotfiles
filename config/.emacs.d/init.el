@@ -15,8 +15,19 @@
 (scroll-bar-mode -1)
 (column-number-mode 1)
 (global-display-line-numbers-mode 1)
-(set-fringe-mode 10)
+;(set-fringe-mode 10)
 (setq inhibit-startup-message t)
+
+;; Allow y/n instead of having to type yes/no
+(use-package emacs
+  :init
+  (defalias 'yes-or-no-p 'y-or-n-p))
+
+;; Tabs and spaces
+(use-package emacs
+  :init
+  (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 2))
 
 ;; Font
 (set-face-attribute 'default nil :font "Hack Nerd Font" :height 140)
@@ -26,7 +37,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))
+   '(vertico vertico-posframe lsp-pyre gruvbox-theme eglot leuven-theme lsp-pyright go-mode evil company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

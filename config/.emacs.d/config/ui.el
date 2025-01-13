@@ -8,8 +8,8 @@
 (add-to-list 'default-frame-alist '(undecorated . t))
 
 
-(use-package all-the-icons
-  :ensure t)
+;(use-package all-the-icons
+;  :ensure t)
 
 (use-package doom-modeline
   :ensure t 
@@ -17,6 +17,7 @@
   :config (column-number-mode 1)
   )
 
+(use-package nerd-icons)
 ;(use-package spacious-padding
 ;  :ensure t 
 ;  :hook (after-init . spacious-padding-mode))
