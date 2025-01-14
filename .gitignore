@@ -1,11 +1,20 @@
-eln-cache/*
+*/eln-cache/*
 lsp/*
-auto-save-list/*
+*/auto-save-list/*
 .cache/*
 .cache/
 .cache
 database
 lazy-lock.json
+
+# emacs stuff
+config/.emacs.d/auto-save-list/*
+config/.emacs.d/eln-cache/*
+config/.emacs.d/backup/*
+config/.emacs.d/undo/*
+
+*~undo-tree~
+\#*#
 # Byte-compiled files
 *.elc
 

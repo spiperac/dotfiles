@@ -18,6 +18,10 @@
 ;(set-fringe-mode 10)
 (setq inhibit-startup-message t)
 
+;; Prevent undo tree files from polluting your git repo
+(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+
 ;; Allow y/n instead of having to type yes/no
 (use-package emacs
   :init
