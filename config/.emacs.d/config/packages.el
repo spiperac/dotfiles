@@ -24,10 +24,30 @@
   :custom
   (treemacs-is-never-other-window t)
   (treemacs-position 'right)
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode 'always)
+
   :hook
   (treemacs-mode . treemacs-project-follow-mode)
   )
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :ensure t)
 
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :hook (dired-mode . treemacs-icons-dired-enable-once)
+  :ensure t)
+
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+
+(setq treemacs-icon-theme 'nerd-icons)
 
 (use-package undo-tree
   :ensure t
