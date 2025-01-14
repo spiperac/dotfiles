@@ -1,7 +1,8 @@
-(use-package gruvbox-theme
+(use-package dracula-theme
   :ensure t
   :config
-  (load-theme 'gruvbox-dark-hard t))
+  ;(load-theme 'gruvbox-dark-hard t))
+  (load-theme 'dracula t))
 
 ;(set-frame-parameter nil 'alpha '(98 . 100))
 (set-frame-parameter nil 'internal-border-width 0)

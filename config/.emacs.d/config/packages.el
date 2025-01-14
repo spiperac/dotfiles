@@ -31,16 +31,19 @@
   :hook
   (treemacs-mode . treemacs-project-follow-mode)
   )
+
+(use-package treemacs-nerd-icons
+  :ensure t
+  :after (treemacs nerd-icons)
+  :config
+  (treemacs-load-theme "nerd-icons"))
+
 (use-package treemacs-evil
   :after (treemacs evil)
   :ensure t)
 
 (use-package treemacs-projectile
   :after (treemacs projectile)
-  :ensure t)
-
-(use-package treemacs-icons-dired
-  :hook (dired-mode . treemacs-icons-dired-enable-once)
   :ensure t)
 
 (use-package treemacs-magit
