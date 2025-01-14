@@ -1,3 +1,5 @@
+if [ "$TMUX" = "" ]; then tmux; fi
+
 export ZSH="$(eval echo ~$USER)/.oh-my-zsh"
 #ZSH_THEME="awesomepanda" 
 ZSH_THEME="cloud"
@@ -32,4 +34,3 @@ export PATH=/home/spiperac/.local/bin:$PATH
 
 alias vim="nvim"
 alias lg='lazygit'
-alias zola="flatpak run org.getzola.zola"
