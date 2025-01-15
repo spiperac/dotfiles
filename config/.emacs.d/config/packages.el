@@ -64,6 +64,10 @@
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
+(use-package smartparens
+  :ensure t
+  :config
+  (smartparens-global-mode 1))
 
 ;; LSP Configuration
 ;; Eglot Settings
@@ -75,8 +79,14 @@
   :ensure t
   :hook (after-init . global-company-mode)
   :config
+  (setq company-selection-wrap-around t)
+  (setq company-tooltip-doc-enable t)
+  (setq company-tooltip-align-annotations t)
   (setq company-idle-delay 0.0
         company-minimum-prefix-length 1))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 ;; Ensure eglot and company work together
 (add-hook 'eglot-managed-mode-hook

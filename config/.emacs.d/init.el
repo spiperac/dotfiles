@@ -4,8 +4,12 @@
 (load "ui")
 (load "keybinds")
 (load "orgs")
+(load "chat")
 (load "pomodoro")
 (load "custom_fn")
+
+;; Warnings off
+(setq warning-minimum-level :error)
 
 ;; Adding local/bin for some LSP servers
 (add-to-list 'exec-path "~/.local/bin")

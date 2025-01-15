@@ -53,9 +53,12 @@
 (setq centaur-tabs-gray-out-icons 'buffer)
 (setq centaur-tabs-set-bar 'over)
 (setq centaur-tabs-set-modified-marker t)
-(add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
 (setq centaur-tabs-cycle-scope 'tabs)
-(centaur-tabs-group-by-projectile-project)
 (add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
 (add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
 
+;; Adds color to nested parentheses, braces, and brackets.
+(use-package rainbow-delimiters
+  :ensure t
+  :hook ((prog-mode . rainbow-delimiters-mode)
+         (text-mode . rainbow-delimiters-mode)))

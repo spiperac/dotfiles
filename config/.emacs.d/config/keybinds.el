@@ -5,6 +5,11 @@
   (define-key eglot-mode-map (kbd "C-c k") #'eldoc-box-help-at-point)
   )
 
+;; Company completion box
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "C-j") #'company-select-next)
+  (define-key company-active-map (kbd "C-k") #'company-select-previous))
+
 ;; Consult
 
 (global-set-key (kbd "C-x b") 'consult-buffer)

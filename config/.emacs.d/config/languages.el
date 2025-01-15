@@ -48,6 +48,12 @@
 (use-package rust-mode)
 (add-hook 'rust-mode-hook 'eglot-ensure)
 
+;; Basic Completions
+(add-hook 'bash-mode-hook 'company-mode)
+(add-hook 'json-mode-hook 'company-mode)
+(add-hook 'html-mode-hook 'company-mode)
+(add-hook 'tsx-mode-hook 'company-mode)
+
 ;; Lang servers
 (setq eglot-server-programs
       '((c-mode . ("clangd"))
