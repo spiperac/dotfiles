@@ -29,8 +29,7 @@
   (treemacs-fringe-indicator-mode 'always)
 
   :hook
-  (treemacs-mode . treemacs-project-follow-mode)
-  )
+  (treemacs-mode . treemacs-project-follow-mode))
 
 (use-package treemacs-nerd-icons
   :ensure t
@@ -62,11 +61,11 @@
   :config
   (evil-mode 1))
 
-;; LSP Configuration
-
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
+
+;; LSP Configuration
 ;; Eglot Settings
 (use-package eglot
   :ensure t)
@@ -78,6 +77,7 @@
   :config
   (setq company-idle-delay 0.0
         company-minimum-prefix-length 1))
+
 ;; Ensure eglot and company work together
 (add-hook 'eglot-managed-mode-hook
           (lambda () (setq-local company-backends '((company-capf)))))
@@ -99,11 +99,11 @@
   :config
   (projectile-mode 1))
 
-
 ;; Vertico posframe launch box
-
 (use-package vertico
   :ensure t
+  :custom
+  (vertico-cycle t)
   :init
   (vertico-mode))
 

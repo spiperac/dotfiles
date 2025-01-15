@@ -7,6 +7,10 @@
 (load "pomodoro")
 (load "custom_fn")
 
+;; Adding local/bin for some LSP servers
+(add-to-list 'exec-path "~/.local/bin")
+(setenv "PATH" (concat (getenv "PATH") ":~/.local/bin"))
+
 (setq x-select-enable-clipboard t)
 (setq x-select-enable-primary t)
 

@@ -13,3 +13,15 @@
 
 (global-set-key (kbd "C-x vs") 'treemacs-open-file-in-vsplit)
 
+;; Kill projectile project and return to dashboard
+(defun quit-project-and-go-to-dashboard ()
+  "Kill all project buffers and return to the dashboard."
+  (interactive)
+  (let ((project-root (projectile-project-root)))
+    (when project-root
+      (projectile-kill-buffers))
+    (dashboard-refresh-buffer)
+    (switch-to-buffer "*dashboard*")))
+
+(global-set-key (kbd "C-c q") 'quit-project-and-go-to-dashboard)
+

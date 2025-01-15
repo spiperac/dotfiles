@@ -15,3 +15,7 @@
 (with-eval-after-load 'vertico
   (define-key vertico-map (kbd "C-j") 'vertico-next)
   (define-key vertico-map (kbd "C-k") 'vertico-previous))
+
+;; Centaur tabs
+(define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
+(define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
