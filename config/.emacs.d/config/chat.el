@@ -4,6 +4,7 @@
 (setq erc-autojoin-channels-alist '(("irc.libera.chat" "#lugons" "#balccon"))) 
 
 (setq erc-autojoin-timing 'ident
+      erc-auto-join-mode t
       erc-fill-function 'erc-fill-static
       erc-fill-static-center 22
       erc-hide-list '("JOIN" "PART" "QUIT")

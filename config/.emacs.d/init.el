@@ -24,6 +24,7 @@
 (scroll-bar-mode -1)
 (column-number-mode 1)
 (global-display-line-numbers-mode 1)
+(setq tab-bar-show 1)
 ;(set-fringe-mode 10)
 (setq inhibit-startup-message t)
 

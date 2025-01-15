@@ -15,6 +15,7 @@ transient/*
 config/.emacs.d/auto-save-list/*
 config/.emacs.d/eln-cache/*
 config/.emacs.d/backup/*
+config/.emacs.d/backups/*
 config/.emacs.d/undo/*
 config/.emacs.d/projectile-bookmarks.eld
 config/.emacs.d/recentf
