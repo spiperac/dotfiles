@@ -24,3 +24,7 @@
 ;; Centaur tabs
 (define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
 (define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
+
+;; Org shortcuts
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
