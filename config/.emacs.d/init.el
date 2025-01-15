@@ -4,6 +4,7 @@
 (load "ui")
 (load "keybinds")
 (load "orgs")
+(load "pomodoro")
 (load "custom_fn")
 
 (setq x-select-enable-clipboard t)
