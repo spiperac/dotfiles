@@ -102,13 +102,12 @@
           - rust
           - cargo
           - rust-analyzer
-	  - texlive-collection-fontsrecommended
-	  - texlive-capt-of
-	  - texlive-ulem
-	  - texlive-wrapfig
-	  - pdflatex
-	  - emacs
-	  
+          - texlive-collection-fontsrecommended
+          - texlive-capt-of
+          - texlive-ulem
+          - texlive-wrapfig
+          - pdflatex
+          - emacs
         state: present
       when: ansible_distribution == "Fedora"
 
