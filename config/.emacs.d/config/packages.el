@@ -15,7 +15,15 @@
   (which-key-mode))
 
 (use-package magit
-  :ensure t)
+  :ensure t)  
+
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode)
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+(add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
 (use-package treemacs
   :ensure t
@@ -106,7 +114,6 @@
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion))))))
-
 (use-package consult
   :ensure t)
 
