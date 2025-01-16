@@ -107,6 +107,7 @@
           - texlive-ulem
           - texlive-wrapfig
           - pdflatex
+          - libtool
           - emacs
         state: present
       when: ansible_distribution == "Fedora"
