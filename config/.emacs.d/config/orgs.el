@@ -4,7 +4,7 @@
   '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
 
 ;; Pomodoro
-(setq org-clock-sound "~/.emacs.d/asset/ding.wav")
+(setq org-clock-sound "~/.emacs.d/asset/boat.wav")
 
 ;; Org-Capture
 (defun my/org-capture-create-directories ()
