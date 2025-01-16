@@ -11,7 +11,6 @@
   (define-key company-active-map (kbd "C-k") #'company-select-previous))
 
 ;; Consult
-
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x f") 'consult-find)
 (global-set-key (kbd "C-c g") 'consult-ripgrep)

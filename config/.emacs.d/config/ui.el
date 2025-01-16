@@ -1,7 +1,17 @@
-(use-package monokai-pro-theme
+;;; package --- UI And Themes
+;;; Commentary:
+;; Configuration file containing themes, and other ui elements.
+
+(use-package doom-themes
   :ensure t
   :config
-  (load-theme 'monokai-pro t))
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-one t)
+
+  (doom-themes-org-config))
+
 
 ;(set-frame-parameter nil 'alpha '(98 . 100))
 (set-frame-parameter nil 'internal-border-width 0)
@@ -14,9 +24,6 @@
   )
 
 (use-package nerd-icons)
-(use-package spacious-padding
-  :ensure t 
-  :hook (after-init . spacious-padding-mode))
 
 ;; Dashboard Configuration
 (use-package dashboard
@@ -31,27 +38,6 @@
   (setq dashboard-set-init-info t)
   (dashboard-setup-startup-hook))
 
-
-
-;; Centaur Tabs
-(use-package centaur-tabs
-  :demand
-  :config
-  (centaur-tabs-mode t)
-  (centaur-tabs-headline-match)
-  :bind
-  ("C-<prior>" . centaur-tabs-backward)
-  ("C-<next>" . centaur-tabs-forward))
-(setq centaur-tabs-style "alternate")
-(setq centaur-tabs-set-icons t)
-(setq centaur-tabs-icon-type 'nerd-icons)  ; or 'nerd-icons
-(setq centaur-tabs-height 32)
-(setq centaur-tabs-gray-out-icons 'buffer)
-(setq centaur-tabs-set-bar 'over)
-(setq centaur-tabs-set-modified-marker t)
-(setq centaur-tabs-cycle-scope 'tabs)
-(add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
-(add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
 
 ;; Adds color to nested parentheses, braces, and brackets.
 (use-package rainbow-delimiters
