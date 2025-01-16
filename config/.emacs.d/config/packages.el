@@ -17,6 +17,9 @@
 (use-package magit
   :ensure t)  
 
+(use-package vterm
+  :ensure t)
+
 (use-package diff-hl
   :ensure t
   :config
@@ -132,3 +135,13 @@
   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :init
   (nerd-icons-completion-mode))
+
+
+;; Documents handling
+
+;; PDF Tools
+(use-package pdf-tools
+  :ensure t
+  :config
+  (pdf-tools-install))
+(add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode)
