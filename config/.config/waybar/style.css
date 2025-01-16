@@ -9,7 +9,7 @@
 /* Global Styling */
 * {
     font-family: "Hack Font", monospace;
-    font-size: 20px;
+    font-size: 15px;
     background-color: @bg;
     border-radius: 20px;
 }

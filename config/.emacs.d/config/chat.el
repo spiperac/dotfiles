@@ -18,7 +18,7 @@
                                "324" "329" "332" "333" "353" "477"))
 
 ;; Enable ERC modules correctly
-(setq erc-modules '(notifications spelling))
+(setq erc-modules '(notifications))
 
 ;; Enable automatic connection on startup
 (add-hook 'erc-mode-hook (lambda ()

@@ -29,10 +29,6 @@
   (setq dashboard-center-content t)
   (setq dashboard-projects-backend 'projectile)
   (setq dashboard-set-init-info t)
-  (setq dashboard-set-navigator t)
-  (setq dashboard-navigator-buttons
-        `(((nil "💡 New File" "Open a new buffer" (lambda () (interactive) (find-file "~/")))
-           (nil "📁 Open Project" "Open a project folder" projectile-switch-project))))
   (dashboard-setup-startup-hook))
 
 

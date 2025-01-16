@@ -111,6 +111,18 @@
         state: present
       when: ansible_distribution == "Fedora"
 
+    - name: Install hyprland
+      dnf:
+        name:
+          - hyprland 
+          - hyprpaper 
+          - hyprlock 
+          - hypridle 
+          - wofi 
+          - waybar
+        state: present
+      when: ansible_distribution == "Fedora"
+
     - name: Install flatpak packages
       community.general.flatpak:
         name:
