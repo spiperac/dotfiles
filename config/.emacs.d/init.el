@@ -25,23 +25,20 @@
 (column-number-mode 1)
 (global-display-line-numbers-mode 1)
 (setq tab-bar-show 1)
-;(set-fringe-mode 10)
+(set-fringe-mode 10)
 (setq inhibit-startup-message t)
 
-;; Prevent undo tree files from polluting your git repo
-(setq undo-tree-history-directory-alist '(("." . "~/.emacs.d/undo")))
+;; Auto pair brackets and stuff
+(electric-pair-mode 1)
+
+;; Backup files path ( to stop spamming project repositories) 
 (setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
 
 ;; Allow y/n instead of having to type yes/no
-(use-package emacs
-  :init
-  (defalias 'yes-or-no-p 'y-or-n-p))
-
+(defalias 'yes-or-no-p 'y-or-n-p)
 ;; Tabs and spaces
-(use-package emacs
-  :init
-  (setq-default indent-tabs-mode nil)
-  (setq-default tab-width 2))
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
 
 ;; Font
 (set-face-attribute 'default nil :font "Hack Nerd Font" :height 140)

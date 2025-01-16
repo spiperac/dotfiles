@@ -7,7 +7,6 @@
   (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
-(use-package command-log-mode)
 
 ;; General
 (use-package which-key
@@ -27,6 +26,7 @@
   (treemacs-follow-mode t)
   (treemacs-filewatch-mode t)
   (treemacs-fringe-indicator-mode 'always)
+  (treemacs-icon-theme 'nerd-icons)
 
   :hook
   (treemacs-mode . treemacs-project-follow-mode))
@@ -37,24 +37,6 @@
   :config
   (treemacs-load-theme "nerd-icons"))
 
-(use-package treemacs-evil
-  :after (treemacs evil)
-  :ensure t)
-
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
-
-(use-package treemacs-magit
-  :after (treemacs magit)
-  :ensure t)
-
-(setq treemacs-icon-theme 'nerd-icons)
-
-(use-package undo-tree
-  :ensure t
-  :init (global-undo-tree-mode))
-
 ;; Evil
 (use-package evil
   :ensure t
@@ -63,11 +45,6 @@
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-(use-package smartparens
-  :ensure t
-  :config
-  (smartparens-global-mode 1))
 
 ;; LSP Configuration
 ;; Eglot Settings
@@ -91,7 +68,6 @@
 ;; Ensure eglot and company work together
 (add-hook 'eglot-managed-mode-hook
           (lambda () (setq-local company-backends '((company-capf)))))
-(global-company-mode 1)
 
 (use-package eldoc-box
   :ensure t
