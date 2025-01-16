@@ -136,3 +136,16 @@
 
 (setq consult-project-root-function #'consult--project-root) ;; Enable project-based search
 
+;; Install and configure Marginalia
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode))
+
+;; Install and configure Nerd-Icons-Completion
+(use-package nerd-icons-completion
+  :ensure t
+  :after (marginalia)
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  :init
+  (nerd-icons-completion-mode))
