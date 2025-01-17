@@ -31,12 +31,4 @@
 
 (global-set-key (kbd "C-c q") 'quit-project-and-go-to-dashboard)
 
-;; ERC in new window
-(defun my-erc-in-new-tab ()
-  "Open ERC in a new tab."
-  (interactive)
-  (tab-new)
-  (erc :server "irc.libera.chat" :port 6667 :nick "cqmort"))
-
-(global-set-key (kbd "C-c e") 'my-erc-in-new-tab)
 

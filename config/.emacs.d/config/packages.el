@@ -60,6 +60,10 @@
   :config
   (evil-mode 1))
 
+;; Treemacs Evil Compatiblity
+(use-package treemacs-evil
+  :ensure t)
+
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
@@ -151,3 +155,10 @@
   :config
   (pdf-tools-install))
 (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode)
+
+(use-package nyan-mode
+  :init
+  (nyan-mode))
+
+(provide 'packages)
+;;; packages.el ends here 

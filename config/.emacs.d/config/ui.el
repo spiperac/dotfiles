@@ -4,6 +4,25 @@
 
 ;;; Code:
 
+;; Basic UI Settings
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(column-number-mode 1)
+(global-display-line-numbers-mode 1)
+(setq tab-bar-show 1)
+(set-fringe-mode 10)
+;(setq inhibit-startup-message t)
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . light))
+(setq ns-use-proxy-icon  nil)
+(setq frame-title-format nil)
+
+;; Hide Window Border
+(set-frame-parameter nil 'internal-border-width 0)
+(add-to-list 'default-frame-alist '(undecorated . t))
+
+
 (use-package doom-themes
   :ensure t
   :config
@@ -13,11 +32,6 @@
   (load-theme 'doom-one t)
 
   (doom-themes-org-config))
-
-
-;(set-frame-parameter nil 'alpha '(98 . 100))
-(set-frame-parameter nil 'internal-border-width 0)
-(add-to-list 'default-frame-alist '(undecorated . t))
 
 (use-package doom-modeline
   :ensure t 

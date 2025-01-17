@@ -44,3 +44,13 @@
 (use-package erc-image
   :after erc)
 
+
+;; Custom ERC Launch
+;; ERC in new window
+(defun my-erc-in-new-tab ()
+  "Open ERC in a new tab."
+  (interactive)
+  (tab-new)
+  (erc-tls :server "irc.libera.chat" :port 6697 :nick "cqmort"))
+
+(global-set-key (kbd "C-c e") 'my-erc-in-new-tab)
