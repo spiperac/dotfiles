@@ -33,3 +33,6 @@
 ;; Org shortcuts
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+(provide 'keybinds)
+;;; keybinds.el ends here

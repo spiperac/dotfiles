@@ -32,3 +32,5 @@
 (global-set-key (kbd "C-c q") 'quit-project-and-go-to-dashboard)
 
 
+(provide 'custom_fn)
+;;; custom_fn.el ends here

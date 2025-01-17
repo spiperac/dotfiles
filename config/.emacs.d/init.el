@@ -25,7 +25,7 @@
 (load "chat")
 (load "pomodoro")
 (load "custom_fn")
-
+(load "website")
 
 (setq inhibit-startup-message t)
 ;; Make everyting unicode

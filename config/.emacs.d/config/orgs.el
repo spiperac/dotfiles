@@ -31,7 +31,7 @@
          (file (lambda ()
                 (let* ((title (read-string "Title: "))
                        (date (format-time-string "%Y-%m-%d"))
-                       (filename (concat "~/Vault/Org/"
+                       (filename (concat "~/Vault/Web/content/"
                                        (downcase
                                         (replace-regexp-in-string
                                          "[^a-zA-Z0-9]" "-"
@@ -41,47 +41,7 @@
                                        ".org")))
                   (setq org-capture-blog-title title)
                   (expand-file-name filename))))
-         ":PROPERTIES:\n:TITLE: %(or org-capture-blog-title \"\")\n:DATE: %<%Y-%m-%d>\n:DESCRIPTION:\n:TAGS:\n:END:\n\n%?")))
-
-(defun org-export-to-zola ()
-  "Export current org file to Zola markdown format"
-  (interactive)
-  (let* ((org-file (buffer-file-name))
-         (base-name (file-name-nondirectory org-file))
-         (md-file (concat "~/blog/content/post/"
-                         (file-name-sans-extension base-name)
-                         ".md"))
-         (title (org-entry-get (point-min) "TITLE"))
-         (date (org-entry-get (point-min) "DATE"))
-         (desc (org-entry-get (point-min) "DESCRIPTION"))
-         (tags (org-entry-get (point-min) "TAGS")))
-    
-    ;; Create post directory if it doesn't exist
-    (make-directory "~/blog/content/post/" t)
-    
-    ;; Export to temporary markdown file
-    (org-md-export-to-markdown)
-    
-    ;; Create final markdown with frontmatter
-    (with-temp-file md-file
-      (insert "+++\n")
-      (insert (format "title = \"%s\"\n" title))
-      (insert (format "date = %s\n" date))
-      (when (and desc (not (string= desc "")))
-        (insert (format "description = \"%s\"\n" desc)))
-      (when (and tags (not (string= tags "")))
-        (insert "[taxonomies]\ntags = [" tags "]\n"))
-      (insert "+++\n\n")
-      
-      ;; Add content without TOC
-      (insert-file-contents (concat (file-name-sans-extension org-file) ".md"))
-      (goto-char (point-min))
-      (when (looking-at "# Table of Contents\n")
-        (delete-region (point-min) (progn (forward-line 1) (point)))))
-    
-    ;; Remove temporary markdown file
-    (delete-file (concat (file-name-sans-extension org-file) ".md"))
-    (message "Exported to %s" md-file)))
+         "#+title: %(or org-capture-blog-title \"\")\n#+date: %<%Y-%m-%d>\n#+description:\n#+tags:\n\n%?")))
 
 ;; Org-Roam Setup
 (use-package org-roam
