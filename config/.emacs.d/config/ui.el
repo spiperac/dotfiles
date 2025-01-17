@@ -12,7 +12,6 @@
 (global-display-line-numbers-mode 1)
 (setq tab-bar-show 1)
 (set-fringe-mode 10)
-;(setq inhibit-startup-message t)
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
 (add-to-list 'default-frame-alist '(ns-appearance . light))
 (setq ns-use-proxy-icon  nil)
