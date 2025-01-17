@@ -66,5 +66,3 @@
 ;; Font
 (set-face-attribute 'default nil :font "Hack Nerd Font" :height 140)
 (force-mode-line-update)
-
-

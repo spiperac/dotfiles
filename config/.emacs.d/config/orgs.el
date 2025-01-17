@@ -83,6 +83,13 @@
     (delete-file (concat (file-name-sans-extension org-file) ".md"))
     (message "Exported to %s" md-file)))
 
-
-
-
+;; Org-Roam Setup
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/Vault/Org/Roam/")
+  :bind (("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert))
+  :config
+  (org-roam-setup))

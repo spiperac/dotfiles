@@ -36,7 +36,7 @@
 
 (use-package treemacs
   :ensure t
-  :bind ("C-c n" . treemacs)
+  :bind ("C-c ." . treemacs)
   :custom
   (treemacs-is-never-other-window t)
   (treemacs-position 'right)
@@ -81,7 +81,9 @@
   (setq company-tooltip-doc-enable t)
   (setq company-tooltip-align-annotations t)
   (setq company-idle-delay 0.0
-        company-minimum-prefix-length 1))
+        company-minimum-prefix-length 1)
+  (setq company-global-modes '(not org-mode)))
+
 
 (use-package company-box
   :hook (company-mode . company-box-mode))

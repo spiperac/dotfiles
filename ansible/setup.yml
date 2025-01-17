@@ -4,6 +4,81 @@
   gather_facts: true  # Required to detect OS
 
   tasks:
+    - name: Enable Ghostty
+      community.general.copr:
+        state: enabled
+        name: pgdev/ghostty
+      when: ansible_distribution == "Fedora"
+
+    - name: Enable LazyGit
+      community.general.copr:
+        state: enabled
+        name: atim/lazygit
+      when: ansible_distribution == "Fedora"
+
+    - name: Install packages on Fedora
+      dnf:
+        name:
+          - curl
+          - git
+          - cmake
+          - python3
+          - python3-pip
+          - i3
+          - i3lock
+          - rofi
+          - feh
+          - alacritty
+          - polybar
+          - zsh
+          - neovim
+          - nodejs
+          - dunst
+          - adwaita-icon-theme
+          - npm
+          - pamixer
+          - tmux
+          - ranger
+          - golang
+          - rust
+          - cargo
+          - rust-analyzer
+          - texlive-collection-fontsrecommended
+          - texlive-capt-of
+          - texlive-ulem
+          - texlive-wrapfig
+          - pdflatex
+          - libtool
+          - emacs
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Install hyprland Fedora
+      dnf:
+        name:
+          - hyprland 
+          - hyprpaper 
+          - hyprlock 
+          - hypridle 
+          - wofi 
+          - waybar
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Install flatpak packages
+      community.general.flatpak:
+        name:
+          - org.gnome.Extensions
+          - org.getzola.zola
+          - com.viber.Viber
+          - com.jeffser.Alpaca
+          - dev.restfox.Restfox
+          - com.github.johnfactotum.Foliate
+          - ca.desrt.dconf-editor
+          - com.github.IsmaelMartinez.teams_for_linux
+          - com.github.neithern.g4music
+      when: ansible_distribution == "Fedora"
+
     - name: Install packages on Ubuntu
       apt:
         name:
@@ -63,90 +138,19 @@
         state: present
       when: ansible_distribution == "FreeBSD"
 
-    - name: Enable Ghostty
-      community.general.copr:
-        state: enabled
-        name: pgdev/ghostty
-      when: ansible_distribution == "Fedora"
-
-    - name: Enable LazyGit
-      community.general.copr:
-        state: enabled
-        name: atim/lazygit
-      when: ansible_distribution == "Fedora"
-
-    - name: Install packages on Fedora
-      dnf:
-        name:
-          - curl
-          - git
-          - cmake
-          - python3
-          - python3-pip
-          - i3
-          - i3lock
-          - rofi
-          - feh
-          - alacritty
-          - polybar
-          - zsh
-          - neovim
-          - nodejs
-          - dunst
-          - adwaita-icon-theme
-          - npm
-          - pamixer
-          - tmux
-          - ranger
-          - golang
-          - rust
-          - cargo
-          - rust-analyzer
-          - texlive-collection-fontsrecommended
-          - texlive-capt-of
-          - texlive-ulem
-          - texlive-wrapfig
-          - pdflatex
-          - libtool
-          - emacs
-        state: present
-      when: ansible_distribution == "Fedora"
-
-    - name: Install hyprland
-      dnf:
-        name:
-          - hyprland 
-          - hyprpaper 
-          - hyprlock 
-          - hypridle 
-          - wofi 
-          - waybar
-        state: present
-      when: ansible_distribution == "Fedora"
-
-    - name: Install flatpak packages
-      community.general.flatpak:
-        name:
-          - org.gnome.Extensions
-          - org.getzola.zola
-          - com.viber.Viber
-          - com.jeffser.Alpaca
-          - dev.restfox.Restfox
-          - com.github.johnfactotum.Foliate
-          - ca.desrt.dconf-editor
-          - com.github.IsmaelMartinez.teams_for_linux
-          - com.github.neithern.g4music
-      when: ansible_distribution == "Fedora"
-
+    - name: Setup ZSH
+      become: false
+      shell: |
+        chsh -s '$(command -v zsh)'
+        sh -c '$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)'
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestion
+         
     - name: Download and install Nerd Fonts
       become: false
       shell: |
         mkdir -p ~/.local/share/fonts
-        cd ~/.local/share/fonts
-        curl -fLo "Hack Regular Nerd Font Complete.ttf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hack/Regular/complete/Hack%20Regular%20Nerd%20Font%20Complete.ttf
+        cp -R ../fonts/Hack/* ~/.local/share/fonts/
         fc-cache -fv
-      args:
-        creates: ~/.local/share/fonts/Hack\ Regular\ Nerd\ Font\ Complete.ttf
 
     - name: Auto-install Lazy.nvim plugins
       become: false
