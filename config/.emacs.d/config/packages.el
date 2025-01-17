@@ -1,3 +1,9 @@
+;;; packages.el --- User Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
+;; This file contains most of the package installation and configuration.
+
+;;; Code:
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)

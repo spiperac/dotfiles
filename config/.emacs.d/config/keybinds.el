@@ -1,3 +1,9 @@
+;;; keybinds.el --- User Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
+;; This file contains custom keybinds and remaps.
+
+;;; Code:
+
 ;; LSP
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)

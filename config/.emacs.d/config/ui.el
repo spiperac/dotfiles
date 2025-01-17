@@ -2,6 +2,8 @@
 ;;; Commentary:
 ;; Configuration file containing themes, and other ui elements.
 
+;;; Code:
+
 (use-package doom-themes
   :ensure t
   :config

@@ -1,3 +1,9 @@
+;;; pomodoro.el --- User Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
+;; This file contains configurations related to pomorodoro and sessions.
+
+;;; Code:
+
 (defun start-pomodoro-cycle ()
   "Start a short Pomodoro cycle with a 5-second work session and a 5-second break."
   (interactive)

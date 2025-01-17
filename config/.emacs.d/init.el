@@ -1,3 +1,10 @@
+;;; init.el --- User Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
+;; This file contains the Emacs configuration for spiperac.
+;; Organized for clarity and modularity.
+
+;;; Code:
+
 (add-to-list 'load-path "~/.emacs.d/config/")
 (load "packages")
 (load "languages")

@@ -1,3 +1,9 @@
+;;; orgs.el --- User Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
+;; This file contains custom Org Mode stuff.
+
+;;; Code:
+
 (require 'org)
 
 (setq org-todo-keywords

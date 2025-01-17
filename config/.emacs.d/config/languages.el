@@ -1,3 +1,9 @@
+;;; languages.el --- User Emacs configuration -*- lexical-binding: t; -*-
+;;; Commentary:
+;; This file contains LSP configurations and syntax highlighting.
+
+;;; Code:
+
 ;; Treesitter languages
 (setq treesit-language-source-alist
       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
