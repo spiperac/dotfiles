@@ -126,7 +126,7 @@
                      (when (re-search-forward "^#\\+date:\\s-*\\(.*\\)$" nil t)
                        (match-string 1))))
          ;; Construct the relative path for the link
-         (relative-path (file-name-nondirectory current-file))
+         (relative-path (file-name-sans-versions current-file))
          ;; Path to index.org
          (index-file "~/Vault/Web/spiperac.dev/content/index.org"))
     
@@ -138,7 +138,7 @@
             (when (re-search-forward "My blog posts:" nil t)
               (forward-line 1)
               ;; Insert new entry at the beginning of the list
-              (insert (format "+ %s | [[file:posts/%s][%s]]\n" 
+              (insert (format "+ %s | [[file:%s][%s]]\n" 
                             blog-date
                             relative-path
                             blog-title)))
