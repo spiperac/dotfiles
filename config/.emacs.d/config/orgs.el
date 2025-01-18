@@ -31,7 +31,7 @@
          (file (lambda ()
                 (let* ((title (read-string "Title: "))
                        (date (format-time-string "%Y-%m-%d"))
-                       (filename (concat "~/Vault/Web/spiperac.dev/content/"
+                       (filename (concat "~/Vault/Web/spiperac.dev/content/posts/"
                                        (downcase
                                         (replace-regexp-in-string
                                          "[^a-zA-Z0-9]" "-"
@@ -138,7 +138,7 @@
             (when (re-search-forward "My blog posts:" nil t)
               (forward-line 1)
               ;; Insert new entry at the beginning of the list
-              (insert (format "+ %s | [[file:%s][%s]]\n" 
+              (insert (format "+ %s | [[file:posts/%s][%s]]\n" 
                             blog-date
                             relative-path
                             blog-title)))
