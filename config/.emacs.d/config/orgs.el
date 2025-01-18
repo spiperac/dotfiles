@@ -109,6 +109,45 @@
 
 (advice-add 'org-download-screenshot :after #'my-org-download-cleanup)
 
+
+;; Add my blog post to the index.org list
+(defun my-add-blog-to-index ()
+  "Add current blog post to index.org list with date and title."
+  (interactive)
+  (let* ((current-file (buffer-file-name))
+         ;; Get the blog title from the #+title: line
+         (blog-title (save-excursion
+                      (goto-char (point-min))
+                      (when (re-search-forward "^#\\+title:\\s-*\\(.*\\)$" nil t)
+                        (match-string 1))))
+         ;; Get the blog date from the #+date: line
+         (blog-date (save-excursion
+                     (goto-char (point-min))
+                     (when (re-search-forward "^#\\+date:\\s-*\\(.*\\)$" nil t)
+                       (match-string 1))))
+         ;; Construct the relative path for the link
+         (relative-path (file-name-nondirectory current-file))
+         ;; Path to index.org
+         (index-file "~/Vault/Web/spiperac.dev/content/index.org"))
+    
+    (if (and blog-title blog-date current-file)
+        (save-excursion
+          (with-current-buffer (find-file-noselect index-file)
+            ;; Go to the end of the list
+            (goto-char (point-min))
+            (when (re-search-forward "My blog posts:" nil t)
+              (forward-line 1)
+              ;; Insert new entry at the beginning of the list
+              (insert (format "+ %s | [[file:%s][%s]]\n" 
+                            blog-date
+                            relative-path
+                            blog-title)))
+            (save-buffer)))
+      (message "Couldn't find required blog post information!"))))
+
+;; Optionally bind it to a key in org-mode
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-x i") #'my-add-blog-to-index))
 ;; Org-Roam Setup
 (use-package org-roam
   :ensure t
