@@ -31,7 +31,7 @@
          (file (lambda ()
                 (let* ((title (read-string "Title: "))
                        (date (format-time-string "%Y-%m-%d"))
-                       (filename (concat "~/Vault/Web/content/"
+                       (filename (concat "~/Vault/Web/spiperac.dev/content/"
                                        (downcase
                                         (replace-regexp-in-string
                                          "[^a-zA-Z0-9]" "-"
