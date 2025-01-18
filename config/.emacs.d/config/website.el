@@ -30,7 +30,7 @@
 (defun copy-image-assets ()
   "Copy theme assets to publish directory."
   (let ((src-dir "~/Vault/Web/spiperac.dev/content/posts/")
-        (dest-dir "~/Vault/Web/spiperac.dev/public/"))
+        (dest-dir "~/Vault/Web/spiperac.dev/public/posts/"))
 
     ;; Copy assets directory
     (dolist (file (directory-files-recursively (concat src-dir "images/") ".*"))
