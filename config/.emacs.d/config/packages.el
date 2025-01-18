@@ -59,6 +59,7 @@
   :ensure t
   :config
   (evil-mode 1))
+(evil-set-undo-system 'undo-redo)
 
 ;; Treemacs Evil Compatiblity
 (use-package treemacs-evil
