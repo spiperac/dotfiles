@@ -55,6 +55,7 @@
 (add-hook 'json-mode-hook 'company-mode)
 (add-hook 'html-mode-hook 'company-mode)
 (add-hook 'tsx-mode-hook 'company-mode)
+(add-hook 'css-ts-mode 'company-mode)
 
 ;; Lang servers
 (setq eglot-server-programs
