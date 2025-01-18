@@ -40,7 +40,7 @@
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 
 ;; Warnings off
-(setq warning-minimum-level :error)
+;;(setq warning-minimum-level :error)
 
 ;; Basic settings
 (setq x-select-enable-clipboard t)

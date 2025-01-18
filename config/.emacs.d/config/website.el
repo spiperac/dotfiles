@@ -40,31 +40,48 @@
         (copy-file file dest-path t)))))
 
 (defun generate-website ()
+  "Generate website from org files."
   (interactive)
-  (setq org-html-validation-link nil)
-  (setq org-html-head-include-scripts nil)
-  (setq org-html-postamble nil)
-  (setq org-html-head-include-default-style nil)
-  (setq org-html-head (with-temp-buffer
-                       (insert-file-contents "~/Vault/Web/spiperac.dev/theme/template.html")
-                       (buffer-string)))
-  (setq org-publish-project-alist
-        (list
-         (list "spiperac.dev"
-               :recursive t
-               :base-directory "~/Vault/Web/spiperac.dev/content"
-               :publishing-function 'org-html-publish-to-html
-               :publishing-directory "~/Vault/Web/spiperac.dev/public"
-               :with-author nil
-               :with-creator t
-               :with-toc t
-               :section-numbers nil
-               :time-stamp-file nil)))
-  (org-publish-all t)
-  (copy-theme-assets)  ; Copy css from theme/ directory
-  (copy-image-assets)  ; Copy images from content
-  (message "Building Website complete!"))
 
-(global-set-key (kbd "C-c w") 'generate-website)
+    (setq org-html-preamble (with-temp-buffer
+                          (insert-file-contents "~/Vault/Web/spiperac.dev/theme/nav.html")
+                          (buffer-string)))
+
+    (setq org-html-postamble (with-temp-buffer
+                          (insert-file-contents "~/Vault/Web/spiperac.dev/theme/footer.html")
+                          (buffer-string)))
+
+    (setq org-html-head (with-temp-buffer
+                          (insert-file-contents "~/Vault/Web/spiperac.dev/theme/head.html")
+                          (buffer-string)))
+
+    (setq org-html-head-include-default-style nil
+          org-html-head-include-scripts nil
+          org-html-validation-link nil
+          org-html-doctype "html5"
+          org-html-html5-fancy t
+          )
+
+    (setq org-publish-project-alist
+          '(("spiperac.dev"
+             :recursive t
+             :base-directory "~/Vault/Web/spiperac.dev/content"
+             :publishing-function org-html-publish-to-html
+             :publishing-directory "~/Vault/Web/spiperac.dev/public"
+             :with-author nil
+             :with-toc t
+             :section-numbers nil
+             :time-stamp-file nil
+             :html-container-element "content"
+             )))
+
+    (org-publish-all t)
+    (copy-theme-assets)
+    (copy-image-assets)
+    (message "Website generation complete!"))
+
+(with-eval-after-load 'org
+  (define-key org-custom-prefix (kbd "b") 'generate-website))
+  
 (provide 'website)
 ;;; website.el ends here

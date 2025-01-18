@@ -109,35 +109,79 @@
 
 (advice-add 'org-download-screenshot :after #'my-org-download-cleanup)
 
+(defun my-get-blog-metadata (file)
+  "Extract title and date from a blog post FILE."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (let ((title (when (re-search-forward "^#\\+title:\\s-*\\(.*\\)$" nil t)
+                  (match-string 1)))
+          (date (when (re-search-forward "^#\\+date:\\s-*\\(.*\\)$" nil t)
+                 (match-string 1))))
+      (when (and title date)
+        (list :file (file-name-nondirectory file)
+              :title title
+              :date date)))))
 
-;; Add my blog post to the index.org list
+(defun my-regenerate-blog-index ()
+  "Scan posts directory and regenerate index.org with sorted entries."
+  (interactive)
+  (let* ((posts-dir "~/Vault/Web/spiperac.dev/content/posts")
+         (index-file "~/Vault/Web/spiperac.dev/content/index.org")
+         (posts-list nil))
+    
+    ;; Collect all blog posts and their metadata
+    (dolist (file (directory-files posts-dir t "\\.org$"))
+      (when-let ((metadata (my-get-blog-metadata file)))
+        (push metadata posts-list)))
+    
+    ;; Sort posts by date (newest first)
+    (setq posts-list 
+          (sort posts-list 
+                (lambda (a b) 
+                  (string-greaterp (plist-get a :date) 
+                                 (plist-get b :date)))))
+    
+    ;; Update index.org
+    (with-current-buffer (find-file-noselect index-file)
+      (goto-char (point-min))
+      (when (re-search-forward "My blog posts:" nil t)
+        ;; Clear existing list
+        (let ((start (point)))
+          (while (re-search-forward "^+" nil t))
+          (delete-region start (point)))
+        ;; Insert newline after header
+        (insert "\n")
+        ;; Add all posts
+        (dolist (post posts-list)
+          (insert (format "+ %s | [[file:posts/%s][%s]]\n"
+                         (plist-get post :date)
+                         (plist-get post :file)
+                         (plist-get post :title)))))
+      (save-buffer))
+    (message "Blog index regenerated with %d posts" (length posts-list))))
+
+;; The existing single-post function, modified for the new posts directory
 (defun my-add-blog-to-index ()
   "Add current blog post to index.org list with date and title."
   (interactive)
   (let* ((current-file (buffer-file-name))
-         ;; Get the blog title from the #+title: line
          (blog-title (save-excursion
                       (goto-char (point-min))
                       (when (re-search-forward "^#\\+title:\\s-*\\(.*\\)$" nil t)
                         (match-string 1))))
-         ;; Get the blog date from the #+date: line
          (blog-date (save-excursion
                      (goto-char (point-min))
                      (when (re-search-forward "^#\\+date:\\s-*\\(.*\\)$" nil t)
                        (match-string 1))))
-         ;; Construct the relative path for the link
-         (relative-path (file-name-sans-versions current-file))
-         ;; Path to index.org
+         (relative-path (concat "posts/" (file-name-nondirectory current-file)))
          (index-file "~/Vault/Web/spiperac.dev/content/index.org"))
     
     (if (and blog-title blog-date current-file)
         (save-excursion
           (with-current-buffer (find-file-noselect index-file)
-            ;; Go to the end of the list
             (goto-char (point-min))
             (when (re-search-forward "My blog posts:" nil t)
               (forward-line 1)
-              ;; Insert new entry at the beginning of the list
               (insert (format "+ %s | [[file:%s][%s]]\n" 
                             blog-date
                             relative-path
@@ -145,9 +189,13 @@
             (save-buffer)))
       (message "Couldn't find required blog post information!"))))
 
-;; Optionally bind it to a key in org-mode
+;; Key bindings
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-c C-x i") #'my-add-blog-to-index))
+  (define-prefix-command 'org-custom-prefix)
+  (define-key org-mode-map (kbd "C-c C-x b") 'org-custom-prefix)
+  (define-key org-custom-prefix (kbd "i") #'my-add-blog-to-index)
+  (define-key org-custom-prefix (kbd "I") #'my-regenerate-blog-index))
+
 ;; Org-Roam Setup
 (use-package org-roam
   :ensure t
