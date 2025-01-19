@@ -151,12 +151,19 @@
           (delete-region start (point)))
         ;; Insert newline after header
         (insert "\n")
+        (insert "@@html:<div class=\"blog-post-list\">@@\n")
         ;; Add all posts
         (dolist (post posts-list)
-          (insert (format "+ %s | [[file:posts/%s][%s]]\n"
-                         (plist-get post :date)
+          (insert "@@html:<div class=\"blog-post-item\">@@\n")
+          (insert "@@html:<div class=\"blog-post-title\">@@")
+          (insert (format "[[file:posts/%s][%s]]"
                          (plist-get post :file)
-                         (plist-get post :title)))))
+                         (plist-get post :title)))
+          (insert "@@html:</div>@@\n")
+          (insert (format "@@html:<div class=\"blog-post-date\">@@%s@@html:</div>@@\n"
+                         (plist-get post :date)))
+          (insert "@@html:</div>@@\n"))
+        (insert "@@html:</div>@@\n"))
       (save-buffer))
     (message "Blog index regenerated with %d posts" (length posts-list))))
 
