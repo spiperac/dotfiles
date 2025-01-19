@@ -27,6 +27,18 @@
         (make-directory (file-name-directory dest-path) t)
         (copy-file file dest-path t)))))
 
+(defun copy-file-assets ()
+  "Copy general files to publish directory."
+  (let ((src-dir "~/Vault/Web/spiperac.dev/files/")
+        (dest-dir "~/Vault/Web/spiperac.dev/public/"))
+
+    ;; Copy assets directory
+    (dolist (file (directory-files-recursively src-dir ".*"))
+      (let* ((relative-path (file-relative-name file src-dir))
+             (dest-path (concat dest-dir relative-path)))
+        (make-directory (file-name-directory dest-path) t)
+        (copy-file file dest-path t)))))
+
 (defun copy-image-assets ()
   "Copy theme assets to publish directory."
   (let ((src-dir "~/Vault/Web/spiperac.dev/content/posts/")
@@ -76,6 +88,7 @@
              )))
 
     (org-publish-all t)
+    (copy-file-assets)
     (copy-theme-assets)
     (copy-image-assets)
     (message "Website generation complete!"))
