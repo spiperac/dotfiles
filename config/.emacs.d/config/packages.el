@@ -36,7 +36,7 @@
 
 (use-package treemacs
   :ensure t
-  :bind ("C-c ." . treemacs)
+  :bind ("C-c t" . treemacs)
   :custom
   (treemacs-is-never-other-window t)
   (treemacs-position 'right)
