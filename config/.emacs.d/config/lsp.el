@@ -4,6 +4,36 @@
 
 ;;; Code:
 
+;; LSP Configuration
+;; Eglot Settings
+(use-package eglot
+  :ensure t)
+
+;; Company Configuration
+(use-package company
+  :ensure t
+  :hook (after-init . global-company-mode)
+  :config
+  (setq company-selection-wrap-around t)
+  (setq company-tooltip-doc-enable t)
+  (setq company-tooltip-align-annotations t)
+  (setq company-idle-delay 0.0
+        company-minimum-prefix-length 1)
+  (setq company-global-modes '(not org-mode)))
+
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
+
+;; Ensure eglot and company work together
+(add-hook 'eglot-managed-mode-hook
+          (lambda () (setq-local company-backends '((company-capf)))))
+
+(use-package eldoc-box
+  :ensure t
+  :config
+  (setq eldoc-box-doc-enable t)) ; Enables doc with syntax highlighting
+
 ;; Treesitter languages
 (setq treesit-language-source-alist
       '((bash "https://github.com/tree-sitter/tree-sitter-bash")
