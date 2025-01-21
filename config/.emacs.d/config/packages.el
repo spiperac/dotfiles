@@ -48,6 +48,10 @@
   :hook
   (treemacs-mode . treemacs-project-follow-mode))
 
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+
 (use-package treemacs-nerd-icons
   :ensure t
   :after (treemacs nerd-icons)
