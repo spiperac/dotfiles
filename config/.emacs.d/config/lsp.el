@@ -81,6 +81,10 @@
 (use-package rust-mode)
 (add-hook 'rust-mode-hook 'eglot-ensure)
 
+;; PHP
+(use-package php-mode)
+(add-hook 'php-mode-hook 'eglot-ensure)
+
 ;; Basic Completions
 (add-hook 'bash-mode-hook 'company-mode)
 (add-hook 'json-mode-hook 'company-mode)
@@ -97,4 +101,12 @@
         (rust-mode . ("rust-analyzer"))
         (typescript-ts-mode . ("typescript-language-server" "--stdio"))
         ))
+;; PHP Language server
+(add-to-list 'eglot-server-programs '((php-mode) . ("phpactor" "language-server")))
+
+;; References
+(require 'semantic/symref/grep)
+(with-eval-after-load 'semantic/symref
+(add-to-list 'semantic-symref-filepattern-alist
+             '(php-mode "*.php" "*.phtml" "*.php5" "*.php7")))
 

@@ -24,7 +24,9 @@
 
 ;; Adding local/bin for some LSP servers
 (add-to-list 'exec-path "~/.local/bin")
+(add-to-list 'exec-path "~/.composer/vendor/bin")
 (setenv "PATH" (concat (getenv "PATH") ":~/.local/bin"))
+(setenv "PATH" (concat (getenv "PATH") ":~/.composer/vendor/bin"))
 
 ;; Auto pair brackets and stuff
 (electric-pair-mode 1)
