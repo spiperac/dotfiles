@@ -49,6 +49,7 @@
           - texlive-wrapfig
           - pdflatex
           - libtool
+          - mpv
           - emacs
         state: present
       when: ansible_distribution == "Fedora"

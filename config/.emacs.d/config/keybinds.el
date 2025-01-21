@@ -3,6 +3,7 @@
 ;; This file contains custom keybinds and remaps.
 
 ;;; Code:
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; LSP
 (with-eval-after-load 'eglot

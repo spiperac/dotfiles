@@ -12,7 +12,7 @@
   :defer t)
 
 (defun copy-theme-assets ()
-  "Copy theme assets to publish directory."
+  "Copy theme assets to the publish directory."
   (let ((src-dir "~/Vault/Web/spiperac.dev/theme/")
         (dest-dir "~/Vault/Web/spiperac.dev/public/"))
     ;; Create assets directory if it doesn't exist
@@ -29,7 +29,7 @@
         (copy-file file dest-path t)))))
 
 (defun copy-file-assets ()
-  "Copy general files to publish directory."
+  "Copy general files to the publish directory."
   (let ((src-dir "~/Vault/Web/spiperac.dev/files/")
         (dest-dir "~/Vault/Web/spiperac.dev/public/"))
 
@@ -41,7 +41,7 @@
         (copy-file file dest-path t)))))
 
 (defun copy-image-assets ()
-  "Copy theme assets to publish directory."
+  "Copy images to the publish directory."
   (let ((src-dir "~/Vault/Web/spiperac.dev/content/posts/")
         (dest-dir "~/Vault/Web/spiperac.dev/public/posts/"))
 
@@ -51,6 +51,85 @@
              (dest-path (concat dest-dir relative-path)))
         (make-directory (file-name-directory dest-path) t)
         (copy-file file dest-path t)))))
+
+(defun extract-and-format-org-date (file)
+  "Extract #+DATE: from FILE and convert to RFC 2822 format."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (goto-char (point-min))
+    (when (re-search-forward "#\\+[Dd][Aa][Tt][Ee]: *\\([0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}\\)" nil t)
+      (let* ((date-str (match-string-no-properties 1))
+             (date-parts (split-string date-str "-"))
+             (time (encode-time 0 0 0 
+                              (string-to-number (nth 2 date-parts))
+                              (string-to-number (nth 1 date-parts))
+                              (string-to-number (nth 0 date-parts)))))
+        (format-time-string "%a, %d %b %Y %H:%M:%S %z" time)))))
+
+
+(defun extract-org-description (file)
+  "Extract #+DESCRIPTION: or #+description: from the specified .org FILE."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (when (re-search-forward "^#\\+[Dd][Ee][Ss][Cc][Rr][Ii][Pp][Tt][Ii][Oo][Nn]: \\(.*\\)$" nil t)
+      (match-string 1))))
+
+(defun extract-org-title (file)
+  "Extract #+TITLE: or #+title: from the specified .org FILE."
+  (with-temp-buffer
+    (insert-file-contents file)
+    (when (re-search-forward "^#\\+[Tt][Ii][Tt][Ll][Ee]: \\(.*\\)$" nil t)
+      (match-string 1))))
+
+(defun is-not-draft (file)
+  "Return nil if file has #+draft: true"
+  (with-temp-buffer
+    (insert-file-contents file)
+    (not (and (re-search-forward "^#\\+[Dd][Rr][Aa][Ff][Tt]: *\\(.*\\)$" nil t)
+              (string= (downcase (match-string 1)) "true")))))
+
+(defun org-publish-no-drafts (plist filename pub-dir)
+  "Publish Org files only if they do not contain #+draft: true."
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (if (re-search-forward "^#\\+draft: true" nil t)
+        (message "Skipping draft: %s" filename)
+      (org-html-publish-to-html plist filename pub-dir))))
+
+(defun generate-rss ()
+  "Generate an RSS XML file from blog posts."
+  (interactive)
+  (let* ((posts-dir "~/Vault/Web/spiperac.dev/content/posts")
+         (output-file "~/Vault/Web/spiperac.dev/public/rss.xml")
+         (posts (directory-files posts-dir t "^[0-9].*\\.org$")))
+    
+    (with-temp-file output-file
+      (insert "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<rss version=\"2.0\">
+<channel>
+<title>spiperac.dev blog</title>
+<description>spiperac's blog</description>
+<link>https://spiperac.dev</link>\n")
+      
+      (dolist (post posts)
+        (let* ((filename (file-name-nondirectory post))
+               (date (extract-and-format-org-date post))
+               (description (extract-org-description post))
+               (title (extract-org-title post))
+               (link (concat "https://spiperac.dev/posts/"
+                           (file-name-sans-extension filename)
+                           ".html")))
+          (when (and date (is-not-draft post)  ; Only process files with dates
+            (insert (format "
+<item>
+  <title>%s</title>
+  <link>%s</link>
+  <description>%s</description>
+  <pubDate>%s</pubDate>
+</item>\n" title link description date))))))
+      
+      (insert "</channel>\n</rss>"))
+    (message "Created rss.xml feed.")))
 
 (defun generate-website ()
   "Generate website from org files."
@@ -74,12 +153,12 @@
           org-html-doctype "html5"
           org-html-html5-fancy t
           )
-
+    
     (setq org-publish-project-alist
           '(("spiperac.dev"
              :recursive t
              :base-directory "~/Vault/Web/spiperac.dev/content"
-             :publishing-function org-html-publish-to-html
+             :publishing-function org-publish-no-drafts
              :publishing-directory "~/Vault/Web/spiperac.dev/public"
              :with-author nil
              :with-toc t
@@ -89,6 +168,7 @@
              )))
 
     (org-publish-all t)
+    (generate-rss)
     (copy-file-assets)
     (copy-theme-assets)
     (copy-image-assets)
@@ -182,8 +262,9 @@
     
     ;; Collect all blog posts and their metadata
     (dolist (file (directory-files posts-dir t "\\.org$"))
-      (when-let ((metadata (my-get-blog-metadata file)))
-        (push metadata posts-list)))
+      (when (is-not-draft file)
+        (when-let ((metadata (my-get-blog-metadata file)))
+          (push metadata posts-list))))
     
     ;; Sort posts by date (newest first)
     (setq posts-list 

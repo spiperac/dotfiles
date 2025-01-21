@@ -32,16 +32,16 @@
                 (let* ((title (read-string "Title: "))
                        (date (format-time-string "%Y-%m-%d"))
                        (filename (concat "~/Vault/Web/spiperac.dev/content/posts/"
+                                       date
+                                       "-"
                                        (downcase
                                         (replace-regexp-in-string
                                          "[^a-zA-Z0-9]" "-"
                                          title))
-                                       "-"
-                                       date
                                        ".org")))
                   (setq org-capture-blog-title title)
                   (expand-file-name filename))))
-         "#+title: %(or org-capture-blog-title \"\")\n#+date: %<%Y-%m-%d>\n#+description:\n#+tags:\n\n%?")))
+         "#+title: %(or org-capture-blog-title \"\")\n#+date: %<%a, %d %b %Y %H:%M:%S %z>\n#+description:\n#+draft: true\n#+tags:\n\n%?")))
 
 ;; Org-Roam Setup
 (use-package org-roam
