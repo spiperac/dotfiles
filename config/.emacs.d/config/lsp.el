@@ -19,8 +19,7 @@
   (setq company-tooltip-align-annotations t)
   (setq company-idle-delay 0.0
         company-minimum-prefix-length 1)
-  (setq company-global-modes '(not org-mode)))
-
+  (setq company-global-modes '(not org-mode magit-mode)))
 
 (use-package company-box
   :hook (company-mode . company-box-mode))
