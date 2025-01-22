@@ -70,7 +70,6 @@
 ;; Treemacs Evil Compatiblity
 (use-package treemacs-evil
   :ensure t
-  :defer t
   )
 
 (use-package evil-nerd-commenter

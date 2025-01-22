@@ -9,7 +9,6 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (column-number-mode 1)
-(global-display-line-numbers-mode 1)
 (setq tab-bar-show 1)
 (set-fringe-mode 10)
 (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
@@ -17,20 +16,18 @@
 (setq ns-use-proxy-icon  nil)
 (setq frame-title-format nil)
 
+;; Display line numbers only in prog-mode
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
 ;; Hide Window Border
 (set-frame-parameter nil 'internal-border-width 0)
 (add-to-list 'default-frame-alist '(undecorated . t))
 
+;; Load Theme
+;; Add the custom themes directory to the load path
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;(load "~/.emacs.d/themes/one-themes.el")
 
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-one t)
-
-  (doom-themes-org-config))
+(load-theme 'gruvbox-dark-soft t)
 
 (use-package doom-modeline
   :ensure t 

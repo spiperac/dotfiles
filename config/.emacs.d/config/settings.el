@@ -42,7 +42,7 @@
 (setq-default tab-width 2)
 
 ;; Font
-(set-face-attribute 'default nil :font "Hack Nerd Font" :height 140)
+(set-face-attribute 'default nil :font "Hack Nerd Font" :height 120)
 (force-mode-line-update)
 
 (provide 'settings)
