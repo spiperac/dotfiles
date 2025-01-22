@@ -74,15 +74,18 @@
 (add-hook 'python-mode-hook 'eglot-ensure)
 
 ;; Golang
-(use-package go-mode)
+(use-package go-mode
+  :defer t)
 (add-hook 'go-mode-hook 'eglot-ensure)
 
 ;; Rust
-(use-package rust-mode)
+(use-package rust-mode
+  :defer t)
 (add-hook 'rust-mode-hook 'eglot-ensure)
 
 ;; PHP
-(use-package php-mode)
+(use-package php-mode
+  :defer t)
 (add-hook 'php-mode-hook 'eglot-ensure)
 
 ;; Basic Completions

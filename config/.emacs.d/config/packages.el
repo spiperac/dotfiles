@@ -21,10 +21,12 @@
   (which-key-mode))
 
 (use-package magit
-  :ensure t)  
+  :ensure t
+  :defer t)
 
 (use-package vterm
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package diff-hl
   :ensure t
@@ -67,7 +69,9 @@
 
 ;; Treemacs Evil Compatiblity
 (use-package treemacs-evil
-  :ensure t)
+  :ensure t
+  :defer t
+  )
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
@@ -129,6 +133,7 @@
 ;; PDF Tools
 (use-package pdf-tools
   :ensure t
+  :defer t
   :config
   (pdf-tools-install))
 (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode)

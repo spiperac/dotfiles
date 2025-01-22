@@ -5,6 +5,8 @@
 ;;; Code:
 
 (require 'org)
+(add-hook 'org-capture-before-finalize-hook 'my/org-capture-create-directories)
+(add-to-list 'org-agenda-files "~/Vault/Org/todo.org")
 
 (setq org-todo-keywords
   '((sequence "TODO" "IN-PROGRESS" "WAITING" "DONE")))
@@ -19,8 +21,6 @@
     (unless (file-exists-p (file-name-directory file))
       (make-directory (file-name-directory file) t))))
 
-(add-hook 'org-capture-before-finalize-hook 'my/org-capture-create-directories)
-(add-to-list 'org-agenda-files "~/Vault/Org/todo.org")
 
 (setq org-capture-templates
       '(("t" "Todo" entry (file+headline "~/Vault/Org/todo.org" "Tasks")

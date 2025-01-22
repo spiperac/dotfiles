@@ -16,6 +16,7 @@
   (write-region "" nil custom-file))
 (load custom-file :noerror)
 
+;; (setq use-package-compute-statistics t)
 (add-to-list 'load-path "~/.emacs.d/config/")
 (load "settings")
 (load "packages")

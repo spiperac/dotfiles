@@ -35,7 +35,9 @@
 (use-package doom-modeline
   :ensure t 
   :init (doom-modeline-mode 1)
-  :config (column-number-mode 1)
+  :config
+  (column-number-mode 1)
+  (setq doom-modeline-height 40)
   )
 
 (use-package nerd-icons)

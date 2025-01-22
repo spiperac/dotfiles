@@ -204,6 +204,7 @@
 
 (use-package org-download
   :after org
+  :defer t
   :config
   ;; Core settings
   (setq org-download-method nil)

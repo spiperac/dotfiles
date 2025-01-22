@@ -5,6 +5,7 @@
 
 (use-package elfeed
   :ensure t
+  :defer t
   :bind ("C-x w" . elfeed) ;; Recommended keybinding
   )
 

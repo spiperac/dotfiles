@@ -44,7 +44,6 @@
 (use-package erc-image
   :after erc)
 
-
 ;; Custom ERC Launch
 ;; ERC in new window
 (defun my-erc-in-new-tab ()
