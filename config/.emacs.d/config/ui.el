@@ -27,7 +27,7 @@
 ;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;(load "~/.emacs.d/themes/one-themes.el")
 
-(load-theme 'gruvbox-dark-soft t)
+(load-theme 'gruvbox-dark-medium t)
 
 (use-package doom-modeline
   :ensure t 
