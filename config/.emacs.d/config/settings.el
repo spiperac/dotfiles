@@ -32,7 +32,10 @@
 (electric-pair-mode 1)
 
 ;; Backup files path ( to stop spamming project repositories) 
-(setq backup-directory-alist `(("." . "~/.emacs.d/backups")))
+(setq backup-directory-alist `(("." . "~/.cache/emacs/backups")))
+(setq auto-save-file-name-transforms `((".*" "~/.cache/emacs/autosaves/" t)))
+(setq auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
+(setq create-lockfiles nil)
 
 ;; Allow y/n instead of having to type yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)

@@ -24,10 +24,17 @@
 
 ;; Load Theme
 ;; Add the custom themes directory to the load path
-;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;(load "~/.emacs.d/themes/one-themes.el")
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;; (load "~/.emacs.d/themes/one-themes.el")
+;; (load-theme 'one-dark t)
 
-(load-theme 'gruvbox-dark-medium t)
+(use-package monokai-pro-theme
+  :ensure t
+  :config
+  (load-theme 'monokai-pro t))
+
+;(set-face-background 'line-number (face-background 'default))
+;(set-face-background 'line-number-current-line (face-background 'default))
 
 (use-package doom-modeline
   :ensure t 
