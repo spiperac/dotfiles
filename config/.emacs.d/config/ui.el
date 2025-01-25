@@ -65,3 +65,6 @@
   :ensure t
   :hook ((prog-mode . rainbow-delimiters-mode)
          (text-mode . rainbow-delimiters-mode)))
+
+;; Padding
+

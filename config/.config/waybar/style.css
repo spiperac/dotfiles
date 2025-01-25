@@ -1,5 +1,10 @@
+@define-color yellow #fabd2f;
+@define-color green #b8bb26;
+@define-color blue #83a598;
+@define-color red #fb4934;
+
 * {
-    font-family: 'Noto Sans Mono', 'Font Awesome 6 Free', 'Font Awesome 6 Brands', monospace;
+    font-family: "Hack Font", monospace;
     font-size: 13px;
 }
 
@@ -9,6 +14,7 @@ window#waybar {
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
+    border-radius: 5;
 }
 
 window#waybar.hidden {
@@ -40,6 +46,12 @@ button {
     border: none;
     border-radius: 0;
 }
+
+#waybar button.focused {
+    color: #1abc9c; /* Dark text */
+    border-radius: 10px;
+}
+
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 button:hover {
@@ -113,7 +125,7 @@ button:hover {
 }
 
 #clock {
-    background-color: #64727D;
+    /* background-color: rgba(43, 48, 59, 1); */
 }
 
 #battery {
@@ -167,25 +179,8 @@ label:focus {
     background-color: #000000;
 }
 
-#cpu {
-    background-color: #2ecc71;
-    color: #000000;
-}
-
-#memory {
-    background-color: #9b59b6;
-}
-
-#disk {
-    background-color: #964B00;
-}
-
-#backlight {
-    background-color: #90b1b1;
-}
-
 #network {
-    background-color: #2980b9;
+    /* background-color: #2980b9; */
 }
 
 #network.disconnected {
@@ -193,12 +188,12 @@ label:focus {
 }
 
 #pulseaudio {
-    background-color: #f1c40f;
-    color: #000000;
+    /* background-color: #f1c40f; */
+    /* color: #000000; */
 }
 
 #pulseaudio.muted {
-    background-color: #90b1b1;
+    /* background-color: #90b1b1; */
     color: #2a5c45;
 }
 
@@ -234,7 +229,9 @@ label:focus {
 }
 
 #tray {
-    background-color: #2980b9;
+    /* background-color: rgba(43, 48, 59, 1); */
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
 }
 
 #tray > .passive {
@@ -323,4 +320,9 @@ label:focus {
 
 #privacy-item.audio-out {
     background-color: #0069d4;
+}
+
+#custom-justlogo {
+    font-size: 22;
+    color: @blue;
 }

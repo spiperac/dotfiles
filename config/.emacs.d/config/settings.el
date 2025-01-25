@@ -14,7 +14,7 @@
 (set-selection-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
-
+(setq calendar-week-start-day 1)
 ;; Warnings off
 ;;(setq warning-minimum-level :error)
 

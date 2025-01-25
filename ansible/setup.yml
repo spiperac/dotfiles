@@ -54,15 +54,17 @@
         state: present
       when: ansible_distribution == "Fedora"
 
-    - name: Install hyprland Fedora
+    - name: Install sway on Fedora
       dnf:
         name:
-          - hyprland 
-          - hyprpaper 
-          - hyprlock 
-          - hypridle 
+          - sway
+          - swaync 
           - wofi 
           - waybar
+          - wl-clipboard
+          - slurp
+          - grim
+          - pavucontrol
         state: present
       when: ansible_distribution == "Fedora"
 

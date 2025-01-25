@@ -1,8 +1,8 @@
-# Default config for sway
+###
 #
-# Copy this to ~/.config/sway/config and edit it to your liking.
+# spiperac's sway config
 #
-# Read `man 5 sway` for a complete reference.
+####
 
 font pango:Hack Nerd Font 18
 
@@ -11,30 +11,28 @@ gaps outer 3px
 
 default_border none
 
+# commands
+set $lock_cmd swaylock --image ~/Pictures/Wallpapers/great-wave-of-kanagawa-gruvbox.png
+set $term alacritty
+set $menu wofi --show=drun --style ~/.config/wofi/wofi.css --icon-theme "Nerd-Font" --allow-images  #wmenu-run
+
+
 ### Variables
-#
-# Logo key. Use Mod1 for Alt.
 set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-# Your preferred terminal emulator
-set $term alacritty
-# Your preferred application launcher
-set $menu wmenu-run
 
-### Output configuration
-#
+
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+output * bg ~/Pictures/Wallpapers/great-wave-of-kanagawa-gruvbox.png fill
+
+## Notifications
+exec swaync
+# Toggle control center
+bindsym $mod+Shift+n exec swaync-client -t -sw
 
 ### Idle configuration
 #
@@ -49,19 +47,6 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 
-### Input configuration
-#
-# Example configuration:
-#
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-# You can get the names of your inputs by running: swaymsg -t get_inputs
-# Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
 #
@@ -69,7 +54,8 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-
+    # Lock screen
+    bindsym Ctrl+$mod+l exec $lock_cmd
     # Kill focused window
     bindsym $mod+Shift+q kill
 
@@ -212,27 +198,19 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    bindsym Shift+Delete exec grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png && wl-copy < ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png
+    #grim -g "$(slurp)" ~/Pictures/Screenshots/$(date +'%Y-%m-%d_%H-%M-%S').png  
+
 
 #
 # Status Bar:
 #
-# Read `man 5 sway-bar` for more information about this section.
 bar {
     swaybar_command waybar
 }
-# bar {
-#     position top
 
-#     # When the status_command prints a new line to stdout, swaybar updates.
-#     # The default just shows the current date and time.
-#     status_command while date +'%Y-%m-%d %X'; do sleep 1; done
-
-#     colors {
-#         statusline #ffffff
-#         background #323232
-#         inactive_workspace #32323200 #32323200 #5c5c5c
-#     }
-# }
+## Startup Apps
+exec nm-applet
+exec synology-drive
 
 include /etc/sway/config.d/*
