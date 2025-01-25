@@ -54,11 +54,17 @@
                           (projects . 5)
                           (bookmarks . 5)
                           (agenda . 5)))
-  (setq dashboard-center-content t)
-  (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-set-init-info t)
-  (dashboard-setup-startup-hook))
-
+  (dashboard-setup-startup-hook)
+  :custom
+  (dashboard-startup-banner 'logo)
+  (dashboard-center-content t)
+  (dashboard-projects-backend 'projectile)
+  (dashboard-set-init-info t)
+  (dashboard-display-icons-p t)     ; display icons on both GUI and terminal
+  (dashboard-icon-type 'nerd-icons) ; use `nerd-icons' package
+  (dashboard-set-heading-icons t)
+  (dashboard-set-file-icons t))
+(advice-add #'dashboard-replace-displayable :override #'identity)
 
 ;; Adds color to nested parentheses, braces, and brackets.
 (use-package rainbow-delimiters
