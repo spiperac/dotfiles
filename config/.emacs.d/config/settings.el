@@ -35,7 +35,9 @@
 (setq backup-directory-alist `(("." . "~/.cache/emacs/backups")))
 (setq auto-save-file-name-transforms `((".*" "~/.cache/emacs/autosaves/" t)))
 (setq auto-save-list-file-prefix "~/.cache/emacs/auto-save-list/.saves-")
+
 (setq create-lockfiles nil)
+(setq auto-save-default nil)
 
 ;; Allow y/n instead of having to type yes/no
 (defalias 'yes-or-no-p 'y-or-n-p)
