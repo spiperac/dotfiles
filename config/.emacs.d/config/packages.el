@@ -36,29 +36,23 @@
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 (add-hook 'dired-mode-hook 'diff-hl-dired-mode)
 
-(use-package treemacs
+(use-package dired-sidebar
+  :bind (("C-x C-n" . dired-sidebar-toggle-sidebar))
   :ensure t
-  :bind ("C-c t" . treemacs)
-  :custom
-  (treemacs-is-never-other-window t)
-  (treemacs-position 'right)
-  (treemacs-follow-mode t)
-  (treemacs-filewatch-mode t)
-  (treemacs-fringe-indicator-mode 'always)
-  (treemacs-icon-theme 'nerd-icons)
-
-  :hook
-  (treemacs-mode . treemacs-project-follow-mode))
-
-(use-package treemacs-projectile
-  :after (treemacs projectile)
-  :ensure t)
-
-(use-package treemacs-nerd-icons
-  :ensure t
-  :after (treemacs nerd-icons)
+  :commands (dired-sidebar-toggle-sidebar)
+  :init
+  (add-hook 'dired-sidebar-mode-hook
+            (lambda ()
+              (unless (file-remote-p default-directory)
+                (auto-revert-mode))))
   :config
-  (treemacs-load-theme "nerd-icons"))
+  (push 'toggle-window-split dired-sidebar-toggle-hidden-commands)
+  (push 'rotate-windows dired-sidebar-toggle-hidden-commands))
+
+(use-package nerd-icons :defer t)
+(use-package nerd-icons-dired
+  :commands (nerd-icons-dired-mode))
+(setq dired-sidebar-theme 'nerd-icons)
 
 ;; Evil
 (use-package evil
@@ -66,11 +60,6 @@
   :config
   (evil-mode 1))
 (evil-set-undo-system 'undo-redo)
-
-;; Treemacs Evil Compatiblity
-(use-package treemacs-evil
-  :ensure t
-  )
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
