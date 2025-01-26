@@ -77,6 +77,9 @@ bindsym $mod+Shift+n exec swaync-client -t -sw
 #
 # Moving around:
 #
+    # Move to next and previous workspaces
+    bindsym $mod+p workspace prev
+    bindsym $mod+n workspace next
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down

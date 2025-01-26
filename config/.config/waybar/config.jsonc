@@ -15,7 +15,8 @@
     ],
     "modules-center": [
         // "sway/window"
-        "clock"
+        "clock",
+        "custom/notifications-swaync"
     ],
     "modules-right": [
         "tray",
@@ -184,5 +185,11 @@
 
     "custom/justlogo": {
         "format": "  ",
+    },
+
+    "custom/notifications-swaync": {
+        "format": " 󰂚 ",
+        "on-click": "swaync-client -t -sw",
     }
+
 }

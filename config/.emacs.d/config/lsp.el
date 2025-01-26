@@ -9,25 +9,72 @@
 (use-package eglot
   :ensure t)
 
-;; Company Configuration
-(use-package company
+;; Corfu Configuration
+
+(use-package corfu
   :ensure t
-  :hook (after-init . global-company-mode)
+  :init
+  (global-corfu-mode)
+  :bind (:map corfu-map
+         ("C-n" . corfu-next)
+         ("C-p" . corfu-previous)
+         ("<escape>" . corfu-quit)
+         ("<return>" . corfu-insert)
+         ("M-d" . corfu-show-documentation)
+         ("M-l" . corfu-show-location)
+         ("<tab>" . corfu-next)
+         ("S-<tab>" . corfu-previous))
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-auto-delay 0.25)
+  (corfu-auto-prefix 2)
+  (corfu-quit-at-boundary nil)
+  (corfu-preselect-first t)
+  (corfu-echo-documentation t)
+  (corfu-want-tab-prefer-expand-snippets t))
+
+;; Enable indentation and completion using the TAB key.
+(setq tab-always-indent 'complete)
+
+(use-package corfu-popupinfo
+  :ensure nil
+  :after corfu
+  :hook (corfu-mode . corfu-popupinfo-mode)
+  :custom
+  (corfu-popupinfo-delay '(0.25 . 0.1))
+  (corfu-popupinfo-hide nil)
   :config
-  (setq company-selection-wrap-around t)
-  (setq company-tooltip-doc-enable t)
-  (setq company-tooltip-align-annotations t)
-  (setq company-idle-delay 0.0
-        company-minimum-prefix-length 1)
-  (setq company-global-modes '(not org-mode magit-mode)))
+  (corfu-popupinfo-mode))
 
-(use-package company-box
-  :hook (company-mode . company-box-mode))
+(use-package kind-icon
+  :ensure t
+  :after corfu
+  :custom
+  (kind-icon-use-icons t) ; Use Nerd Font icons
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
-;; Ensure eglot and company work together
-(add-hook 'eglot-managed-mode-hook
-          (lambda () (setq-local company-backends '((company-capf)))))
+;; Optionally use the `orderless' completion style.
+(use-package orderless
+  :custom
+  ;; (orderless-style-dispatchers '(orderless-affix-dispatch))
+  ;; (orderless-component-separator #'orderless-escapable-split-on-space)
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
+;; Cape: Completion At Point Extensions
+(use-package cape
+  :ensure t
+  :init
+  ;; Add useful defaults
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-symbol))
+
+;; Eldoc-box for enhanced documentation display
 (use-package eldoc-box
   :ensure t
   :config
@@ -79,20 +126,15 @@
 
 ;; Rust
 (use-package rust-mode
-  :defer t)
+  :defer t
+  :config
+  (setq rust-format-on-save t))
 (add-hook 'rust-mode-hook 'eglot-ensure)
 
 ;; PHP
 (use-package php-mode
   :defer t)
 (add-hook 'php-mode-hook 'eglot-ensure)
-
-;; Basic Completions
-(add-hook 'bash-mode-hook 'company-mode)
-(add-hook 'json-mode-hook 'company-mode)
-(add-hook 'html-mode-hook 'company-mode)
-(add-hook 'tsx-mode-hook 'company-mode)
-(add-hook 'css-ts-mode 'company-mode)
 
 ;; Lang servers
 (setq eglot-server-programs
@@ -101,14 +143,16 @@
         (python-mode . ("pylsp"))
         (go-mode . ("gopls"))
         (rust-mode . ("rust-analyzer"))
-        (typescript-ts-mode . ("typescript-language-server" "--stdio"))
-        ))
+        (typescript-ts-mode . ("typescript-language-server" "--stdio"))))
+
 ;; PHP Language server
 (add-to-list 'eglot-server-programs '((php-mode) . ("phpactor" "language-server")))
 
 ;; References
 (require 'semantic/symref/grep)
 (with-eval-after-load 'semantic/symref
-(add-to-list 'semantic-symref-filepattern-alist
-             '(php-mode "*.php" "*.phtml" "*.php5" "*.php7")))
+  (add-to-list 'semantic-symref-filepattern-alist
+               '(php-mode "*.php" "*.phtml" "*.php5" "*.php7")))
 
+(provide 'languages)
+;;; languages.el ends here
