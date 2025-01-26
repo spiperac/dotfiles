@@ -14,9 +14,16 @@
 
 ;; Corfu completion box
 (with-eval-after-load 'corfu
-  (define-key corfu-map (kbd "C-n") #'corfu-next)
-  (define-key corfu-map (kbd "C-p") #'corfu-previous))
+  (with-eval-after-load 'evil
+    (define-key evil-insert-state-map (kbd "C-j") #'corfu-next)
+    (define-key evil-insert-state-map (kbd "C-k") #'corfu-previous)
+    (define-key evil-insert-state-map (kbd "C-n") #'corfu-next)
+    (define-key evil-insert-state-map (kbd "C-p") #'corfu-previous)
 
+    ))
+
+(with-eval-after-load 'corfu
+  (message "Corfu map: %s" corfu-map))
 ;; Consult
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x f") 'consult-find)
