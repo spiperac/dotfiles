@@ -22,8 +22,6 @@
 
     ))
 
-(with-eval-after-load 'corfu
-  (message "Corfu map: %s" corfu-map))
 ;; Consult
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x f") 'consult-find)
@@ -34,13 +32,34 @@
   (define-key vertico-map (kbd "C-j") 'vertico-next)
   (define-key vertico-map (kbd "C-k") 'vertico-previous))
 
-;; Centaur tabs
-(define-key evil-normal-state-map (kbd "g t") 'centaur-tabs-forward)
-(define-key evil-normal-state-map (kbd "g T") 'centaur-tabs-backward)
 
 ;; Org shortcuts
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
+
+;; Elfeed
+(evil-define-key 'normal elfeed-search-mode-map
+  (kbd "RET") 'elfeed-search-show-entry
+  (kbd "o") 'elfeed-search-show-entry
+  (kbd "s") 'elfeed-search-live-filter
+  (kbd "q") 'elfeed-search-quit-window
+  (kbd "c") 'elfeed-search-clear-filter
+  (kbd "U") 'elfeed-update)
+
+(evil-define-key 'normal elfeed-show-mode-map
+  (kbd "q") 'elfeed-kill-buffer)
+
+
+;; Hydra Keybinds
+
+(defhydra hydra-window (:color blue)
+  "Window"
+  ("s" split-window-below "Split")
+  ("v" split-window-right "V Split")
+  ("d" delete-window "Delete")
+  ("b" balance-windows "Balance")
+  ("q" nil "Quit"))
+(global-set-key (kbd "C-c w") #'hydra-window/body)
 
 (provide 'keybinds)
 ;;; keybinds.el ends here

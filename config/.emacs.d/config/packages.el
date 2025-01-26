@@ -28,6 +28,9 @@
   :ensure t
   :defer t)
 
+(use-package hydra
+  :ensure t)
+
 (use-package diff-hl
   :ensure t
   :config

@@ -9,17 +9,6 @@
   :bind ("C-x w" . elfeed) ;; Recommended keybinding
   )
 
-(evil-define-key 'normal elfeed-search-mode-map
-  (kbd "RET") 'elfeed-search-show-entry
-  (kbd "o") 'elfeed-search-show-entry
-  (kbd "s") 'elfeed-search-live-filter
-  (kbd "q") 'elfeed-search-quit-window
-  (kbd "c") 'elfeed-search-clear-filter
-  (kbd "U") 'elfeed-update)
-
-(evil-define-key 'normal elfeed-show-mode-map
-  (kbd "q") 'elfeed-kill-buffer)
-
 ;; Feeds list
 (setq elfeed-feeds
       '(
