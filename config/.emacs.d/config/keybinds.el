@@ -5,6 +5,9 @@
 ;;; Code:
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Vterm
+(global-set-key (kbd "C-M-x") 'vterm)
+
 ;; LSP
 (with-eval-after-load 'eglot
   (define-key eglot-mode-map (kbd "C-c d") 'xref-find-definitions)
