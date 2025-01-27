@@ -51,6 +51,8 @@
   (:title "Magit Commands" :color teal :quit-key "q")
   ("Status"
    (("s" magit-status "Status")
+    ("p" magit-pull "Pull")
+    ("f" magit-fetch "Fetch")
     ("d" magit-dispatch "Dispatch")
     ("l" magit-log-all "Log")
     ("r" magit-refresh "Refresh"))
@@ -58,7 +60,8 @@
    (("c" magit-commit "Commit")
     ("a" magit-stage-file "Stage File")
     ("u" magit-unstage-file "Unstage File")
-    ("e" magit-edit-commit "Edit Commit"))
+    ("e" magit-edit-commit "Edit Commit")
+    ("P" magit-push "Push"))
    "Branches"
    (("b" magit-branch "Branches")
     ("n" magit-branch-and-checkout "New Branch")
