@@ -31,6 +31,9 @@
 (use-package hydra
   :ensure t)
 
+(use-package pretty-hydra
+  :after hydra)
+
 (use-package diff-hl
   :ensure t
   :config
@@ -60,6 +63,8 @@
 ;; Evil
 (use-package evil
   :ensure t
+  :init
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1))
 (evil-set-undo-system 'undo-redo)

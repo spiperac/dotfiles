@@ -5,8 +5,32 @@
 ;;; Code:
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; Vterm
-(global-set-key (kbd "C-M-x") 'vterm)
+;; Hydra
+(pretty-hydra-define main-leader
+  (:title "Main Leader" :color yellow :exit t)
+  ("Files"
+   (("f" projectile-find-file "Find file")
+    ("d" dired "Dired")
+    ("t" vterm "vTerm terminal")
+    )
+   "Buffers"
+   (("b" switch-to-buffer "Switch")
+    ("k" kill-buffer "Kill"))
+   "Windows"
+   (("w" split-window-right "Split")
+    ("o" other-window "Other"))
+   "Search"
+   (("s" consult-ripgrep "Ripgrep")
+    ("r" projectile-replace "Replace"))
+   "Projects"
+   (("p" projectile-switch-project "Switch Project"))
+   "Quit"
+   (("q" delete-window "Close window")
+    ("SPC" hydra-keyboard-quit "Close Hydra")))) ;; This is where SPC closes Hydra
+
+(with-eval-after-load 'evil
+  (evil-define-key 'normal 'global (kbd "SPC") 'main-leader/body)
+  (evil-define-key 'visual 'global (kbd "SPC") 'main-leader/body))
 
 ;; LSP
 (with-eval-after-load 'eglot
