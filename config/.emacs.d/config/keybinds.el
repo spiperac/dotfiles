@@ -27,9 +27,7 @@
     ("w" hydra-window/body "Window options")
     )
    "Git"
-   (
-    ("g" hydra-magit/body "Magit GIT")
-    )
+   (("g" hydra-magit/body "Magit GIT"))
    "Search"
    (("s" consult-ripgrep "Ripgrep")
     ("r" projectile-replace "Replace"))

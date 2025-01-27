@@ -1,6 +1,6 @@
 ;;; chat.el --- User Emacs configuration -*- lexical-binding: t; -*-
 ;;; Commentary:
-;; This file contains anything related to char/social stuff. ERC, mastodon etc...
+;;  This file contains anything related to char/social stuff.  ERC, mastodon etc.
 
 ;;; Code:
 

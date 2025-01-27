@@ -154,5 +154,5 @@
   (add-to-list 'semantic-symref-filepattern-alist
                '(php-mode "*.php" "*.phtml" "*.php5" "*.php7")))
 
-(provide 'languages)
-;;; languages.el ends here
+(provide 'lsp)
+;;; lsp.el ends here
