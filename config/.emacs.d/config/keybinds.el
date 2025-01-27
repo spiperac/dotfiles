@@ -6,6 +6,11 @@
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 ;; Hydra
+(defun my-split-and-focus ()
+  (interactive)
+  (split-window-right)
+  (other-window 1))
+
 (pretty-hydra-define main-leader
   (:title "Main Leader" :color yellow :exit t)
   ("Files"
@@ -17,8 +22,14 @@
    (("b" switch-to-buffer "Switch")
     ("k" kill-buffer "Kill"))
    "Windows"
-   (("w" split-window-right "Split")
-    ("o" other-window "Other"))
+   (("v" my-split-and-focus "Split and Focus")
+    ("o" other-window "Other")
+    ("w" hydra-window/body "Window options")
+    )
+   "Git"
+   (
+    ("g" hydra-magit/body "Magit GIT")
+    )
    "Search"
    (("s" consult-ripgrep "Ripgrep")
     ("r" projectile-replace "Replace"))
@@ -27,6 +38,38 @@
    "Quit"
    (("q" delete-window "Close window")
     ("SPC" hydra-keyboard-quit "Close Hydra")))) ;; This is where SPC closes Hydra
+
+(defhydra hydra-window (:color blue)
+  "Window"
+  ("s" split-window-below "Split")
+  ("v" split-window-right "V Split")
+  ("d" delete-window "Delete")
+  ("b" balance-windows "Balance")
+  ("q" nil "Quit"))
+
+(pretty-hydra-define hydra-magit
+  (:title "Magit Commands" :color teal :quit-key "q")
+  ("Status"
+   (("s" magit-status "Status")
+    ("d" magit-dispatch "Dispatch")
+    ("l" magit-log-all "Log")
+    ("r" magit-refresh "Refresh"))
+   "Commit"
+   (("c" magit-commit "Commit")
+    ("a" magit-stage-file "Stage File")
+    ("u" magit-unstage-file "Unstage File")
+    ("e" magit-edit-commit "Edit Commit"))
+   "Branches"
+   (("b" magit-branch "Branches")
+    ("n" magit-branch-and-checkout "New Branch")
+    ("m" magit-merge "Merge"))
+   "Stashing"
+   (("z" magit-stash "Stash")
+    ("x" magit-stash-pop "Apply Stash")
+    ("v" magit-stash-list "Stash List"))
+   "Other"
+   (("t" git-timemachine "Timemachine")
+    ("q" nil "Quit"))))
 
 (with-eval-after-load 'evil
   (evil-define-key 'normal 'global (kbd "SPC") 'main-leader/body)
@@ -79,13 +122,6 @@
 
 ;; Hydra Keybinds
 
-(defhydra hydra-window (:color blue)
-  "Window"
-  ("s" split-window-below "Split")
-  ("v" split-window-right "V Split")
-  ("d" delete-window "Delete")
-  ("b" balance-windows "Balance")
-  ("q" nil "Quit"))
 (global-set-key (kbd "C-c w") #'hydra-window/body)
 
 (provide 'keybinds)
