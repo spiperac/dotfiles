@@ -53,3 +53,5 @@
   (erc-tls :server "irc.libera.chat" :port 6697 :nick "cqmort"))
 
 (global-set-key (kbd "C-c e") 'my-erc-in-new-tab)
+(provide 'chat)
+;;; chat.el ends here

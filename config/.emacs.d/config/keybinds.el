@@ -31,6 +31,8 @@
    "Search"
    (("s" consult-ripgrep "Ripgrep")
     ("r" projectile-replace "Replace"))
+   "Social"
+   (("M" mu4e "Email"))
    "Projects"
    (("p" projectile-switch-project "Switch Project"))
    "Quit"

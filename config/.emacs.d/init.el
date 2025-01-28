@@ -22,13 +22,18 @@
 (load "packages")
 (load "lsp")
 (load "orgs")
+
+;; features
 (load "chat")
+(load "email")
 (load "pomodoro")
 (load "website")
 (load "news")
 (load "custom_fn")
+
 ;; Theme and keybinds
 (load "ui")
 (load "keybinds")
+
 (provide 'init)
 ;;; init.el ends here
