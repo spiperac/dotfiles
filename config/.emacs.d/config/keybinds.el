@@ -17,6 +17,7 @@
    (("f" projectile-find-file "Find file")
     ("d" dired "Dired")
     ("t" vterm "vTerm terminal")
+    ("F" toggle-font-sizes "Toggle Font Size")
     )
    "Buffers"
    (("b" switch-to-buffer "Switch")
@@ -73,6 +74,10 @@
    "Other"
    (("t" git-timemachine "Timemachine")
     ("q" nil "Quit"))))
+
+(defun toggle-font-sizes ()
+ (interactive)
+ (set-face-attribute 'default nil :height (if (= (face-attribute 'default :height) 120) 140 120)))
 
 (with-eval-after-load 'evil
   (evil-define-key 'normal 'global (kbd "SPC") 'main-leader/body)
