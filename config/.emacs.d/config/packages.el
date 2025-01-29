@@ -34,6 +34,14 @@
 (use-package pretty-hydra
   :after hydra)
 
+(use-package ultra-scroll
+  ;:load-path "~/code/emacs/ultra-scroll" ; if you git clone'd instead of package-vc-install
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0) 
+  :config
+  (ultra-scroll-mode 1))
+
 (use-package diff-hl
   :ensure t
   :config
@@ -71,10 +79,6 @@
 
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
-
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
 
 (use-package projectile
   :ensure t

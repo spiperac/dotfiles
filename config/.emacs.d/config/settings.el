@@ -7,6 +7,7 @@
 (setq calendar-week-start-day 1)
 ;; Warnings off
 ;;(setq warning-minimum-level :error)
+;; (setq enable-local-variables :safe)
 
 ;; Basic settings
 (setq x-select-enable-clipboard t)
