@@ -11,16 +11,39 @@
 (column-number-mode 1)
 (setq tab-bar-show 1)
 (set-fringe-mode 10)
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . light))
-(setq ns-use-proxy-icon  nil)
 (setq frame-title-format nil)
+
+;; If titlebar is enabled, format.
+(setq frame-title-format
+      '((:eval
+         (concat
+          ;; Modified status
+          (if (buffer-modified-p) "*" "")
+          
+          ;; Icon
+          (if (buffer-file-name)
+              (nerd-icons-icon-for-file (buffer-file-name))
+            (nerd-icons-icon-for-mode major-mode))
+          " "
+          ;; Project name if in a project
+          (when (projectile-project-p)
+            (concat " [" (projectile-project-name) "] "))
+          ;; File name relative to project root, or just buffer name if not in a file
+          (if (buffer-file-name)
+              (if (projectile-project-p)
+                  (file-relative-name (buffer-file-name) (projectile-project-root))
+                (file-name-nondirectory (buffer-file-name)))
+            "%b")))))
 
 ;; Display line numbers only in prog-mode
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 ;; Hide Window Border
-(set-frame-parameter nil 'internal-border-width 0)
-(add-to-list 'default-frame-alist '(undecorated . t))
+(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+(add-to-list 'default-frame-alist '(ns-appearance . dark))
+
+;;(set-frame-parameter nil 'internal-border-width 0)
+;; (add-to-list 'default-frame-alist '(undecorated . t)) ;; removes titlebar 
+(add-to-list 'default-frame-alist '(undecorated-round . t))
 
 ;; Load Theme
 ;; Add the custom themes directory to the load path
