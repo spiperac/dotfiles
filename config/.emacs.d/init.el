@@ -30,6 +30,7 @@
 (load "website")
 (load "news")
 (load "custom_fn")
+(load "media")
 
 ;; Theme and keybinds
 (load "ui")

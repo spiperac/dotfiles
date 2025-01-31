@@ -5,6 +5,7 @@
 
 (setq inhibit-startup-message t)
 (setq calendar-week-start-day 1)
+(setq scroll-margin 8)
 ;; Warnings off
 ;;(setq warning-minimum-level :error)
 ;; (setq enable-local-variables :safe)

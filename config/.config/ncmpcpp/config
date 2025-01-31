@@ -1,13 +1,9 @@
+mpd_host = 127.0.0.1
+mpd_port = 6600
+
 colors_enabled = "yes"
 user_interface = "alternative"
 # Highlight currently playing song in the playlist
-
-
-visualizer_fifo_path = "/tmp/mpd.fifo"
-visualizer_in_stereo = "yes"
-visualizer_sync_interval = "30"
-visualizer_type = "spectrum"  # Options: spectrum, wave, ellipse, etc.
-visualizer_look = "+|"
 
 [header]
 header_visibility = "no"
