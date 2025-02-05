@@ -1,30 +1,37 @@
 return {
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
-		config = function()
-			require("telescope").setup({
-				previewer = false,
-				pickers = {
-					find_files = {
-            hidden=true,
-						layout_config = {
-							height = 0.70,
-						},
-					},
-				},
-        defaults = {
-          file_ignore_patterns = {"*.git", ".git/*", "node_modules/*", "target/*"},
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      local actions = require("telescope.actions")
+      require("telescope").setup({
+        previewer = false,
+        pickers = {
+          find_files = {
+            hidden = true,
+            layout_config = {
+              height = 0.70,
+            },
+          },
         },
-				extensions = {
-					projects = {
-						detection_methods = { "pattern" },
-						patterns = { ".git", "Makefile", "package.json" },
-					},
-				},
-			})
-		end,
-	},
+        defaults = {
+          file_ignore_patterns = { "*.git", ".git/*", "node_modules/*", "target/*" },
+          mappings = {
+            i = {
+              ["<C-u>"] = false,
+              ["<Esc>"] = actions.close
+            },
+          }
+        },
+        extensions = {
+          projects = {
+            detection_methods = { "pattern" },
+            patterns = { ".git", "Makefile", "package.json" },
+          },
+        },
+      })
+    end,
+  },
 }
