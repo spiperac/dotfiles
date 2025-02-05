@@ -127,6 +127,8 @@
 (evil-define-key 'normal elfeed-show-mode-map
   (kbd "q") 'elfeed-kill-buffer)
 
+;; Projectile special keybinds
+;; (setq enable-recursive-minibuffers t)
 
 ;; Hydra Keybinds
 

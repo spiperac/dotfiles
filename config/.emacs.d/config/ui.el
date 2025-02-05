@@ -9,8 +9,8 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (column-number-mode 1)
-(setq tab-bar-show 1)
 (set-fringe-mode 10)
+(setq tab-bar-show 1)
 (setq frame-title-format nil)
 
 ;; If titlebar is enabled, format.
@@ -42,9 +42,9 @@
 (add-to-list 'default-frame-alist '(ns-appearance . dark))
 
 ;;(set-frame-parameter nil 'internal-border-width 0)
-;; (add-to-list 'default-frame-alist '(undecorated . t)) ;; removes titlebar 
+(add-to-list 'default-frame-alist '(undecorated . t)) ;; removes titlebar 
 (add-to-list 'default-frame-alist '(undecorated-round . t))
-
+;(modify-all-frames-parameters '((internal-border-width . 6)))
 ;; Load Theme
 ;; Add the custom themes directory to the load path
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -58,14 +58,24 @@
 
 ;(set-face-background 'line-number (face-background 'default))
 ;(set-face-background 'line-number-current-line (face-background 'default))
-
 (use-package doom-modeline
-  :ensure t 
+  :ensure t
   :init (doom-modeline-mode 1)
   :config
-  (column-number-mode 1)
+  (column-number-mode nil)
   (setq doom-modeline-height 40)
-  )
+  (setq doom-modeline-icon t)
+  (setq doom-modeline-modal-icon nil)
+  (setq doom-modeline-buffer-file-name-style "file-name")
+  (set-face-attribute 'mode-line nil :height 140)  ; Adjust the height (e.g., 140%)
+)
+
+(setq evil-normal-state-tag   (propertize "[NORMAL]" 'face '((:foreground "green" :weight 'bold)))
+      evil-emacs-state-tag    (propertize "[Emacs]" 'face '((:background "orange" :foreground "black")))
+      evil-insert-state-tag   (propertize "[INSERT]" 'face '((:background "red") :foreground "red" :weight 'bold))
+      evil-motion-state-tag   (propertize "[Motion]" 'face '((:background "blue") :foreground "white"))
+      evil-visual-state-tag   (propertize "[Visual]" 'face '((:background "grey80" :foreground "black")))
+      evil-operator-state-tag (propertize "[Operator]" 'face '((:background "purple"))))
 
 (use-package nerd-icons)
 
@@ -95,5 +105,12 @@
   :hook ((prog-mode . rainbow-delimiters-mode)
          (text-mode . rainbow-delimiters-mode)))
 
-;; Padding
+;; Breadcrumbs
 
+(use-package breadcrumb
+  :ensure t
+  :config
+  (breadcrumb-mode 1))
+
+(provide 'ui)
+;;; ui.el ends here

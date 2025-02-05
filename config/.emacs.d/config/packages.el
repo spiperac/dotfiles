@@ -34,13 +34,13 @@
 (use-package pretty-hydra
   :after hydra)
 
-(use-package ultra-scroll
-  ;:load-path "~/code/emacs/ultra-scroll" ; if you git clone'd instead of package-vc-install
-  :init
-  (setq scroll-conservatively 101 ; important!
-        scroll-margin 0) 
-  :config
-  (ultra-scroll-mode 1))
+;; (use-package ultra-scroll
+;;   ;:load-path "~/code/emacs/ultra-scroll" ; if you git clone'd instead of package-vc-install
+;;   :init
+;;   (setq scroll-conservatively 101 ; important!
+;;         scroll-margin 0) 
+;;   :config
+;;   (ultra-scroll-mode 1))
 
 (use-package diff-hl
   :ensure t
@@ -108,9 +108,9 @@
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles . (partial-completion))))))
+
 (use-package consult
   :ensure t)
-
 (setq consult-project-root-function #'consult--project-root) ;; Enable project-based search
 
 ;; Install and configure Marginalia

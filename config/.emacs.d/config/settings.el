@@ -5,7 +5,12 @@
 
 (setq inhibit-startup-message t)
 (setq calendar-week-start-day 1)
-(setq scroll-margin 8)
+(setq scroll-margin 8
+      scroll-conservatively 101
+      scroll-up-aggressively 0.01
+      scroll-down-aggressively 0.01
+      scroll-preserve-screen-position t
+      auto-window-vscroll nil)
 ;; Warnings off
 ;;(setq warning-minimum-level :error)
 ;; (setq enable-local-variables :safe)
@@ -36,7 +41,7 @@
 
 ;; Tabs and spaces
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default tab-width 4)
 
 ;; Font
 (set-face-attribute 'default nil :font "Hack Nerd Font" :height 120)
