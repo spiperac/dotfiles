@@ -1,4 +1,4 @@
-if [ "$TMUX" = "" ]; then tmux; fi
+# if [ "$TMUX" = "" ]; then tmux; fi
 
 export ZSH="$(eval echo ~$USER)/.oh-my-zsh"
 #ZSH_THEME="awesomepanda" 

@@ -77,7 +77,6 @@
       evil-visual-state-tag   (propertize "[Visual]" 'face '((:background "grey80" :foreground "black")))
       evil-operator-state-tag (propertize "[Operator]" 'face '((:background "purple"))))
 
-(use-package nerd-icons)
 
 ;; Dashboard Configuration
 (use-package dashboard
