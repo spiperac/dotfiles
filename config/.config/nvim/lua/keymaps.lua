@@ -8,7 +8,6 @@ map('n', '<Leader>o', '<C-w>w', opts)
 -- Close buffer 
 map('n', '<Leader>q', '<C-w>c', opts)
 
-map("n", "<C-n>", ":Neotree toggle<CR>", opts)
 -- remove search highlight
 map("n", "<ESC>u", ":nohlsearch<CR>", opts)
 
@@ -30,8 +29,8 @@ vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 vim.keymap.set("n", "<leader>g", ":LazyGit<CR>", opts)
 
 -- Telescope Key Mappings
-map("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
-map("n", "<leader>s", "<cmd>Telescope live_grep<cr>", opts)
-map("n", "<leader>b", "<cmd>Telescope buffers<cr>", opts)
-map("n", "<leader>h", "<cmd>Telescope help_tags<cr>", opts)
+-- map("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
+-- map("n", "<leader>s", "<cmd>Telescope live_grep<cr>", opts)
+-- map("n", "<leader>b", "<cmd>Telescope buffers<cr>", opts)
+-- map("n", "<leader>h", "<cmd>Telescope help_tags<cr>", opts)
 

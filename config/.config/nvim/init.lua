@@ -25,5 +25,3 @@ require("settings")
 require("keymaps")
 
 -- Include custom plugins
--- require("custom/statusline")
-require("custom/alpha")
