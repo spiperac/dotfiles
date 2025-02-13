@@ -47,5 +47,8 @@
 (set-face-attribute 'default nil :font "Hack Nerd Font" :height 120)
 (force-mode-line-update)
 
+;; Scrolling
+(setq pixel-scroll-precision-mode t)
+
 (provide 'settings)
 ;;; settings.el ends here

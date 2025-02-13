@@ -23,6 +23,7 @@
 (use-package magit
   :ensure t
   :defer t)
+(setopt magit-format-file-function #'magit-format-file-nerd-icons)
 
 (use-package vterm
   :ensure t
@@ -101,6 +102,11 @@
   (vertico-posframe-poshandler 'posframe-poshandler-frame-center)
   :config
   (vertico-posframe-mode 1))
+(setq vertico-posframe-parameters
+      '((left-fringe . 8)
+        (right-fringe . 8)))
+
+(setq vertico-posframe-border-width 10)
 
 (use-package orderless
   :ensure t

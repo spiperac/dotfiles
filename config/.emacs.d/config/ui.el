@@ -111,5 +111,10 @@
   :config
   (breadcrumb-mode 1))
 
+
+;; Transparency
+(set-frame-parameter nil 'alpha-background 98) ; For current frame
+(add-to-list 'default-frame-alist '(alpha-background . 98)) ; For all new frames henceforth
+
 (provide 'ui)
 ;;; ui.el ends here
