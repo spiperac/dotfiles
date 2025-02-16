@@ -49,7 +49,6 @@ button {
     box-shadow: inset 0 -3px transparent;
     /* Avoid rounded borders under each button name */
     border: none;
-    border-radius: 0;
 }
 
 /* #waybar button.focused { */
@@ -94,7 +93,25 @@ button:hover {
 /*     background-color: #eb4d4b; */
 /* } */
 
+.modules-right {
+    background: @surface2;
+    border-radius: 1em;
+    border: 4px solid @surface2;
+}
+
+.modules-center {
+    background: @surface2;
+    border-radius: 1em;
+    border: 2px solid @blue;
+}
+
 /* HYPRLAND */
+#workspaces {
+    background: @surface2;
+    border-radius: 1em;
+    border: 4px solid @surface2;
+}
+
 #workspaces button {
     padding: 0 0.5em;
     background-color: @surface0;
@@ -173,8 +190,7 @@ button:hover {
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: @surface1;
 }
 
 #battery.charging, #battery.plugged {
@@ -274,7 +290,6 @@ label:focus {
 
 #tray {
     /* background-color: rgba(43, 48, 59, 1); */
-    border-left: 1px solid #000000;
     border-right: 1px solid #000000;
     margin-bottom: 2px;
 }
