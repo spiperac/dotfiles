@@ -5,6 +5,7 @@
 ;;; Code:
 
 (use-package emms
+  :defer t
   :config
     (require 'emms-setup)
     (require 'emms-player-mpd)

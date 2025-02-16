@@ -88,7 +88,7 @@
                           (agenda . 5)))
   (dashboard-setup-startup-hook)
   :custom
-  (dashboard-startup-banner "~/.config/wallpapers/avatar/dharma.png")
+  (dashboard-startup-banner "~/.emacs.d/asset/dharma.png")
   (dashboard-center-content t)
   (dashboard-projects-backend 'projectile)
   (dashboard-set-init-info t)

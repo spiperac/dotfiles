@@ -4,12 +4,6 @@
   gather_facts: true  # Required to detect OS
 
   tasks:
-    - name: Enable Ghostty
-      community.general.copr:
-        state: enabled
-        name: pgdev/ghostty
-      when: ansible_distribution == "Fedora"
-
     - name: Enable LazyGit
       community.general.copr:
         state: enabled
@@ -81,65 +75,6 @@
           - com.github.IsmaelMartinez.teams_for_linux
           - com.github.neithern.g4music
       when: ansible_distribution == "Fedora"
-
-    - name: Install packages on Ubuntu
-      apt:
-        name:
-          - curl
-          - git
-          - stow
-          - cmake
-          - python3
-          - python3-pip
-          - i3
-          - i3lock
-          - rofi
-          - feh
-          - alacritty
-          - polybar
-          - zsh
-          - neovim
-          - nodejs
-          - dunst
-          - adwaita-icon-theme
-          - npm
-          - pamixer
-          - tmux
-          - ranger
-          - golang-go
-          - rustc
-          - cargo
-          - rust-analyzer
-        state: present
-      when: ansible_distribution == "Ubuntu"
-
-    - name: Install packages on FreeBSD
-      pkgng:
-        name:
-          - curl
-          - git
-          - stow
-          - cmake
-          - python3
-          - i3
-          - i3lock
-          - rofi
-          - feh
-          - alacritty
-          - polybar
-          - zsh
-          - neovim
-          - node
-          - dunst
-          - adwaita-icon-theme
-          - npm
-          - pamixer
-          - tmux
-          - go
-          - rust
-          - rust-analyzer
-        state: present
-      when: ansible_distribution == "FreeBSD"
 
     - name: Setup ZSH
       become: false

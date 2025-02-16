@@ -6,8 +6,8 @@
 
 font pango:Hack Nerd Font 18
 
-gaps inner 3px
-gaps outer 3px
+gaps inner 10px
+gaps outer 10px
 
 default_border none
 

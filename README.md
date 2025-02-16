@@ -4,22 +4,25 @@ This repository contains my personal configuration files and scripts to set up m
 
 ## Features
 
+- **Emacs Config:
+  - Use package
+  - My modules
 - **Neovim Configuration**:
   - Plugin management with [Lazy.nvim](https://github.com/folke/lazy.nvim).
   - Automatic plugin installation.
-  - [CoC](https://github.com/neoclide/coc.nvim) integration with extensions.
 - **Terminal**:
   - Configuration for Alacritty.
-- **i3 Window Manager**:
-  - Custom keybindings and Polybar integration.
+- **Sway Window Manager**:
+  - Custom keybindings and Waybar and Swaync notification integration.
 - **Development Tools**:
   - Preconfigured Python tools (`black`, `pylint`, `flake8`) and Rust with `rust-analyzer`.
 
 ## Requirements
 
 - **Package Manager**: 
-  - APT (`apt-get`) or Pacman (`pacman`) supported.
+  - DNF supported.
 - **Tools**:
+  - Emacs preferably compiled > v30
   - [Neovim](https://neovim.io) (>= 0.5).
 
 ## Installation
@@ -43,9 +46,9 @@ This repository contains my personal configuration files and scripts to set up m
    This will:
    - Install required dependencies.
    - Run *stow* to sort out dot files.
-   - Install Neovim plugins and CoC extensions.
+   - Install Emacs and Neovim plugins and CoC extensions.
    - Setup tmux and zsh.
-   - Setup Hyprland and i3, with multiple plugins.
+   - Setup Sway, Waybar, Wofi and Swaync.
 
 4. Log out and log back in if the default shell is changed to Zsh.
 

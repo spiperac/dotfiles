@@ -41,20 +41,6 @@ run_ansible() {
   ansible-playbook ansible/setup.yml --ask-become
 }
 
-# Setup Zsh and Oh My Zsh
-setup_zsh() {
-    echo "Setting up Zsh..."
-    if [ "$SHELL" != "$(command -v zsh)" ]; then
-        chsh -s "$(command -v zsh)"
-        echo "Default shell changed to zsh. Please log out and log back in."
-    fi
-
-    if [ ! -d "$HOME/.oh-my-zsh" ]; then
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    fi
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-}
-
 # Main script execution
 
 fresh_install "$1"
