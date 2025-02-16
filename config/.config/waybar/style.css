@@ -69,6 +69,7 @@ button:hover {
     background-color: #a37800;
 }
 
+/* SWAY */
 /* #workspaces button { */
 /*     padding: 0 5px; */
 /*     background-color: transparent; */
@@ -93,12 +94,14 @@ button:hover {
 /*     background-color: #eb4d4b; */
 /* } */
 
+/* HYPRLAND */
 #workspaces button {
     padding: 0 0.5em;
     background-color: @surface0;
-    color: @text;
+    color: @blue;
     margin: 0.25em;
     border: 2px solid @surface1;
+    border-color: @blue;
 }
 
 #workspaces button.empty {
@@ -370,5 +373,5 @@ label:focus {
 }
 
 #custom-notifications-swaync {
-    font-size: 22;
+    font-size: 18;
 }
