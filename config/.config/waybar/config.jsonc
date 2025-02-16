@@ -9,9 +9,10 @@
     // Order of the modules
     "modules-left": [
         "custom/justlogo",
-        "sway/workspaces",
-        "sway/mode",
-        "sway/scratchpad"
+        "hyprland/workspaces"
+        // "sway/workspaces"
+        // "sway/mode",
+        // "sway/scratchpad"
     ],
     "modules-center": [
         // "sway/window"
@@ -30,6 +31,22 @@
     ],
 
     // Modules configuration
+     "hyprland/workspaces": {
+         "format": "{icon}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+             // "active": "",
+             "default": ""
+         },
+         "persistent-workspaces": {
+             "*": 5 // 5 workspaces by default on every monitor
+         }
+     },
+     
      "sway/workspaces": {
          "disable-scroll": true,
          "all-outputs": true,
