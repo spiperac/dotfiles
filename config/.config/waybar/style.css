@@ -134,6 +134,7 @@ button:hover {
 #workspaces button.active {
     /* background-color: @surface2; */
     color: @green;
+    border: 2px solid @green;
 }
 
 #workspaces button.urgent {
