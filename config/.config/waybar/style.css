@@ -222,18 +222,15 @@ button:hover {
 }
 
 #power-profiles-daemon.performance {
-    background-color: #f53c3c;
-    color: #ffffff;
+    color: #f53c3c;
 }
 
 #power-profiles-daemon.balanced {
-    background-color: #2980b9;
-    color: #ffffff;
+    color: #2980b9;
 }
 
 #power-profiles-daemon.power-saver {
-    background-color: #2ecc71;
-    color: #000000;
+    color: #2ecc71;
 }
 
 label:focus {
@@ -241,11 +238,11 @@ label:focus {
 }
 
 #network {
-    /* background-color: #2980b9; */
+    color: @green;
 }
 
 #network.disconnected {
-    background-color: #f53c3c;
+    color: #f53c3c;
 }
 
 #pulseaudio {
@@ -255,7 +252,7 @@ label:focus {
 
 #pulseaudio.muted {
     /* background-color: #90b1b1; */
-    color: #2a5c45;
+    color: @red;
 }
 
 #wireplumber {
@@ -305,7 +302,7 @@ label:focus {
 }
 
 #idle_inhibitor {
-    background-color: #2d3436;
+    /* background-color: #2d3436; */
 }
 
 #idle_inhibitor.activated {
@@ -314,8 +311,7 @@ label:focus {
 }
 
 #mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
+    color: #66cc99;
 }
 
 #mpd.disconnected {

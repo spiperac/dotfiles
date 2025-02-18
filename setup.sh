@@ -47,7 +47,6 @@ fresh_install "$1"
 install_packages
 run_ansible
 
-stow config
-setup_zsh
+stow config --adopt
 echo "Setup completed successfully."
 
