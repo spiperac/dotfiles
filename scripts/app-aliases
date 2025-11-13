@@ -1,0 +1,3 @@
+alias discord='flatpak run com.discordapp.Discord'
+alias teams='flatpak run com.github.IsmaelMartinez.teams_for_linux'
+alias rngpass="keepassxc-cli generate"

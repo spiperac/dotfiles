@@ -1,0 +1,46 @@
+*/eln-cache/*
+lsp/*
+*/auto-save-list/*
+.cache/*
+.cache/
+.cache
+database
+lazy-lock.json
+*/tree-sitter/*
+tree-sitter/*
+transient/*
+*/transient/*
+error.log
+
+# emacs stuff
+config/.emacs.d/auto-save-list/*
+config/.emacs.d/url/*
+config/.emacs.d/projects/*
+config/.emacs.d/subsonic-cache/*
+config/.emacs.d/eln-cache/*
+config/.emacs.d/backup/*
+config/.emacs.d/backups/*
+config/.emacs.d/undo/*
+config/.emacs.d/projectile-bookmarks.eld
+config/.emacs.d/recentf
+config/.emacs.d/transient/
+config/.emacs.d/tree-sitter/
+
+*~undo-tree~
+\#*#
+# Byte-compiled files
+*.elc
+
+# Package archives
+elpa/
+
+# Auto-save and backup files
+*.~ 
+*.bak
+.#*
+
+# Custom files
+custom.el
+
+# Project-specific files
+.projectile

@@ -1,0 +1,163 @@
+---
+- hosts: localhost
+  become: true  # Run tasks with sudo
+  gather_facts: true  # Required to detect OS
+
+  tasks:
+
+    - name: Install Neovim nightly
+      become: yes
+      block:
+        - name: Add Neovim nightly COPR repository
+          community.general.copr:
+            name: agriffis/neovim-nightly
+            state: enabled
+
+        - name: Install Neovim nightly
+          dnf:
+            name: neovim
+            state: present
+
+    - name: Install base packages on Fedora
+      dnf:
+        name:
+          - curl
+          - git
+          - cmake
+          - gcc
+          - make
+          - pkg-config
+          - adwaita-icon-theme
+          - mate-polkit
+          - wl-clipboard
+          - libtool
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Install Development Tools on Fedora
+      dnf:
+        name:
+          - python3
+          - python3-pip
+          - pyright
+          - golang
+          - gopls
+          - rust
+          - cargo
+          - rust-analyzer
+          - phpactor
+          - nodejs
+          - npm
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Install Utility on Fedora
+      dnf:
+        name:
+          - tmux
+          - rsync
+          - fzf
+          - ripgrep
+          - jq 
+          - isync
+          - fuzzel 
+          - foot 
+          - btop
+          - htop
+          - nmap
+          - vim
+          - duf
+          - zsh
+          - grim
+          - slurp
+          - wofi
+          - wmenu
+          - qutebrowser
+          - keepassxc
+          - gdm
+          - p7zip
+          - unzip
+          - zip
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Install Multimedia on Fedora
+      dnf:
+        name:
+          - pamixer
+          - pavucontrol
+          - mpv
+          - mpc
+          - supersonic
+          - ncmpcpp
+          - xdg-desktop-portal-wlr
+          - pipewire-pulseaudio
+        state: present
+      when: ansible_distribution == "Fedora"
+
+    - name: Enable and start gdm
+      systemd:
+        name: gdm
+        enabled: yes
+        state: started
+      become: yes
+
+    - name: Install dwl dependencies on Fedora
+      dnf:
+        name:
+          - libinput
+          - libinput-devel
+          - pkgconfig
+          - wlroots-devel
+          - wayland-devel
+          - wayland-protocols-devel
+          - libxcb-devel
+          - libxkbcommon-devel
+          - xorg-x11-server-Xwayland
+          - waybar
+          - swaybg
+          - swaylock
+          - mako
+          - pango-devel
+          - cairo-devel
+          - xorg-x11-server-devel
+          - scdoc
+        state: present
+
+    - name: Clone dwl repository
+      become: false
+      git:
+        repo: https://github.com/spiperac/dwl.git
+        dest: ~/build/dwl
+        version: main
+        force: yes
+
+    - name: Compile dwl
+      become: false
+      command: make
+      args:
+        chdir: ~/build/dwl
+
+    - name: Install dwl
+      become: false
+      command: sudo make install
+      args:
+        chdir: ~/build/dwl
+
+    - name: Install flatpak packages
+      community.general.flatpak:
+        name:
+          - org.gnome.Extensions
+          - com.github.IsmaelMartinez.teams_for_linux
+          - com.discordapp.Discord
+      when: ansible_distribution == "Fedora"
+
+    - name: Download and install Hack Nerd Fonts
+      become: false
+      shell: |
+        mkdir -p ~/.local/share/fonts
+        wget -q -O ~/.local/share/fonts/HackNerdFont.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+        unzip -q -o ~/.local/share/fonts/HackNerdFont.zip -d ~/.local/share/fonts/
+        rm ~/.local/share/fonts/HackNerdFont.zip
+        fc-cache -fv
+

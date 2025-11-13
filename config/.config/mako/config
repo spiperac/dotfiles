@@ -1,0 +1,17 @@
+background-color=#282a36
+text-color=#f8f8f2
+border-color=#bd93f9
+border-radius=0
+border-size=2
+default-timeout=30000
+height=200
+font=Monospace 14
+
+[urgency=low]
+border-color=#282a36
+
+[urgency=normal]
+border-color=#f1fa8c
+
+[urgency=high]
+border-color=#ff5555

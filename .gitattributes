@@ -1,0 +1,19 @@
+# General text files (default)
+* text=auto
+* text eol=lf
+
+# Image files (exclude from line-ending conversion)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.svg binary
+*.PNG binary
+*.JPG binary
+
+# Font files (exclude from line-ending conversion)
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
