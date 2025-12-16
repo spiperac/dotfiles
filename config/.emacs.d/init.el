@@ -35,6 +35,7 @@
 ;; Addons
 (load "music")
 (load "blog")
+(load "custom_fn")
 
 (provide 'init)
 ;;; init.el ends here

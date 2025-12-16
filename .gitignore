@@ -11,11 +11,13 @@ tree-sitter/*
 transient/*
 */transient/*
 error.log
+session*
 
 # emacs stuff
 config/.emacs.d/auto-save-list/*
 config/.emacs.d/url/*
 config/.emacs.d/projects/*
+config/.emacs.d/projects
 config/.emacs.d/subsonic-cache/*
 config/.emacs.d/eln-cache/*
 config/.emacs.d/backup/*

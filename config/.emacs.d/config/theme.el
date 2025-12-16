@@ -16,13 +16,9 @@
 ;; Display line numbers only in prog-mode
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
-;; Hide Window Border
-(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-(add-to-list 'default-frame-alist '(ns-appearance . dark))
-
-;;(set-frame-parameter nil 'internal-border-width 0)
-(add-to-list 'default-frame-alist '(undecorated . t)) ;; removes titlebar 
-(add-to-list 'default-frame-alist '(undecorated-round . t))
+(setq frame-resize-pixelwise t)
+(add-to-list 'default-frame-alist '(undecorated . t))
+(add-to-list 'default-frame-alist '(internal-border-width . 0))
 
 (load-theme 'vague t)
 (defun spiperac/toggle-theme ()
@@ -84,10 +80,6 @@
          (text-mode . rainbow-delimiters-mode)))
 
 ;; Breadcrumbs
-(use-package breadcrumb
-  :ensure t
-  :config
-  (breadcrumb-mode 1))
 
 (provide 'ui)
 ;;; ui.el ends here

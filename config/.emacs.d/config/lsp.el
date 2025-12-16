@@ -9,6 +9,10 @@
 (use-package eglot
   :ensure t)
 
+(use-package eldoc-box
+  :ensure t)
+
+
 ;; Corfu Configuration
 
 (use-package corfu
