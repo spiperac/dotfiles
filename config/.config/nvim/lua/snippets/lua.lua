@@ -1,1 +1,9 @@
-/nix/store/b172ffh32df78mxwyndy53f5c1na1zwn-home-manager-files/.config/nvim/lua/snippets/lua.lua
+-- Lua Snippets
+
+return {
+  {
+    prefix = "req",
+    body   = 'require("$1").setup()',
+  },
+}
+

@@ -1,1 +1,5 @@
-/nix/store/b172ffh32df78mxwyndy53f5c1na1zwn-home-manager-files/.config/nvim/.luarc.json
+{
+    "diagnostics.globals": [
+        "vim"
+    ]
+}
