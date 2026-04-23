@@ -1,0 +1,40 @@
+{
+  "plugins": {
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
+    "mini.nvim": {
+      "rev": "5849ef04c32a6a8e55957b946c0a275801d87530",
+      "src": "https://github.com/echasnovski/mini.nvim"
+    },
+    "neogit": {
+      "rev": "d1cfc4986195239cac55700b675cea7a9578d430",
+      "src": "https://github.com/neogitorg/neogit"
+    },
+    "nvim-dap": {
+      "rev": "45a69eba683a2c448dd9ecfc4de89511f0646b5f",
+      "src": "https://github.com/mfussenegger/nvim-dap"
+    },
+    "nvim-treesitter": {
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-treesitter-context": {
+      "rev": "b0c45cefe2c8f7b55fc46f34e563bc428ef99636",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "spire.nvim": {
+      "rev": "adee84b0ed66deb53e935214955878307b93fe3d",
+      "src": "https://github.com/spiperac/spire.nvim"
+    },
+    "vague.nvim": {
+      "rev": "fd58046b9d64259d9785e4aeb6d6f494c6943cad",
+      "src": "https://github.com/vague2k/vague.nvim"
+    }
+  }
+}

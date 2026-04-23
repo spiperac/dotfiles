@@ -1,0 +1,57 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 6,
+
+  "modules-left": ["custom/logo", "sway/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": ["custom/weather", "pulseaudio", "custom/network", "battery", "tray"],
+
+  "clock": {
+      "format": "{:%H:%M}",
+      "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+
+  "sway/workspaces": {
+	  "format": "●",
+	  "format-focused": "●",
+	  "format-urgent": "●"
+	},
+
+  "battery": {
+    "format": " {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-warning": " {capacity}%",
+    "states": {
+      "warning": 30,
+      "critical": 15
+    }
+  },
+
+  "custom/network": {
+    "exec": "~/.config/waybar/network.sh",
+    "interval": 10,
+    "return-type": "json",
+    "format": "  {text} "
+  },
+
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " mute"
+  },
+
+  "tray": {
+    "spacing": 8
+  },
+
+  "custom/logo": {
+      "format": "\uf3a4",
+      "tooltip": false
+  },
+  "custom/weather": {
+      "exec": "~/scripts/weather.sh",
+      "interval": 1800,
+      "return-type": "json"
+  }
+}

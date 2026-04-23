@@ -1,0 +1,67 @@
+* {
+    font-family: "Noto Sans", "Font Awesome 7 Brands", "Font Awesome 7 Free Solid", monospace;
+    font-size: 20px;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: rgba(30, 30, 30, 0.85);
+    color: #eeeeee;
+}
+
+/* Workspaces */
+#workspaces {
+    margin-left: 8px;
+}
+
+#workspaces button {
+    padding: 0 6px;
+    font-size: 20px;
+}
+
+#workspaces button { color: #666; }
+#workspaces button.focused { color: #fff; }
+#workspaces button.urgent { color: #ff5555; }
+
+/* Center clock */
+#clock {
+    font-weight: bold;
+}
+
+/* Right modules */
+#custom-weather,
+#pulseaudio,
+#custom-network,
+#battery,
+#tray {
+    padding: 0 10px;
+    margin: 4px 3px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+
+/* Battery states */
+#battery.warning {
+    background: #e5a50a;
+    color: #000000;
+}
+
+#battery.critical {
+    background: #c01c28;
+    color: #ffffff;
+}
+
+/* Hover effect */
+#pulseaudio:hover,
+#network:hover,
+#battery:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+#custom-logo {
+    margin-left: 8px;
+    margin-right: 6px;
+    color: red;
+}

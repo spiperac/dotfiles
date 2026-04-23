@@ -26,7 +26,7 @@ install_packages() {
         sudo dnf install -y stow
       elif command -v pkg &> /dev/null; then
           echo "Installing dependencies for FreeBSD..."
-          sudo pkg install -y ansible
+          sudo pkg install -y stow py311-ansible
     else
         echo "Unsupported package manager. Please install packages manually."
         exit 1
@@ -36,7 +36,7 @@ install_packages() {
 # Run ansible playbooks
 run_ansible() {
   echo "Running ansible"
-  ansible-playbook ansible/setup.yml --ask-become
+  #ansible-playbook ansible/freebsd-setup.yml --ask-become
 }
 
 link_scripts() {

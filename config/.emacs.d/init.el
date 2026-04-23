@@ -566,7 +566,7 @@
   :custom
   (org-roam-directory "~/Vault/Org")
   (org-roam-file-exclude-regexp "Blog/\\|agenda\\.org")
-  (org-roam-db-location "~/.emacs.d/org-roam.db")
+  (org-roam-db-location "~/.cache/emacs/org-roam.db")
   (org-roam-node-display-template
    (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   :config

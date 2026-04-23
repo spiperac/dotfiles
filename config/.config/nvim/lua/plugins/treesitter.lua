@@ -1,6 +1,11 @@
+vim.pack.add({
+ { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+ { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+})
+
 require("nvim-treesitter").setup {
-  --ensure_installed = { "python", "rust", "lua", "cpp", "terraform", "php" },
-  -- auto_install = true,
+  ensure_installed = { "python", "rust", "lua", "cpp", "terraform", "php" },
+  auto_install = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,

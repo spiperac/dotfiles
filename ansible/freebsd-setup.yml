@@ -1,0 +1,138 @@
+---
+- name: freebsd desktop setup
+  hosts: localhost
+  become: true
+
+  tasks:
+    - name: install packages
+      community.general.pkgng:
+        name:
+          # system
+          - sudo
+          - dbus
+          - seatd
+          - drm-kmod
+          - automount
+          - ly
+          - xwayland
+
+          # wayland / sway
+          - sway
+          - swayidle
+          - swaylock
+          - waybar
+          - mako
+          - wmenu
+          - wl-clipboard
+          - wlr-randr
+          - xdg-desktop-portal-wlr
+          - grim
+          - slurp
+
+          # audio
+          - mixertui
+          - pavucontrol
+
+          # fonts
+          - firacode
+          - noto-basic
+          - noto-emoji
+
+          # terminal / shell
+          - alacritty
+          - foot
+          - ghostty
+          - zsh
+          - tmux
+          - fzf
+
+          # editors
+          - neovim
+          - vim
+          - emacs-devel
+          # web
+          - firefox
+          - chromium
+
+          # email
+          - notmuch
+          - isync
+
+          # files / gui apps
+          - nemo
+          - evince
+          - zathura
+          - pqiv
+          - mplayer
+          - vlc
+          - supersonic
+          - moc
+          - transmission-gtk
+          - fusefs-smbnetfs
+
+          # dev tools
+          - git
+          - ripgrep
+          - stow
+
+          # security / passwords
+          - password-store
+          - OpenSSH-askpass
+          - sshpass
+
+          # misc
+          - fastfetch
+          - lsblk
+          - pwcview
+          - webcamd
+
+          # firmware / gpu
+          - gpu-firmware-intel-kmod-kabylake
+          - wifi-firmware-iwlwifi-kmod-8000
+
+          # virtualisation
+          - qemu
+
+          # ansible
+          - py311-ansible
+
+          # networking
+          - wifimgr
+        state: present
+
+    - name: enable dbus
+      community.general.sysrc:
+        name: dbus_enable
+        value: "yes"
+
+    - name: enable seatd
+      community.general.sysrc:
+        name: seatd_enable
+        value: "yes"
+
+    - name: enable webcamd
+      community.general.sysrc:
+        name: webcamd_enable
+        value: "yes"
+
+    - name: deploy rc.conf
+      ansible.builtin.copy:
+        src: files/rc.conf
+        dest: /etc/rc.conf
+        owner: root
+        group: wheel
+        mode: '0644'
+
+    - name: deploy loader.conf
+      ansible.builtin.copy:
+        src: files/loader.conf
+        dest: /boot/loader.conf
+        owner: root
+        group: wheel
+        mode: '0644'
+
+    - name: Enable vfs.usermount
+      ansible.builtin.lineinfile:
+        path: /etc/sysctl.conf
+        line: "vfs.usermount=1"
+        create: yes
