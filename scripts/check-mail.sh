@@ -1,5 +1,11 @@
+#!/bin/sh
+CACHE="/tmp/.mail_cache"
+AGE=300  # refresh every 5 min
 
-#!/usr/bin/env bash
-# ~/check-mail.sh
-mbsync -q -c ~/.mbsyncrc gmail 2>/dev/null
-echo "Mail: $(ls -1 ~/Mail/gmail/INBOX/new 2>/dev/null | wc -l)"
+if [ -f "$CACHE" ] && [ $(( $(date +%s) - $(date -r "$CACHE" +%s) )) -lt $AGE ]; then
+    cat "$CACHE"
+    exit 0
+fi
+
+count=$(ls -1 ~/Mail/gmail/INBOX/new 2>/dev/null | wc -l | xargs)
+echo "$count" | tee "$CACHE"

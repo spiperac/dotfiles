@@ -1,4 +1,5 @@
-# Lines configured by zsh-newuser-install
+# strah - zsh config
+
 # History
 export LC_TIME=en_GB.UTF-8
 HISTFILE=~/.histfile
@@ -12,6 +13,10 @@ bindkey "\e[B" history-search-forward
 
 # PATH
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/scripts:$PATH"
+
 
 setopt autocd
 setopt correct 
@@ -43,3 +48,9 @@ alias diff='diff --color=auto'
 alias ip='ip -c=auto'
 alias ll='ls -las'
 alias o='xdg-open'
+
+# Tmux
+alias t='tmux attach || tmux new'
+alias ta='tmux attach -t'
+alias tl='tmux list-sessions'
+alias tn='tmux new -s'
