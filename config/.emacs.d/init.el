@@ -671,9 +671,8 @@
 ;; -- Blog --
 
 ;; Load org-grimoire from local project
-(add-to-list 'load-path "~/projects/org-grimoire/")
-(require 'org-grimoire)
-
+(use-package org-grimoire
+  :ensure t)
 
 (defvar blog/dir "~/Vault/Org/Blog")
 (setq org-export-with-sub-superscripts nil)
