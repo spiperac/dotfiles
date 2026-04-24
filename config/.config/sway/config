@@ -9,6 +9,8 @@ set $right l
 set $term ghostty
 set $menu wmenu-run
 set $lock swaylock -c 000000 
+set $fmenu fuzzel
+
 default_border none
 
 ### Input
@@ -21,13 +23,14 @@ exec waybar
 exec_always mako
 
 ### Output (wallpaper)
-output * bg /home/strah/Pictures/Wallpaper/wall.jpg fill
+output * bg /home/strah/Pictures/Wallpaper/gits2.jpg fill
 
 ### Key bindings
 
 # Terminal / launcher / exit
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
+bindsym $mod+r exec $fmenu
 bindsym $mod+Shift+l exec $lock 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
@@ -104,7 +107,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "resize"
+#bindsym $mod+r mode "resize"
 
 # Media keys
 bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -117,7 +120,7 @@ bindsym --locked XF86MonBrightnessDown exec /usr/bin/backlight decr 5
 bindsym --locked XF86MonBrightnessUp exec /usr/bin/backlight incr 5
 
 # Screenshot
-bindsym $mod+Shift+p exec grim
+bindsym $mod+Shift+p exec grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png | wl-copy
 
 # Mouse modifier
 floating_modifier $mod normal

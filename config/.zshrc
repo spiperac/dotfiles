@@ -10,6 +10,9 @@ setopt hist_ignore_space
 bindkey "\e[A" history-search-backward
 bindkey "\e[B" history-search-forward
 
+# PATH
+export PATH="$HOME/go/bin:$PATH"
+
 setopt autocd
 setopt correct 
 unsetopt beep
