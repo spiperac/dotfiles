@@ -74,6 +74,10 @@
           - git
           - ripgrep
           - stow
+          - pkgconf
+          - go
+          - gopls
+          - python
 
           # security / passwords
           - password-store

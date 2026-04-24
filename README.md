@@ -2,27 +2,14 @@
 
 This repository contains my personal configuration files and scripts to set up my Linux development environment.
 
-## Features
-
-- **Neovim Configuration**:
-  - Automatic plugin installation with native pkg manager.
-  - vim.pack.add and vim.pack.update.
-- **Terminal**:
-  - Configuration for foot.
-- **Development Tools**:
-  - Golang
-  - Rust
-  - PHP
-  - Clang
-  - Preconfigured Python tools (`black`, `pylint`, `flake8`) and Rust with `rust-analyzer`.
-- **Text editors**:
-    - Neovim ( nightly)
-    - Emacs
+![screenshot](./screenshot.png)
 
 ## Requirements
 
 - **Package Manager**: 
   - DNF supported.
+  - PKG
+- **stow**
 - **Ansible**
 - **Bash**
 
