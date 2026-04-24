@@ -12,6 +12,8 @@ set $lock swaylock -c 000000
 set $fmenu fuzzel
 
 default_border none
+gaps inner 10
+gaps outer 5
 
 ### Input
 input "type:keyboard" {
@@ -23,7 +25,7 @@ exec waybar
 exec_always mako
 
 ### Output (wallpaper)
-output * bg /home/strah/Pictures/Wallpaper/gits2.jpg fill
+output * bg /home/strah/.config/assets/wallpaper.jpg fill
 
 ### Key bindings
 
