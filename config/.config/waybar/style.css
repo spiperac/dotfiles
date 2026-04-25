@@ -1,6 +1,6 @@
 * {
     font-family: "Noto Sans", "Font Awesome 7 Brands", "Font Awesome 7 Free Solid", monospace;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     border-radius: 0;
 }
@@ -17,7 +17,6 @@ window#waybar {
 
 #workspaces button {
     padding: 0 6px;
-    font-size: 20px;
 }
 
 #workspaces button { color: #666; }

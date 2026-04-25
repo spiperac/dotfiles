@@ -14,6 +14,8 @@ set $fmenu fuzzel
 default_border none
 gaps inner 10
 gaps outer 5
+workspace 2 gaps inner 0
+workspace 2 gaps outer 0
 
 ### Input
 input "type:keyboard" {
@@ -24,8 +26,9 @@ input "type:keyboard" {
 exec waybar
 exec_always mako
 
-### Output (wallpaper)
+### Output (wallpaper and scaling)
 output * bg /home/strah/.config/assets/wallpaper.jpg fill
+output "eDP-1" scale 1.25
 
 ### Key bindings
 
@@ -135,3 +138,4 @@ exec swayidle -w \
 
 # App Rules
 for_window [app_id="nemo"] floating enable
+for_window [class="Firefox"] gaps inner 0 outer 0
