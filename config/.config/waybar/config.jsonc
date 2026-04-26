@@ -6,7 +6,7 @@
 
   "modules-left": ["custom/logo", "sway/workspaces"],
   "modules-center": ["clock"],
-  "modules-right": ["custom/weather", "pulseaudio", "custom/network", "battery", "tray"],
+  "modules-right": ["tray", "custom/weather", "pulseaudio", "custom/network", "battery"],
 
   "clock": {
       "format": "{:%H:%M}",
@@ -14,9 +14,9 @@
   },
 
   "sway/workspaces": {
-	  "format": "●",
-	  "format-focused": "●",
-	  "format-urgent": "●"
+    "format": "⬤",
+    "format-focused": "⬤",
+    "format-urgent": "⬤"
 	},
 
   "battery": {
@@ -28,6 +28,13 @@
       "critical": 15
     }
   },
+  
+  "network": {
+      "format-wifi": " {essid}",
+      "format-ethernet": " {ifname}",
+      "format-disconnected": "󰖪 disconnected",
+      "tooltip-format": "{ifname} {ipaddr}/{cidr}"
+  },
 
   "custom/network": {
     "exec": "~/.config/waybar/network.sh",
@@ -38,7 +45,8 @@
 
   "pulseaudio": {
     "format": " {volume}%",
-    "format-muted": " mute"
+    "format-muted": " mute",
+    "on-click": "pwvucontrol"
   },
 
   "tray": {
@@ -52,6 +60,7 @@
   "custom/weather": {
       "exec": "~/scripts/weather.sh",
       "interval": 1800,
-      "return-type": "json"
+      "return-type": "json",
+      "on-click": "~/scripts/weather.sh"
   }
 }
