@@ -1,3 +1,4 @@
+
 {
   "layer": "top",
   "position": "top",
@@ -6,7 +7,7 @@
 
   "modules-left": ["custom/logo", "clock", "custom/weather", "tray"],
   "modules-center": ["sway/workspaces"],
-  "modules-right": [ "idle_inhibitor", "mpd", "pulseaudio", "custom/network", "battery"],
+  "modules-right": [ "pulseaudio", "network", "battery"],
 
   "clock": {
       "format": "{:%H:%M}",
@@ -28,35 +29,13 @@
       "critical": 15
     }
   },
-
-  "mpd": {
-    "format": "{stateIcon} {title}",
-    "tooltip-format": "{album} - {artist} - {title}",
-    "max-length": 10,
-    "on-click": "mpc toggle",
-    "on-click-right": "mpc next",
-    "state-icons": {
-        "paused": "",
-        "playing": ""
-    },
-    "format-stopped": "\uf04d"
-  },
   
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-        "activated": "\uf06e",
-        "deactivated": "\uf070"
-    }
-},
-
   "network": {
       "format-wifi": " {essid}",
-      "format-ethernet": "\uf796 {ifname}",
+      "format-ethernet": " {ifname}",
       "format-disconnected": "󰖪 disconnected",
       "tooltip-format": "{ifname} {ipaddr}/{cidr}",
-      "max-length": 10,
-      "on-click": "nm-connection-editor"
+      "max-length": 10
   },
 
   "custom/network": {
@@ -69,7 +48,7 @@
   "pulseaudio": {
     "format": " {volume}%",
     "format-muted": " mute",
-    "on-click": "pavucontrol"
+    "on-click": "pwvucontrol"
   },
 
   "tray": {

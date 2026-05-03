@@ -31,6 +31,7 @@ window#waybar {
 /* Right modules */
 #custom-weather,
 #pulseaudio,
+#mpd,
 #custom-network,
 #network,
 #battery,

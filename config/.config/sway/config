@@ -24,11 +24,17 @@ input "type:keyboard" {
 
 ### Autostart
 exec waybar
+exec nm-applet
+exec blueman-applet
 exec_always mako
 
 ### Output (wallpaper and scaling)
-output * bg /home/strah/.config/assets/wallpaper.jpg fill
+
+# t480s
 output "eDP-1" scale 1.25
+
+# x1nano
+output "Chimei Innolux Corporation 0x1301 Unknown" scale 1.6
 
 ### Key bindings
 
@@ -36,6 +42,7 @@ output "eDP-1" scale 1.25
 bindsym $mod+Return exec $term
 bindsym $mod+d exec $menu
 bindsym $mod+r exec $fmenu
+bindsym $mod+m exec ~/scripts/music.sh
 bindsym $mod+Shift+l exec $lock 
 bindsym $mod+Shift+q kill
 bindsym $mod+Shift+c reload
@@ -73,6 +80,9 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+
 
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
@@ -127,15 +137,28 @@ bindsym --locked XF86MonBrightnessUp exec /usr/bin/backlight incr 5
 # Screenshot
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png | wl-copy
 
+# Clipboard history
+exec_always pkill wl-paste; wl-paste --watch cliphist store
+bindsym $mod+shift+v exec cliphist list | fuzzel --dmenu --with-nth 2 | cliphist decode | wl-copy
+
 # Mouse modifier
 floating_modifier $mod normal
 
 ### Idle configuration
 exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' 
-          #before-sleep 'swaylock -f -c 000000'
+    timeout 300 'swaylock -f -c 000000' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f -c 000000'
+
+bindswitch lid:on exec swaylock -f -c 000000
 
 # App Rules
 for_window [app_id="nemo"] floating enable
+for_window [app_id="io.bassi.Amberol"] floating enable
+for_window [app_id="pwvucontrol"] floating enable
+for_window [app_id="nm-connection-editor"] floating enable
 for_window [class="Firefox"] gaps inner 0 outer 0
+
+# fix for nixos
+exec dbus-update-activation-environment --all
