@@ -1,0 +1,44 @@
+---
+- name: WSL setup
+  hosts: localhost
+  connection: local
+  become: true
+  become_method: sudo
+  tasks:
+    - name: install packages
+      ansible.builtin.apt:
+        name:
+          # terminal / shell
+          - zsh
+          - tmux
+          - fzf
+          - alacritty
+          # editors
+          - neovim
+          - vim
+          # email
+          - notmuch
+          - isync
+          # dev tools
+          - git
+          - ripgrep
+          - stow
+          - pkg-config
+          - golang
+          - python3
+          # security / passwords
+          - pass
+          - sshpass
+          # fonts
+          - fonts-firacode
+          - fonts-noto
+          - fonts-noto-color-emoji 
+          # misc
+          - fastfetch
+        state: present
+        update_cache: yes
+
+    - name: set zsh as default shell
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        shell: /usr/bin/zsh
