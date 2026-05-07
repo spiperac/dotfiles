@@ -5,9 +5,20 @@
 set -euo pipefail
 
 # ── Config ────────────────────────────────────────────────────────────────────
-NAS_MUSIC="/mnt/media/music"
+NAS_MUSIC="/mnt/NAS/multimedia/music"
 LOCAL_MUSIC="$HOME/Music"
 # ──────────────────────────────────────────────────────────────────────────────
+
+case "$(uname)" in
+    FreeBSD|OpenBSD|NetBSD|Darwin)
+        du_bytes() { du -sk "$1" 2>/dev/null | awk '{print $1 * 1024}'; }
+        fmt_bytes() { gnumfmt --to=iec "$1" 2>/dev/null || echo "${1} bytes"; }
+        ;;
+    *)
+        du_bytes() { du -sb "$1" 2>/dev/null | cut -f1; }
+        fmt_bytes() { numfmt --to=iec "$1" 2>/dev/null || echo "${1} bytes"; }
+        ;;
+esac
 
 # Colours
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
@@ -98,9 +109,9 @@ mode_albums() {
     echo ""
     local total_bytes
     total_bytes=$(echo "$selected" | while read -r item; do
-        du -sb "$NAS_MUSIC/$item" 2>/dev/null | cut -f1
+        du_bytes "$NAS_MUSIC/$item"
     done | awk '{s+=$1} END {print s}')
-    info "Total to sync: $(numfmt --to=iec "$total_bytes" 2>/dev/null || echo "${total_bytes} bytes")"
+    info "Total to sync: $(fmt_bytes "$total_bytes")"
 
     echo ""
     echo -e "  ${BOLD}[d]${RESET} Dry run (preview)   ${BOLD}[s]${RESET} Sync now   ${BOLD}[q]${RESET} Quit"

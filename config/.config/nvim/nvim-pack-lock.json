@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "black-metal-theme-neovim": {
+      "rev": "d7ce1c4b9196b3b34e70ca4fa9af108bb4207818",
+      "src": "https://github.com/metalelf0/black-metal-theme-neovim"
+    },
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"

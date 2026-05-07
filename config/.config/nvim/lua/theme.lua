@@ -2,11 +2,14 @@
 -- Theme settings
 -- -----------------
 vim.pack.add({
-  "https://github.com/vague2k/vague.nvim", -- Vague theme
+  "https://github.com/metalelf0/black-metal-theme-neovim",
 })
 
-require("vague").setup({})
-vim.cmd("colorscheme vague")
+require("black-metal").setup({
+  -- optional configuration here
+})
+require("black-metal").load()
+vim.cmd("colorscheme bathory")
 
 -- Highlight active winbar
 vim.opt.guicursor = "n-v-c:block-blinkwait500-blinkon500-blinkoff500"
