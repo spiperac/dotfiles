@@ -15,7 +15,7 @@
       terra-release
     creates: /etc/yum.repos.d/terra.repo
 
-- name: Pin Terra to an explicit package set
+- name: Pin Terra packages
   community.general.ini_file:
     path: /etc/yum.repos.d/terra.repo
     section: terra
@@ -24,7 +24,7 @@
     mode: "0644"
     no_extra_spaces: true
 
-- name: Disable Terra's optional sub-repositories
+- name: Disable Terra sub-repositories
   ansible.builtin.command:
     cmd: "dnf config-manager setopt {{ item }}.enabled=0"
   loop:
@@ -34,7 +34,7 @@
   changed_when: false
   failed_when: false
 
-- name: Add the upstream Kubernetes repository
+- name: Add Kubernetes repository
   ansible.builtin.yum_repository:
     name: kubernetes
     description: "Kubernetes {{ kubernetes_release }}"
@@ -49,7 +49,7 @@
     name: flatpak
     state: present
 
-- name: Add the Flathub remote
+- name: Add Flathub remote
   community.general.flatpak_remote:
     name: flathub
     state: present

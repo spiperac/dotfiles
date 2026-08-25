@@ -5,25 +5,25 @@
   gather_facts: true
 
   pre_tasks:
-    - name: Refuse to run on anything but Fedora
+    - name: Check distribution
       ansible.builtin.assert:
         that:
           - ansible_distribution == "Fedora"
         fail_msg: "This playbook targets Fedora only (found {{ ansible_distribution }})."
       tags: always
 
-    - name: Resolve the target user
+    - name: Resolve user
       ansible.builtin.set_fact:
         dotfiles_user: "{{ lookup('env', 'SUDO_USER') or lookup('env', 'USER') }}"
       tags: always
 
-    - name: Look up the target user
+    - name: Read passwd entry
       ansible.builtin.getent:
         database: passwd
         key: "{{ dotfiles_user }}"
       tags: always
 
-    - name: Record home directory and uid
+    - name: Set home and uid
       ansible.builtin.set_fact:
         dotfiles_home: "{{ getent_passwd[dotfiles_user][4] }}"
         dotfiles_uid: "{{ getent_passwd[dotfiles_user][1] }}"
@@ -49,7 +49,7 @@
       become: false
       tags: [dotfiles]
 
-    - name: List the files the config package will link
+    - name: Find config files
       ansible.builtin.find:
         paths: "{{ dotfiles_repo }}/config"
         recurse: true
@@ -59,7 +59,7 @@
       register: stow_files
       tags: [dotfiles]
 
-    - name: Check for pre-existing files in $HOME
+    - name: Stat target paths
       ansible.builtin.stat:
         path: "{{ dotfiles_home }}/{{ item.path | relpath(dotfiles_repo ~ '/config') }}"
       loop: "{{ stow_files.files | rejectattr('path', 'search', dotfiles_stow_skip_re) | list }}"
@@ -69,7 +69,7 @@
       register: home_targets
       tags: [dotfiles]
 
-    - name: Move conflicting real files aside so stow can link cleanly
+    - name: Back up conflicting files
       ansible.builtin.command:
         cmd: "mv -n {{ item.stat.path }} {{ item.stat.path }}.pre-stow"
       loop: "{{ home_targets.results }}"
@@ -82,7 +82,7 @@
       changed_when: true
       tags: [dotfiles]
 
-    - name: Stow the config package
+    - name: Stow config
       ansible.builtin.command:
         cmd: >-
           stow --verbose --restow

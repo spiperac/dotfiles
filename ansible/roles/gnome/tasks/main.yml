@@ -4,7 +4,7 @@
     name: "{{ gnome_packages }}"
     state: present
 
-- name: Apply GNOME settings
+- name: Load dconf settings
   ansible.builtin.shell:
     cmd: "dconf load / < {{ role_path }}/files/dconf.ini"
   become: false

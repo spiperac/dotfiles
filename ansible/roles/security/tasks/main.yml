@@ -4,7 +4,7 @@
     name: "{{ security_packages }}"
     state: present
 
-- name: Allow packet capture without root
+- name: Add user to wireshark group
   ansible.builtin.user:
     name: "{{ dotfiles_user }}"
     groups: wireshark
