@@ -1,0 +1,12 @@
+---
+dotfiles_repo: "{{ playbook_dir | dirname }}"
+
+dotfiles_stow_ignore:
+  - sway
+  - waybar
+  - fuzzel
+  - mako
+  - assets
+
+dotfiles_stow_ignore_re: "^({{ dotfiles_stow_ignore | join('|') }})$"
+dotfiles_stow_skip_re: "/\\.config/({{ dotfiles_stow_ignore | join('|') }})/"

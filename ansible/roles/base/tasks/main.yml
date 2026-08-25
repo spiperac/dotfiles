@@ -1,0 +1,10 @@
+---
+- name: Install base packages
+  ansible.builtin.dnf5:
+    name: "{{ base_packages }}"
+    state: present
+
+- name: Set zsh as the login shell
+  ansible.builtin.user:
+    name: "{{ dotfiles_user }}"
+    shell: "{{ base_login_shell }}"

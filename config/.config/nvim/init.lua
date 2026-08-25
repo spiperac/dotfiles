@@ -12,7 +12,7 @@ require("status")
 
 -- Plugins
 require("plugins.mini")
+require("plugins.claudecode")
 require("plugins.treesitter")
 require("plugins.neogit")
 require("plugins.debuggers")
-require("plugins.spire")

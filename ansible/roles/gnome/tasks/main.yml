@@ -1,0 +1,14 @@
+---
+- name: Install GNOME packages
+  ansible.builtin.dnf5:
+    name: "{{ gnome_packages }}"
+    state: present
+
+- name: Apply GNOME settings
+  ansible.builtin.shell:
+    cmd: "dconf load / < {{ role_path }}/files/dconf.ini"
+  become: false
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ dotfiles_uid }}"
+    DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ dotfiles_uid }}/bus"
+  changed_when: true

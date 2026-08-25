@@ -1,0 +1,11 @@
+---
+- name: Install security packages
+  ansible.builtin.dnf5:
+    name: "{{ security_packages }}"
+    state: present
+
+- name: Allow packet capture without root
+  ansible.builtin.user:
+    name: "{{ dotfiles_user }}"
+    groups: wireshark
+    append: true

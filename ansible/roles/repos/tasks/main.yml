@@ -1,0 +1,57 @@
+---
+- name: Install RPM Fusion (free + nonfree)
+  ansible.builtin.dnf5:
+    name:
+      - "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      - "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+    state: present
+    disable_gpg_check: true
+
+- name: Install terra-release
+  ansible.builtin.command:
+    cmd: >-
+      dnf -y install --nogpgcheck
+      --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever'
+      terra-release
+    creates: /etc/yum.repos.d/terra.repo
+
+- name: Pin Terra to an explicit package set
+  community.general.ini_file:
+    path: /etc/yum.repos.d/terra.repo
+    section: terra
+    option: includepkgs
+    value: "{{ terra_includepkgs }}"
+    mode: "0644"
+    no_extra_spaces: true
+
+- name: Disable Terra's optional sub-repositories
+  ansible.builtin.command:
+    cmd: "dnf config-manager setopt {{ item }}.enabled=0"
+  loop:
+    - terra-extras
+    - terra-mesa
+    - terra-nvidia
+  changed_when: false
+  failed_when: false
+
+- name: Add the upstream Kubernetes repository
+  ansible.builtin.yum_repository:
+    name: kubernetes
+    description: "Kubernetes {{ kubernetes_release }}"
+    baseurl: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_release }}/rpm/"
+    gpgcheck: true
+    gpgkey: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_release }}/rpm/repodata/repomd.xml.key"
+    includepkgs: kubectl
+    enabled: true
+
+- name: Install flatpak
+  ansible.builtin.dnf5:
+    name: flatpak
+    state: present
+
+- name: Add the Flathub remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    method: system
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo

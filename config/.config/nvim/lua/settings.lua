@@ -50,7 +50,7 @@ vim.o.winborder = 'rounded'
 vim.o.scrolloff = 8
 vim.o.sidescrolloff = 8
 vim.o.showmatch = true
-vim.o.signcolumn = "yes"
+vim.o.signcolumn = "no"
 vim.opt.guicursor = "n-v-c:block-blinkwait500-blinkon500-blinkoff500"
 
 -- Netrw settings

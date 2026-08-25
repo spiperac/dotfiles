@@ -194,14 +194,26 @@
   (setq initial-buffer-choice 'dashboard-open))
 
 ;; Theme
-(load-theme 'vague t)
+;; (load-theme 'vague t)
+(use-package srcery-theme
+  :ensure t
+  :config
+  (load-theme 'srcery t))
 
 (defun spiperac/toggle-theme ()
-  "Toggle between vague dark and light themes."
+  "Toggle between srcery and modus-operandi-tinted."
   (interactive)
-  (if (custom-theme-enabled-p 'vague)
-      (progn (disable-theme 'vague)       (load-theme 'vague-light t))
-    (progn   (disable-theme 'vague-light) (load-theme 'vague t))))
+  (if (custom-theme-enabled-p 'srcery)
+      (progn (disable-theme 'srcery)                  (load-theme 'modus-operandi-tinted t))
+    (progn   (disable-theme 'modus-operandi-tinted)   (load-theme 'srcery t))))
+
+;; Previous vague toggle, kept for reference:
+;; (defun spiperac/toggle-theme ()
+;;   "Toggle between vague dark and light themes."
+;;   (interactive)
+;;   (if (custom-theme-enabled-p 'vague)
+;;       (progn (disable-theme 'vague)       (load-theme 'vague-light t))
+;;     (progn   (disable-theme 'vague-light) (load-theme 'vague t))))
 
 (global-set-key (kbd "C-c t")    #'spiperac/toggle-theme)
 (global-set-key (kbd "<escape>") #'keyboard-escape-quit)
@@ -326,10 +338,6 @@
   (define-key my-leader-map (kbd "o f") #'org-roam-node-find)
   (define-key my-leader-map (kbd "o t") #'org-roam-tag-add)
   (define-key my-leader-map (kbd "o i") #'org-id-get-create)
-  ;; Subsonic music keybinds
-  (define-key my-leader-map (kbd "m m") #'subsonic)
-  (define-key my-leader-map (kbd "m s") #'subsonic-search)
-  (define-key my-leader-map (kbd "m p") #'subsonic-toggle-playing)
   ;; Tabs keybinds
   (define-key my-leader-map (kbd "t n") #'tab-bar-new-tab)
   (define-key my-leader-map (kbd "t q") #'tab-bar-close-tab)
@@ -586,23 +594,6 @@
   (org-download-image-dir "./images")
   (org-download-method 'directory))
 
-;; -- Subsonic --
-
-(use-package subsonic
-  :commands (subsonic subsonic-search)
-  :custom
-  (subsonic-host (string-trim (shell-command-to-string "pass subsonic/host")))
-  (subsonic-ssl nil)
-  (subsonic-enable-art t)
-  :config
-  (dolist (entry `((,subsonic-artist-mode-map     . subsonic-open-album)
-                   (,subsonic-album-mode-map      . subsonic-open-tracks)
-                   (,subsonic-album-type-mode-map . subsonic-open-tracks)
-                   (,subsonic-tracks-mode-map     . subsonic-play-tracks)
-                   (,subsonic-search-mode-map     . subsonic-open-search-result)))
-    (define-key      (car entry) (kbd "RET") (cdr entry))
-    (evil-define-key 'normal (car entry) (kbd "RET") (cdr entry))))
-
 ;; -- Email - Notmuch --
 
 (require 'notmuch)
@@ -670,7 +661,6 @@
 
 ;; -- Blog --
 
-;; Load org-grimoire from local project
 (use-package org-grimoire
   :ensure t)
 
@@ -684,10 +674,11 @@
   :author "sp"
   :site-title "strah.netspace"
   :description "bits and stuff"
-  :theme "strah"
+  :theme "srcery"
   :pagination t
   :reading-time t
   :per-page 8
+  :index-exclude-tags '("ctf")
   )
 
 (defun blog/compress-images ()
@@ -762,7 +753,7 @@
   (delete-region (point-min) (point-max))
   (yank))
 
-(defun create-note (filename)
+(defun create-markdown-note (filename)
   "Create and open a new note in ~/Vault/notes/."
   (interactive "sNote name: ")
   (find-file (concat (expand-file-name "~/Vault/notes/")

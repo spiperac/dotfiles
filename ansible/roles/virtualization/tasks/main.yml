@@ -1,0 +1,44 @@
+---
+- name: Install virtualization packages
+  ansible.builtin.dnf5:
+    name: "{{ virtualization_packages }}"
+    state: present
+
+- name: Enable libvirtd
+  ansible.builtin.systemd_service:
+    name: libvirtd.service
+    enabled: true
+    state: started
+
+- name: Add the user to the libvirt group
+  ansible.builtin.user:
+    name: "{{ dotfiles_user }}"
+    groups: libvirt
+    append: true
+
+- name: Start the default network
+  community.libvirt.virt_net:
+    name: default
+    state: active
+    autostart: true
+
+- name: Create the VM image directory
+  ansible.builtin.file:
+    path: "{{ dotfiles_home }}/{{ virtualization_pool_dir }}"
+    state: directory
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user }}"
+    mode: "0755"
+
+- name: Define a storage pool for it
+  community.libvirt.virt_pool:
+    name: "{{ virtualization_pool_dir | lower }}"
+    state: active
+    autostart: true
+    xml: |
+      <pool type='dir'>
+        <name>{{ virtualization_pool_dir | lower }}</name>
+        <target>
+          <path>{{ dotfiles_home }}/{{ virtualization_pool_dir }}</path>
+        </target>
+      </pool>

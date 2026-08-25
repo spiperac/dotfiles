@@ -1,45 +1,49 @@
 # Dotfiles
 
-This repository contains my personal configuration files and scripts to set up my Linux development environment.
+Personal configuration files and the Ansible provisioning for my Fedora Workstation (GNOME) setup.
 
 ![screenshot](./screenshot.png)
 
-## Requirements
+## Layout
 
-- **Package Manager**: 
-  - DNF supported.
-  - PKG
-- **stow**
-- **Ansible**
-- **Bash**
-
+```
+ansible/            provisioning (site.yml + roles)
+config/             stow package
+scripts/            helper scripts
+```
 
 ## Installation
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/spiperac/dotfiles.git
-   cd dotfiles
-   ```
+```bash
+git clone https://github.com/spiperac/dotfiles.git
+cd dotfiles
+./setup.sh
+```
 
-2. Make the setup script executable:
-   ```bash
-   chmod +x setup.sh
-   ```
+Log out and back in afterwards for the zsh login shell and the `libvirt`/`wireshark` group membership.
 
-3. Run the setup script:
-   ```bash
-   ./setup.sh
-   ```
+## Roles
 
-   This will:
-   - Install required dependencies.
-   - Run *stow* to sort out dot files.
-   - Setup tmux and zsh.
+| Role | Contents |
+| --- | --- |
+| `repos` | RPM Fusion, Terra (pinned), Kubernetes, Flathub |
+| `base` | toolchain, CLI utilities, zsh, tmux, neovim, ghostty, foot |
+| `gnome` | GNOME packages, fonts, dconf settings |
+| `apps` | mpv, gimp, zathura, discord, bitwarden, obsidian |
+| `development` | python, go, node, rust, clang, emacs, zed, dbeaver |
+| `devops` | podman, kubectl, helm, opentofu, trivy, checkov, doctl |
+| `security` | openvpn, wireshark |
+| `pentest` | nmap, ffuf, gobuster, hashcat, john, ghidra, burp, seclists, exploitdb, ligolo-ng |
+| `virtualization` | libvirt/KVM, virt-manager, virtiofs, SPICE folder sharing |
 
-4. Log out and log back in if the default shell is changed to Zsh.
+Run a single role:
+
+```bash
+cd ansible && ansible-playbook site.yml -K --tags pentest
+```
 
 ## Notes
 
-- These are my personal configuration files and are not intended for general use.
-- Existing dotfiles in the home directory will be replaced during setup.
+- Fedora only. The playbook refuses to run elsewhere.
+- Existing dotfiles in `$HOME` are moved to `*.pre-stow` before stowing.
+- `wsl-setup.yml` and `freebsd-setup.yml` are unrelated legacy playbooks.

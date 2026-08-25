@@ -1,0 +1,15 @@
+---
+- name: Install development packages
+  ansible.builtin.dnf5:
+    name: "{{ development_packages }}"
+    state: present
+
+- name: Install development tools with pipx
+  community.general.pipx:
+    name: "{{ item }}"
+    state: install
+  become: false
+  environment:
+    PIPX_HOME: "{{ dotfiles_home }}/.local/pipx"
+    PIPX_BIN_DIR: "{{ dotfiles_home }}/.local/bin"
+  loop: "{{ development_pipx }}"

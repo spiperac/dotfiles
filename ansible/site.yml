@@ -1,0 +1,96 @@
+---
+- name: Provision Fedora workstation
+  hosts: localhost
+  become: true
+  gather_facts: true
+
+  pre_tasks:
+    - name: Refuse to run on anything but Fedora
+      ansible.builtin.assert:
+        that:
+          - ansible_distribution == "Fedora"
+        fail_msg: "This playbook targets Fedora only (found {{ ansible_distribution }})."
+      tags: always
+
+    - name: Resolve the target user
+      ansible.builtin.set_fact:
+        dotfiles_user: "{{ lookup('env', 'SUDO_USER') or lookup('env', 'USER') }}"
+      tags: always
+
+    - name: Look up the target user
+      ansible.builtin.getent:
+        database: passwd
+        key: "{{ dotfiles_user }}"
+      tags: always
+
+    - name: Record home directory and uid
+      ansible.builtin.set_fact:
+        dotfiles_home: "{{ getent_passwd[dotfiles_user][4] }}"
+        dotfiles_uid: "{{ getent_passwd[dotfiles_user][1] }}"
+      tags: always
+
+  roles:
+    - { role: repos, tags: [repos] }
+    - { role: base, tags: [base] }
+    - { role: gnome, tags: [gnome] }
+    - { role: apps, tags: [apps] }
+    - { role: development, tags: [development, dev] }
+    - { role: devops, tags: [devops] }
+    - { role: security, tags: [security] }
+    - { role: pentest, tags: [pentest] }
+    - { role: virtualization, tags: [virtualization, virt] }
+
+  post_tasks:
+    - name: Ensure ~/.config exists
+      ansible.builtin.file:
+        path: "{{ dotfiles_home }}/.config"
+        state: directory
+        mode: "0755"
+      become: false
+      tags: [dotfiles]
+
+    - name: List the files the config package will link
+      ansible.builtin.find:
+        paths: "{{ dotfiles_repo }}/config"
+        recurse: true
+        hidden: true
+        file_type: file
+      become: false
+      register: stow_files
+      tags: [dotfiles]
+
+    - name: Check for pre-existing files in $HOME
+      ansible.builtin.stat:
+        path: "{{ dotfiles_home }}/{{ item.path | relpath(dotfiles_repo ~ '/config') }}"
+      loop: "{{ stow_files.files | rejectattr('path', 'search', dotfiles_stow_skip_re) | list }}"
+      loop_control:
+        label: "{{ item.path | relpath(dotfiles_repo ~ '/config') }}"
+      become: false
+      register: home_targets
+      tags: [dotfiles]
+
+    - name: Move conflicting real files aside so stow can link cleanly
+      ansible.builtin.command:
+        cmd: "mv -n {{ item.stat.path }} {{ item.stat.path }}.pre-stow"
+      loop: "{{ home_targets.results }}"
+      loop_control:
+        label: "{{ item.stat.path | default('-') }}"
+      when:
+        - item.stat.exists | default(false)
+        - not (item.stat.islnk | default(false))
+      become: false
+      changed_when: true
+      tags: [dotfiles]
+
+    - name: Stow the config package
+      ansible.builtin.command:
+        cmd: >-
+          stow --verbose --restow
+          --target={{ dotfiles_home }}
+          --ignore={{ dotfiles_stow_ignore_re | quote }}
+          config
+        chdir: "{{ dotfiles_repo }}"
+      become: false
+      register: stow_run
+      changed_when: "'LINK:' in stow_run.stderr or 'UNLINK:' in stow_run.stderr"
+      tags: [dotfiles]

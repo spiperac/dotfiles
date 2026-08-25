@@ -4,9 +4,9 @@
   "height": 34,
   "spacing": 6,
 
-  "modules-left": ["custom/logo", "clock", "custom/weather", "tray"],
-  "modules-center": ["sway/workspaces"],
-  "modules-right": [ "idle_inhibitor", "mpd", "pulseaudio", "custom/network", "battery"],
+  "modules-left": ["custom/logo", "sway/workspaces"],
+  "modules-center": ["clock"],
+  "modules-right": [ "custom/weather", "tray", "idle_inhibitor", "mpd", "pulseaudio", "network", "battery"],
 
   "clock": {
       "format": "{:%H:%M}",
@@ -69,7 +69,7 @@
   "pulseaudio": {
     "format": " {volume}%",
     "format-muted": " mute",
-    "on-click": "pavucontrol"
+    "on-click": "pwvucontrol"
   },
 
   "tray": {

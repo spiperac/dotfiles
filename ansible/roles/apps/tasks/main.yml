@@ -1,0 +1,12 @@
+---
+- name: Install applications
+  ansible.builtin.dnf5:
+    name: "{{ apps_packages }}"
+    state: present
+
+- name: Install application flatpaks
+  community.general.flatpak:
+    name: "{{ apps_flatpaks }}"
+    state: present
+    method: system
+    remote: flathub

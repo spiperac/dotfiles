@@ -2,11 +2,42 @@
 -- Theme settings
 -- -----------------
 vim.pack.add({
-  "https://github.com/vague2k/vague.nvim", -- Vague theme
+  "https://github.com/rebelot/kanagawa.nvim",
 })
 
-require("vague").setup({})
-vim.cmd("colorscheme vague")
+vim.pack.add({
+  { src = 'https://github.com/srcery-colors/srcery-vim' },
+})
+
+require("kanagawa").setup({
+  -- optional configuration here
+  theme = "kanagawa-dragon"
+})
+--require("kanagawa").load()
+--vim.cmd("colorscheme kanagawa-dragon")
+
+vim.cmd("colorscheme srcery")
+
+local bg_groups = {
+  -- Core editor
+  "Normal", "NormalNC", "EndOfBuffer",
+  "LineNr", "CursorLineNr", "SignColumn", "FoldColumn",
+  "CursorLine", "CursorColumn",
+
+  -- Floating windows / popups
+  "NormalFloat", "FloatBorder", "FloatTitle",
+  "Pmenu", "WinBar", "WinBarNC", "MsgArea",
+
+  -- mini.nvim
+  "MiniFilesNormal", "MiniFilesBorder", "MiniFilesTitle", "MiniFilesTitleFocused",
+  "MiniPickNormal", "MiniPickBorder", "MiniPickPrompt",
+}
+
+for _, group in ipairs(bg_groups) do
+  local hl = vim.api.nvim_get_hl(0, { name = group })
+  hl.bg, hl.ctermbg = nil, nil
+  vim.api.nvim_set_hl(0, group, hl)
+end
 
 -- Highlight active winbar
 vim.opt.guicursor = "n-v-c:block-blinkwait500-blinkon500-blinkoff500"

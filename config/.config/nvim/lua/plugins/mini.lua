@@ -2,7 +2,7 @@
 
 -- Mini.nvim
 vim.pack.add({
- { src = "https://github.com/echasnovski/mini.nvim" },
+  { src = "https://github.com/echasnovski/mini.nvim" },
 })
 
 require("mini.pairs").setup()
@@ -13,6 +13,16 @@ require("mini.icons").setup()
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 map("n", "<leader>e", ':lua require("mini.files").open()<CR>', vim.tbl_extend("force", opts, { desc = "File Explorer" }))
+
+-- Pickers
+require("mini.pick").setup({
+  mappings = {
+    move_down = '<C-j>',
+    move_up = '<C-k>',
+  }
+})
+vim.keymap.set('n', '<leader>sf', MiniPick.builtin.files)
+vim.keymap.set('n', '<leader>sg', MiniPick.builtin.grep_live)
 
 -- Mini Snippets
 local snippets = require("mini.snippets")
