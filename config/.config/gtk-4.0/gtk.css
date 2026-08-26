@@ -41,7 +41,6 @@ headerbar windowcontrols button:not(.suggested-action):not(.destructive-action) 
   background-size: 17px;
   background-repeat: no-repeat;
   background-position: center;
-  -gtk-icon-size: 0px;
 }
 
 /* Close - red */
