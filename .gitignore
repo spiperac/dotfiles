@@ -27,6 +27,8 @@ config/.emacs.d/projectile-bookmarks.eld
 config/.emacs.d/recentf
 config/.emacs.d/transient/
 config/.emacs.d/tree-sitter/
+config/.emacs.d/places
+config/.config/gtk-3.0/bookmarks
 
 *~undo-tree~
 \#*#
