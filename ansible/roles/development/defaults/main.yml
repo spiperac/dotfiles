@@ -22,6 +22,4 @@ development_packages:
   - rust-analyzer
   - zed
   - dbeaver-bin
-
-development_pipx:
-  - pyright
+development_pipx: []

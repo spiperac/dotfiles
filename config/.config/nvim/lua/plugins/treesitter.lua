@@ -1,3 +1,9 @@
+vim.pack.add({
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "master" },
+})
+
 require("nvim-treesitter").setup {
   --ensure_installed = { "python", "rust", "lua", "cpp", "terraform", "php" },
   -- auto_install = true,

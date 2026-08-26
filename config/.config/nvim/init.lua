@@ -7,6 +7,7 @@ vim.g.maplocalleader = " "
 require("theme")
 require("settings")
 require("keymaps")
+require("plugins.mason")
 require("lsp")
 require("status")
 
