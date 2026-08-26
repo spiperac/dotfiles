@@ -1,0 +1,129 @@
+/* SSD windows (Emacs, Ghostty, etc. - drawn by Mutter) */
+window.ssd headerbar.titlebar button.titlebutton,
+window.ssd .titlebar button.titlebutton {
+  margin: 0px;
+  padding: 0px;
+  min-height: 16px;
+  min-width: 16px;
+  border: none;
+  border-color: transparent;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  color: transparent;
+  -gtk-icon-shadow: none;
+}
+
+window.ssd headerbar.titlebar,
+window.ssd .titlebar {
+  border-spacing: 8px;
+}
+
+window.ssd headerbar.titlebar button.titlebutton image,
+window.ssd .titlebar button.titlebutton image {
+  border-radius: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-size: 17px;
+  background-repeat: no-repeat;
+  background-position: center;
+  -gtk-icon-size: 0px;
+}
+
+/* Close - red */
+window.ssd .titlebar button.titlebutton.close image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff605c' stroke='%23e0443e' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+window.ssd .titlebar button.titlebutton.close:hover image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff605c' stroke='%23e0443e' stroke-width='0.5'/%3E%3Cpath d='M5.5 5.5 L10.5 10.5 M10.5 5.5 L5.5 10.5' stroke='%234d0000' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Minimize - yellow */
+window.ssd .titlebar button.titlebutton.minimize image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffbd44' stroke='%23dfaa3c' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+window.ssd .titlebar button.titlebutton.minimize:hover image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffbd44' stroke='%23dfaa3c' stroke-width='0.5'/%3E%3Cpath d='M5 8 L11 8' stroke='%23995700' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Maximize - green */
+window.ssd .titlebar button.titlebutton.maximize image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%2300ca4e' stroke='%2300b244' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+window.ssd .titlebar button.titlebutton.maximize:hover image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%2300ca4e' stroke='%2300b244' stroke-width='0.5'/%3E%3Cpath d='M5.5 8 L8 5.5 L10.5 8 M8 5.5 L8 11' stroke='%23006600' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+}
+
+/* Backdrop (unfocused) - grey */
+window.ssd .titlebar button.titlebutton.close:backdrop image,
+window.ssd .titlebar button.titlebutton.maximize:backdrop image,
+window.ssd .titlebar button.titlebutton.minimize:backdrop image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23808080' stroke='%23707070' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* CSD windows (non-SSD GTK3 apps) */
+headerbar.titlebar button.titlebutton,
+.titlebar button.titlebutton {
+  margin: 0px;
+  padding: 0px;
+  min-height: 16px;
+  min-width: 16px;
+  border: none;
+  border-color: transparent;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  color: transparent;
+  -gtk-icon-shadow: none;
+}
+
+headerbar.titlebar button.titlebutton image,
+.titlebar button.titlebutton image {
+  border-radius: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-size: 17px;
+  background-repeat: no-repeat;
+  background-position: center;
+  -gtk-icon-size: 0px;
+}
+
+headerbar.titlebar button.titlebutton.close image,
+.titlebar button.titlebutton.close image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff605c' stroke='%23e0443e' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+headerbar.titlebar button.titlebutton.close:hover image,
+.titlebar button.titlebutton.close:hover image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff605c' stroke='%23e0443e' stroke-width='0.5'/%3E%3Cpath d='M5.5 5.5 L10.5 10.5 M10.5 5.5 L5.5 10.5' stroke='%234d0000' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+headerbar.titlebar button.titlebutton.minimize image,
+.titlebar button.titlebutton.minimize image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffbd44' stroke='%23dfaa3c' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+headerbar.titlebar button.titlebutton.minimize:hover image,
+.titlebar button.titlebutton.minimize:hover image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffbd44' stroke='%23dfaa3c' stroke-width='0.5'/%3E%3Cpath d='M5 8 L11 8' stroke='%23995700' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+headerbar.titlebar button.titlebutton.maximize image,
+.titlebar button.titlebutton.maximize image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%2300ca4e' stroke='%2300b244' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+headerbar.titlebar button.titlebutton.maximize:hover image,
+.titlebar button.titlebutton.maximize:hover image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%2300ca4e' stroke='%2300b244' stroke-width='0.5'/%3E%3Cpath d='M5.5 8 L8 5.5 L10.5 8 M8 5.5 L8 11' stroke='%23006600' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+}
+
+headerbar.titlebar button.titlebutton.close:backdrop image,
+headerbar.titlebar button.titlebutton.maximize:backdrop image,
+headerbar.titlebar button.titlebutton.minimize:backdrop image,
+.titlebar button.titlebutton.close:backdrop image,
+.titlebar button.titlebutton.maximize:backdrop image,
+.titlebar button.titlebutton.minimize:backdrop image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23808080' stroke='%23707070' stroke-width='0.5'/%3E%3C/svg%3E");
+}

@@ -1,0 +1,76 @@
+.titlebutton {
+  margin: 0px;
+}
+
+headerbar windowcontrols button:not(.suggested-action):not(.destructive-action) {
+  min-height: 16px;
+  min-width: 16px;
+  padding: 0px;
+}
+
+headerbar windowcontrols {
+  border-spacing: 8px;
+  padding: 0px 6px 0px 9px;
+}
+
+headerbar windowcontrols button.close,
+headerbar windowcontrols button.close:hover,
+headerbar windowcontrols button.close:active,
+headerbar windowcontrols button.close:backdrop,
+headerbar windowcontrols button.maximize,
+headerbar windowcontrols button.maximize:hover,
+headerbar windowcontrols button.maximize:active,
+headerbar windowcontrols button.maximize:backdrop,
+headerbar windowcontrols button.minimize,
+headerbar windowcontrols button.minimize:hover,
+headerbar windowcontrols button.minimize:active,
+headerbar windowcontrols button.minimize:backdrop {
+  border-color: transparent;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  color: transparent;
+}
+
+headerbar windowcontrols button:not(.suggested-action):not(.destructive-action) > image {
+  border-radius: 100%;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-size: 17px;
+  background-repeat: no-repeat;
+  background-position: center;
+  -gtk-icon-size: 0px;
+}
+
+/* Close - red */
+headerbar windowcontrols button.close:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff605c' stroke='%23e0443e' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+headerbar windowcontrols button.close:hover:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ff605c' stroke='%23e0443e' stroke-width='0.5'/%3E%3Cpath d='M5.5 5.5 L10.5 10.5 M10.5 5.5 L5.5 10.5' stroke='%234d0000' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Minimize - yellow */
+headerbar windowcontrols button.minimize:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffbd44' stroke='%23dfaa3c' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+headerbar windowcontrols button.minimize:hover:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23ffbd44' stroke='%23dfaa3c' stroke-width='0.5'/%3E%3Cpath d='M5 8 L11 8' stroke='%23995700' stroke-width='1.2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+/* Maximize - green */
+headerbar windowcontrols button.maximize:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%2300ca4e' stroke='%2300b244' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+headerbar windowcontrols button.maximize:hover:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%2300ca4e' stroke='%2300b244' stroke-width='0.5'/%3E%3Cpath d='M5.5 8 L8 5.5 L10.5 8 M8 5.5 L8 11' stroke='%23006600' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+}
+
+/* Backdrop (unfocused window) - grey dots */
+headerbar windowcontrols button.close:backdrop:not(.suggested-action):not(.destructive-action) > image,
+headerbar windowcontrols button.maximize:backdrop:not(.suggested-action):not(.destructive-action) > image,
+headerbar windowcontrols button.minimize:backdrop:not(.suggested-action):not(.destructive-action) > image {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23808080' stroke='%23707070' stroke-width='0.5'/%3E%3C/svg%3E");
+}
