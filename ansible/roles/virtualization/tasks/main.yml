@@ -15,30 +15,3 @@
     name: "{{ dotfiles_user }}"
     groups: libvirt
     append: true
-
-- name: Start default network
-  community.libvirt.virt_net:
-    name: default
-    state: active
-    autostart: true
-
-- name: Create VM directory
-  ansible.builtin.file:
-    path: "{{ dotfiles_home }}/{{ virtualization_pool_dir }}"
-    state: directory
-    owner: "{{ dotfiles_user }}"
-    group: "{{ dotfiles_user }}"
-    mode: "0755"
-
-- name: Define VM storage pool
-  community.libvirt.virt_pool:
-    name: "{{ virtualization_pool_dir | lower }}"
-    state: active
-    autostart: true
-    xml: |
-      <pool type='dir'>
-        <name>{{ virtualization_pool_dir | lower }}</name>
-        <target>
-          <path>{{ dotfiles_home }}/{{ virtualization_pool_dir }}</path>
-        </target>
-      </pool>

@@ -2,4 +2,4 @@
 terra_includepkgs: >-
   ghostty,zed,ghidra,jetbrainsmono-nerd-fonts,firacode-nerd-fonts,hack-nerd-fonts
 
-kubernetes_release: "v1.34"
+kubernetes_release: "v1.36"

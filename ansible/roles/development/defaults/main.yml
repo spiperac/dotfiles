@@ -13,6 +13,7 @@ development_packages:
   - pandoc-cli
   - ImageMagick
   - emacs
+  - ollama
   - gdb
   - clang
   - clang-tools-extra
