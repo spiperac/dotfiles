@@ -1,0 +1,11 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "kalilinux/rolling"
+  config.vm.hostname = "kali"
+
+  config.vm.provider "libvirt" do |v|
+    v.memory = 4096
+    v.cpus = 4
+    v.video_type = "virtio"
+    v.graphics_type = "spice"
+  end
+end

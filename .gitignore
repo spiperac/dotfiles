@@ -48,3 +48,7 @@ custom.el
 
 # Project-specific files
 .projectile
+
+# vagrant
+.vagrant/
+*.box
