@@ -1,4 +1,4 @@
 ---
-terra_includepkgs: "ghostty*,zed*,ghidra*,*-nerd-fonts"
+terra_includepkgs: "ghostty*,zed*,ghidra*,dbeaver*,*-nerd-fonts"
 
 kubernetes_release: "v1.36"
