@@ -49,39 +49,6 @@
       become: false
       tags: [dotfiles]
 
-    - name: Find config files
-      ansible.builtin.find:
-        paths: "{{ dotfiles_repo }}/config"
-        recurse: true
-        hidden: true
-        file_type: file
-      become: false
-      register: stow_files
-      tags: [dotfiles]
-
-    - name: Stat target paths
-      ansible.builtin.stat:
-        path: "{{ dotfiles_home }}/{{ item.path | relpath(dotfiles_repo ~ '/config') }}"
-      loop: "{{ stow_files.files | rejectattr('path', 'search', dotfiles_stow_skip_re) | list }}"
-      loop_control:
-        label: "{{ item.path | relpath(dotfiles_repo ~ '/config') }}"
-      become: false
-      register: home_targets
-      tags: [dotfiles]
-
-    - name: Back up conflicting files
-      ansible.builtin.command:
-        cmd: "mv -n {{ item.stat.path }} {{ item.stat.path }}.pre-stow"
-      loop: "{{ home_targets.results }}"
-      loop_control:
-        label: "{{ item.stat.path | default('-') }}"
-      when:
-        - item.stat.exists | default(false)
-        - not (item.stat.islnk | default(false))
-      become: false
-      changed_when: true
-      tags: [dotfiles]
-
     - name: Stow config
       ansible.builtin.command:
         cmd: >-

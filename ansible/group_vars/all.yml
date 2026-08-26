@@ -9,4 +9,3 @@ dotfiles_stow_ignore:
   - assets
 
 dotfiles_stow_ignore_re: "^({{ dotfiles_stow_ignore | join('|') }})$"
-dotfiles_stow_skip_re: "/\\.config/({{ dotfiles_stow_ignore | join('|') }})/"
