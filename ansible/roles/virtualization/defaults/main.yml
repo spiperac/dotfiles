@@ -1,5 +1,14 @@
 ---
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
 virtualization_packages:
+  - vagrant
+  - vagrant-libvirt
   - qemu-kvm
   - libvirt
   - libvirt-daemon-kvm

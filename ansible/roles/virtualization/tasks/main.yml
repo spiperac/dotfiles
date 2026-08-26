@@ -15,3 +15,20 @@
     name: "{{ dotfiles_user }}"
     groups: libvirt
     append: true
+
+- name: Install Docker packages
+  ansible.builtin.dnf5:
+    name: "{{ docker_packages }}"
+    state: present
+
+- name: Enable Docker
+  ansible.builtin.systemd_service:
+    name: docker.service
+    enabled: true
+    state: started
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ dotfiles_user }}"
+    groups: docker
+    append: true
