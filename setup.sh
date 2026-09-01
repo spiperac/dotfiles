@@ -3,14 +3,21 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [ ! -r /etc/os-release ] || ! grep -q '^ID=fedora' /etc/os-release; then
-    echo "This bootstrap targets Fedora." >&2
-    exit 1
-fi
+source /etc/os-release
 
-if ! rpm -q ansible >/dev/null 2>&1; then
-    sudo dnf install -y ansible git stow
-fi
+case "$ID" in
+    fedora)
+        command -v ansible >/dev/null 2>&1 || sudo dnf install -y ansible git stow
+        ;;
+    arch)
+        command -v ansible >/dev/null 2>&1 || sudo pacman -Syu --noconfirm ansible git stow
+        ;;
+    *)
+        echo "This bootstrap targets Fedora or Arch Linux." >&2
+        exit 1
+        ;;
+esac
 
 cd "$REPO_DIR/ansible"
 exec ansible-playbook site.yml -K "$@"
+
