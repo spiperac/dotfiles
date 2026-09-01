@@ -1,6 +1,10 @@
 ---
+- name: Load distribution variables
+  ansible.builtin.include_vars:
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+
 - name: Install devops packages
-  ansible.builtin.dnf5:
+  ansible.builtin.package:
     name: "{{ devops_packages }}"
     state: present
 
@@ -24,3 +28,4 @@
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ dotfiles_uid }}"
     DBUS_SESSION_BUS_ADDRESS: "unix:path=/run/user/{{ dotfiles_uid }}/bus"
+  when: ansible_facts['service_mgr'] == 'systemd'

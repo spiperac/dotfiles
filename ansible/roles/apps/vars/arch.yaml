@@ -1,0 +1,14 @@
+---
+apps_packages:
+  - mpv
+  - gimp
+  - zathura
+  - zathura-pdf-mupdf
+  - zathura-cb
+  - zathura-ps
+  - zathura-djvu
+  - discord
+
+apps_flatpaks:
+  - com.bitwarden.desktop
+  - md.obsidian.Obsidian

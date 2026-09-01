@@ -8,13 +8,13 @@
     - name: Check distribution
       ansible.builtin.assert:
         that:
-          - ansible_facts['distribution'] == "Fedora"
-        fail_msg: "This playbook targets Fedora only (found {{ ansible_facts['distribution'] }})."
+          - ansible_facts['distribution'] in ['Fedora', 'Archlinux']
+        fail_msg: "This playbook targets Fedora or Arch Linux (found {{ ansible_facts['distribution'] }})."
       tags: always
 
     - name: Resolve user
       ansible.builtin.set_fact:
-        dotfiles_user: "{{ lookup('env', 'SUDO_USER') or lookup('env', 'USER') }}"
+        dotfiles_user: "{{ lookup('env', 'SUDO_USER') or lookup('env', 'USER') or ansible_facts['user_id'] }}"
       tags: always
 
     - name: Read passwd entry
@@ -32,6 +32,7 @@
   roles:
     - { role: repos, tags: [repos] }
     - { role: base, tags: [base] }
+    - { role: desktop, tags: [desktop] }
     - { role: gnome, tags: [gnome] }
     - { role: apps, tags: [apps] }
     - { role: development, tags: [development, dev] }

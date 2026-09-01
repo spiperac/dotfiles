@@ -1,0 +1,12 @@
+---
+gnome_packages:
+  - gnome-tweaks
+  - gnome-shell-extension-appindicator
+  - seahorse
+  - gvfs-mtp
+  - android-file-transfer
+  - ttf-jetbrains-mono
+  - ttf-fira-code
+  - ttf-jetbrains-mono-nerd
+  - ttf-firacode-nerd
+  - ttf-hack-nerd

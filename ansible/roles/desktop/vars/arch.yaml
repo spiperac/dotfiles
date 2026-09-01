@@ -1,0 +1,14 @@
+---
+desktop_packages:
+  - gnome
+  - gnome-circle
+  - gdm
+  - power-profiles-daemon
+  - networkmanager
+  - bluez
+  - bluez-utils
+
+desktop_services:
+  - gdm.service
+  - NetworkManager.service
+  - power-profiles-daemon.service

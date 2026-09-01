@@ -1,0 +1,24 @@
+---
+development_packages:
+  - python
+  - python-pip
+  - python-pipx
+  - uv
+  - go
+  - gopls
+  - nodejs
+  - npm
+  - github-cli
+  - direnv
+  - pandoc-cli
+  - imagemagick
+  - emacs
+  - ollama
+  - gdb
+  - clang
+  - rust
+  - rust-analyzer
+  - zed
+  - dbeaver
+
+development_pipx: []

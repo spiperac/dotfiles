@@ -1,0 +1,44 @@
+---
+base_packages:
+  - git
+  - cmake
+  - gcc
+  - gcc-c++
+  - make
+  - ripgrep
+  - fd-find
+  - fzf
+  - bat
+  - jq
+  - tree
+  - file
+  - duf
+  - htop
+  - btop
+  - rsync
+  - rlwrap
+  - stow
+  - dnf-plugins-core
+  - wl-clipboard
+  - mtr
+  - bind-utils
+  - lsof
+  - socat
+  - wget2-wget
+  - curl
+  - 7zip
+  - unzip
+  - zip
+  - xz
+  - openssl
+  - openssh-clients
+  - gnupg2
+  - pinentry-gnome3
+  - zsh
+  - tmux
+  - neovim
+  - python3-neovim
+  - foot
+  - ghostty
+
+base_login_shell: /usr/bin/zsh

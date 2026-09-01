@@ -1,0 +1,15 @@
+---
+docker_packages:
+  - docker
+  - docker-compose
+  - docker-buildx
+
+virtualization_packages:
+  - qemu-desktop
+  - libvirt
+  - virt-manager
+  - virt-viewer
+  - virt-install
+  - guestfs-tools
+  - edk2-ovmf
+  - virtiofsd

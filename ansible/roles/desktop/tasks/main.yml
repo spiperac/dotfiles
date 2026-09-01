@@ -1,0 +1,20 @@
+---
+- name: Load distribution variables
+  ansible.builtin.include_vars:
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+
+- name: Install Desktop packages
+  ansible.builtin.package:
+    name: "{{ desktop_packages }}"
+    state: present
+  when: desktop_packages | length > 0
+
+- name: Enable Desktop services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: "{{ desktop_services }}"
+  when:
+    - desktop_services | length > 0
+    - ansible_facts['service_mgr'] == 'systemd'
