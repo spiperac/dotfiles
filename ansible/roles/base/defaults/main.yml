@@ -42,3 +42,6 @@ base_packages:
   - ghostty
 
 base_login_shell: /usr/bin/zsh
+
+nix_channel_url: https://channels.nixos.org/nixpkgs-unstable
+nix_channel_name: nixpkgs

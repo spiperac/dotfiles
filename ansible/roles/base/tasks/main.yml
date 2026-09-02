@@ -10,9 +10,12 @@
 
 - name: Enable nix daemon
   ansible.builtin.systemd_service:
-    name: nix-daemon.socket
+    name: "{{ item }}"
     enabled: true
     state: started
+  loop:
+    - nix-daemon.socket
+    - nix-daemon.service
   when: ansible_facts['service_mgr'] == 'systemd'
 
 - name: Enable flakes
@@ -22,6 +25,20 @@
     create: true
     mode: "0644"
   become: false
+
+- name: Add nix channel
+  ansible.builtin.command:
+    cmd: "nix-channel --add {{ nix_channel_url }} {{ nix_channel_name }}"
+    creates: "{{ dotfiles_home }}/.nix-channels"
+  become: false
+  when: "'nix' in base_packages"
+
+- name: Populate nix store
+  ansible.builtin.command:
+    cmd: nix-channel --update
+    creates: /nix/store
+  become: false
+  when: "'nix' in base_packages"
 
 - name: Set login shell
   ansible.builtin.user:
