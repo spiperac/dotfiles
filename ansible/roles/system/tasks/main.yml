@@ -1,0 +1,71 @@
+---
+- name: Load distribution variables
+  ansible.builtin.include_vars:
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+
+- name: Install system packages
+  ansible.builtin.package:
+    name: "{{ system_packages }}"
+    state: present
+  when: system_packages | length > 0
+
+- name: Install CPU microcode
+  ansible.builtin.package:
+    name: "{{ system_ucode[ansible_facts['processor_vendor_id']] }}"
+    state: present
+  when:
+    - system_ucode is defined
+    - ansible_facts['processor_vendor_id'] is defined
+    - ansible_facts['processor_vendor_id'] in system_ucode
+
+- name: Generate locales
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ system_locales }}"
+
+- name: Set system locale
+  ansible.builtin.copy:
+    dest: /etc/locale.conf
+    content: "LANG={{ system_locales[0] }}\n"
+    mode: "0644"
+
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ system_timezone }}"
+
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ system_hostname }}"
+
+- name: Disable iwd
+  ansible.builtin.systemd_service:
+    name: iwd.service
+    enabled: false
+  when: "'iwd' in system_packages"
+
+- name: Enable firewall
+  ansible.builtin.systemd_service:
+    name: ufw.service
+    enabled: true
+    state: started
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Configure snapper
+  when:
+    - ansible_facts['mounts'] | selectattr('mount', 'equalto', '/') | map(attribute='fstype') | first | default('') == 'btrfs'
+    - ansible_facts['service_mgr'] == 'systemd'
+  block:
+    - name: Create snapper root config
+      ansible.builtin.command:
+        cmd: snapper --config root create-config /
+        creates: /etc/snapper/configs/root
+
+    - name: Enable snapper timers
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - snapper-timeline.timer
+        - snapper-cleanup.timer

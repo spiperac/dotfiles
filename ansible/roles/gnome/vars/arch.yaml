@@ -1,6 +1,7 @@
 ---
 gnome_packages:
   - gnome-tweaks
+  - gpaste
   - gnome-shell-extension-appindicator
   - seahorse
   - gvfs-mtp

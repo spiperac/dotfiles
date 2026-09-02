@@ -3,6 +3,10 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Ansible refuses to start under a locale that is not generated yet.
+# C.UTF-8 is built into glibc and always available.
+export LC_ALL=C.UTF-8 LANG=C.UTF-8
+
 source /etc/os-release
 
 case "$ID" in
@@ -19,5 +23,6 @@ case "$ID" in
 esac
 
 cd "$REPO_DIR/ansible"
+ansible-galaxy collection install -r requirements.yml
 exec ansible-playbook site.yml -K "$@"
 

@@ -3,6 +3,7 @@ development_packages:
   - python
   - python-pip
   - python-pipx
+  - pre-commit
   - uv
   - go
   - gopls
@@ -15,10 +16,8 @@ development_packages:
   - emacs
   - ollama
   - gdb
-  - clang
   - rust
   - rust-analyzer
-  - zed
   - dbeaver
 
 development_pipx: []

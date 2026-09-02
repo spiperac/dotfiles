@@ -8,7 +8,7 @@ if [[ -n $GHOSTTY_RESOURCES_DIR ]]; then
 fi
 
 # Locale
-export LANG=en_GB.UTF-8
+export LANG=en_US.UTF-8
 
 # Wayland Display set
 #export WAYLAND_DISPLAY=wayland-0
@@ -108,6 +108,9 @@ bindkey "^[OA" history-beginning-search-backward-end
 bindkey "^[OB" history-beginning-search-forward-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
+
+# direnv
+eval "$(direnv hook zsh)"
 
 # User configuration
 export EDITOR='nvim'

@@ -8,6 +8,7 @@ base_packages:
   - fd
   - fzf
   - bat
+  - eza
   - jq
   - tree
   - file
@@ -20,6 +21,7 @@ base_packages:
   - wl-clipboard
   - mtr
   - bind
+  - whois
   - lsof
   - socat
   - wget
@@ -36,7 +38,19 @@ base_packages:
   - tmux
   - neovim
   - python-pynvim
+  - vim
+  - nano
+  - less
   - foot
   - ghostty
+  - nix
+
+  # Fonts
+  - noto-fonts
+  - noto-fonts-emoji
+  - ttf-dejavu
+  - ttf-liberation
+  - ttf-fira-code
+
 
 base_login_shell: /usr/bin/zsh

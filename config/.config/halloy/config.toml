@@ -1,0 +1,33 @@
+theme = "ferra"
+
+[font]
+family = "Fira Code"
+size = 13
+
+[servers.libera]
+nickname = "strah"
+alt_nicks = ["strah_", "strah__"]
+username = "strah"
+realname = "strah"
+server = "irc.libera.chat"
+port = 6697
+use_tls = true
+channels = ["##infosec"]
+
+sasl.external.cert = "/home/strah/.ssh/irc.pem"
+sasl.external.key = "/home/strah/.ssh/irc.pem"
+sasl.external.disconnect_on_failure = true
+
+[servers.hackint]
+nickname = "strah"
+alt_nicks = ["strah_", "strah__"]
+username = "strah"
+realname = "strah"
+server = "irc.hackint.org"
+port = 6697
+use_tls = true
+channels = []
+
+sasl.external.cert = "/home/strah/.ssh/irc.pem"
+sasl.external.key = "/home/strah/.ssh/irc.pem"
+sasl.external.disconnect_on_failure = false

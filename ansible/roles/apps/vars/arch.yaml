@@ -1,5 +1,6 @@
 ---
 apps_packages:
+  - firefox
   - mpv
   - gimp
   - zathura
@@ -8,7 +9,11 @@ apps_packages:
   - zathura-ps
   - zathura-djvu
   - discord
+  - fastfetch
+  - foliate
+  - halloy
 
 apps_flatpaks:
   - com.bitwarden.desktop
   - md.obsidian.Obsidian
+  - com.fastmail.Fastmail

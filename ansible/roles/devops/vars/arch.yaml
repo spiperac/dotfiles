@@ -1,7 +1,5 @@
 ---
 devops_packages:
-  - podman
-  - podman-compose
   - skopeo
   - buildah
   - helm

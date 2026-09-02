@@ -8,6 +8,14 @@ desktop_packages:
   - bluez
   - bluez-utils
 
+  # Audio
+  - pipewire
+  - pipewire-alsa
+  - pipewire-jack
+  - pipewire-pulse
+  - wireplumber
+  - gst-plugin-pipewire
+
 desktop_services:
   - gdm.service
   - NetworkManager.service

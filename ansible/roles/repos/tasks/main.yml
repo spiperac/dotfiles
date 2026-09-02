@@ -60,6 +60,28 @@
         includepkgs: kubectl
         enabled: true
 
+- name: Configure Arch package manager
+  when: ansible_facts['distribution'] == "Archlinux"
+  block:
+    - name: Enable multilib repository
+      ansible.builtin.blockinfile:
+        path: /etc/pacman.conf
+        marker: "# {mark} ANSIBLE MANAGED: multilib"
+        block: |
+          [multilib]
+          Include = /etc/pacman.d/mirrorlist
+
+    - name: Set pacman options
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        insertafter: '^\[options\]'
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop:
+        - { regexp: '^#?\s*ParallelDownloads', line: "ParallelDownloads = 5" }
+        - { regexp: '^#?\s*Color\s*$', line: "Color" }
+        - { regexp: '^#?\s*ILoveCandy\s*$', line: "ILoveCandy" }
+
 - name: Install flatpak
   ansible.builtin.package:
     name: flatpak

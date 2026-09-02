@@ -1,0 +1,23 @@
+---
+system_packages:
+  # Boot
+  - linux
+  - linux-firmware
+  - mkinitcpio
+  - efibootmgr
+  - sudo
+  - base
+  - iwd
+  - sof-firmware
+
+  # Firewall
+  - ufw
+
+  # Snapshots
+  - btrfs-progs
+  - snapper
+  - smartmontools
+
+system_ucode:
+  GenuineIntel: intel-ucode
+  AuthenticAMD: amd-ucode

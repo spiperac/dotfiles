@@ -1,5 +1,5 @@
 ---
-- name: Provision Fedora workstation
+- name: Provision workstation
   hosts: localhost
   become: true
   gather_facts: true
@@ -30,6 +30,7 @@
       tags: always
 
   roles:
+    - { role: system, tags: [system] }
     - { role: repos, tags: [repos] }
     - { role: base, tags: [base] }
     - { role: desktop, tags: [desktop] }
