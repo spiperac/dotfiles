@@ -2,3 +2,4 @@
 security_packages:
   - openvpn
   - wireshark-qt
+  - arch-audit
