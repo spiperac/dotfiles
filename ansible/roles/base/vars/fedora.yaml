@@ -9,6 +9,7 @@ base_packages:
   - fd-find
   - fzf
   - bat
+  - eza
   - jq
   - tree
   - file
@@ -16,7 +17,6 @@ base_packages:
   - htop
   - btop
   - rsync
-  - rlwrap
   - stow
   - dnf-plugins-core
   - wl-clipboard
@@ -38,7 +38,20 @@ base_packages:
   - tmux
   - neovim
   - python3-neovim
+  - vim-enhanced
+  - nano
+  - less
   - foot
   - ghostty
+  - nix
+
+  # Fonts
+  - google-noto-sans-fonts
+  - google-noto-emoji-fonts
+  - dejavu-sans-fonts
+  - liberation-fonts
+  - fira-code-fonts
+  - jetbrains-mono-fonts
+  - firacode-nerd-fonts
 
 base_login_shell: /usr/bin/zsh

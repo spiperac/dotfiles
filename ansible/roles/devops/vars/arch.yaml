@@ -1,12 +1,12 @@
 ---
 devops_packages:
-  - skopeo
-  - buildah
+  - ansible-core
   - helm
   - opentofu
   - trivy
   - doctl
   - kubectl
+  - k9s
 
 devops_pipx:
   - checkov

@@ -1,12 +1,12 @@
 ---
 development_packages:
   - python
-  - python-pip
   - python-pipx
   - pre-commit
   - uv
   - go
   - gopls
+  - golangci-lint
   - nodejs
   - npm
   - github-cli
@@ -15,10 +15,11 @@ development_packages:
   - pandoc-cli
   - imagemagick
   - emacs
-  - ollama
   - gdb
   - rust
   - rust-analyzer
-  - dbeaver
 
 development_pipx: []
+
+development_go:
+  - github.com/jorgerojas26/lazysql@latest

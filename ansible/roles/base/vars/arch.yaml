@@ -16,7 +16,6 @@ base_packages:
   - htop
   - btop
   - rsync
-  - rlwrap
   - stow
   - wl-clipboard
   - mtr
@@ -51,6 +50,8 @@ base_packages:
   - ttf-dejavu
   - ttf-liberation
   - ttf-fira-code
+  - ttf-jetbrains-mono
+  - ttf-firacode-nerd
 
 
 base_login_shell: /usr/bin/zsh

@@ -1,26 +1,26 @@
 ---
 development_packages:
   - python3
-  - python3-pip
   - pipx
+  - pre-commit
   - uv
   - golang
   - gopls
+  - golangci-lint
   - nodejs24
   - nodejs24-npm
   - gh
+  - jujutsu
   - direnv
   - pandoc-cli
   - ImageMagick
   - emacs
-  - ollama
   - gdb
-  - clang
-  - clang-tools-extra
   - rust
   - cargo
   - rust-analyzer
-  - zed
-  - dbeaver-bin
 
 development_pipx: []
+
+development_go:
+  - github.com/jorgerojas26/lazysql@latest

@@ -51,6 +51,14 @@
       become: false
       tags: [dotfiles]
 
+    - name: Link scripts
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo }}/scripts"
+        dest: "{{ dotfiles_home }}/scripts"
+        state: link
+      become: false
+      tags: [dotfiles]
+
     - name: Stow config
       ansible.builtin.command:
         cmd: >-

@@ -15,7 +15,6 @@ export LANG=en_US.UTF-8
 
 # Path
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="$HOME/tools/scripts:$PATH"

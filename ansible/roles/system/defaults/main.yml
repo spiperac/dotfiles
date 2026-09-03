@@ -1,9 +1,8 @@
 ---
 system_timezone: Europe/Belgrade
+
 system_hostname: arch
 
 system_locales:
   - en_US.UTF-8
   - en_GB.UTF-8
-
-system_packages: []

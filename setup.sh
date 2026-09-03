@@ -11,10 +11,10 @@ source /etc/os-release
 
 case "$ID" in
     fedora)
-        command -v ansible >/dev/null 2>&1 || sudo dnf install -y ansible git stow
+        command -v ansible >/dev/null 2>&1 || sudo dnf install -y ansible-core git stow
         ;;
     arch)
-        command -v ansible >/dev/null 2>&1 || sudo pacman -Syu --noconfirm ansible git stow
+        command -v ansible >/dev/null 2>&1 || sudo pacman -Syu --noconfirm ansible-core git stow
         ;;
     *)
         echo "This bootstrap targets Fedora or Arch Linux." >&2

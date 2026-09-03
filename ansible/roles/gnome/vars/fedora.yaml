@@ -1,13 +1,9 @@
 ---
 gnome_packages:
   - gnome-tweaks
+  - gpaste
   - gnome-extensions-app
   - gnome-shell-extension-appindicator
   - seahorse
   - gvfs-mtp
   - android-file-transfer
-  - jetbrains-mono-fonts
-  - fira-code-fonts
-  - jetbrainsmono-nerd-fonts
-  - firacode-nerd-fonts
-  - hack-nerd-fonts

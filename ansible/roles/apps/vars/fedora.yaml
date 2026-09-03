@@ -1,11 +1,17 @@
 ---
 apps_packages:
   - mpv
-  - gimp
+  - pinta
   - zathura
-  - zathura-plugins-all
+  - zathura-pdf-mupdf
+  - zathura-cb
   - discord
+  - fastfetch
+  - foliate
+  - halloy
 
 apps_flatpaks:
   - com.bitwarden.desktop
   - md.obsidian.Obsidian
+  - com.fastmail.Fastmail
+  - io.github.screwys.Rufin

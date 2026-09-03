@@ -1,2 +1,5 @@
 ---
-system_packages: []
+system_packages:
+  - fprintd
+  - fwupd
+  - smartmontools

@@ -2,12 +2,10 @@
 apps_packages:
   - firefox
   - mpv
-  - gimp
+  - pinta
   - zathura
   - zathura-pdf-mupdf
   - zathura-cb
-  - zathura-ps
-  - zathura-djvu
   - discord
   - fastfetch
   - foliate

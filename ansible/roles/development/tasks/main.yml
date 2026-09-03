@@ -8,6 +8,17 @@
     name: "{{ development_packages }}"
     state: present
 
+- name: Install development tools with Go
+  ansible.builtin.command:
+    cmd: "go install {{ item }}"
+  become: false
+  environment:
+    GOBIN: "{{ dotfiles_home }}/.local/bin"
+    PATH: "{{ dotfiles_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
+  loop: "{{ development_go }}"
+  when: development_go is defined and development_go | length > 0
+  changed_when: false
+
 - name: Install development tools with pipx
   community.general.pipx:
     name: "{{ item }}"
