@@ -13,6 +13,7 @@ require("mason-tool-installer").setup({
     "terraform-ls",
     "pyright",
     "black",
+    "debugpy",
   },
   run_on_start = true,
 })

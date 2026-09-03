@@ -10,6 +10,7 @@ development_packages:
   - nodejs
   - npm
   - github-cli
+  - jujutsu
   - direnv
   - pandoc-cli
   - imagemagick

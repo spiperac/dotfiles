@@ -97,6 +97,9 @@ setopt AUTO_CD                 # cd by typing directory name
 setopt CORRECT                 # suggest corrections for commands
 setopt EXTENDED_GLOB           # extended globbing patterns
 
+# fzf: Ctrl-R history, Ctrl-T files, Alt-C cd
+command -v fzf >/dev/null && source <(fzf --zsh)
+
 # Key bindings
 bindkey -e
 bindkey '^[[1;5C' forward-word    # Ctrl-Right
@@ -120,8 +123,9 @@ export LESS='-R'
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
 
 #### Aliases
-alias ls='ls --color=auto'
-alias ll='ls -l --color=auto'
+alias ls='eza'
+alias ll='eza -l --git'
+alias la='eza -la --git'
 alias vf='vim $(fzf --preview "head -100 {}")'
 alias fz='cd $(dirname $(find . -type f | fzf --exclude .git --exclude .local --exclude node_modules))'
 
