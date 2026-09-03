@@ -43,5 +43,9 @@ base_packages:
 
 base_login_shell: /usr/bin/zsh
 
+tmux_plugins:
+  tmux-resurrect: https://github.com/tmux-plugins/tmux-resurrect.git
+  tmux-continuum: https://github.com/tmux-plugins/tmux-continuum.git
+
 nix_channel_url: https://channels.nixos.org/nixpkgs-unstable
 nix_channel_name: nixpkgs

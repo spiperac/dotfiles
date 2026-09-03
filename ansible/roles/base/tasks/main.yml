@@ -40,6 +40,15 @@
   become: false
   when: "'nix' in base_packages"
 
+- name: Install tmux plugins
+  ansible.builtin.git:
+    repo: "{{ item.value }}"
+    dest: "{{ dotfiles_home }}/.tmux/plugins/{{ item.key }}"
+    depth: 1
+    update: false
+  become: false
+  loop: "{{ tmux_plugins | dict2items }}"
+
 - name: Set login shell
   ansible.builtin.user:
     name: "{{ dotfiles_user }}"

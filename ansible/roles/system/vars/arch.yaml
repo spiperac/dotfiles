@@ -18,6 +18,10 @@ system_packages:
   - snapper
   - smartmontools
 
+  # Fingerprint
+  - fprintd
+  - fwupd
+
 system_ucode:
   GenuineIntel: intel-ucode
   AuthenticAMD: amd-ucode

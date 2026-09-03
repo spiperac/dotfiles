@@ -9,6 +9,10 @@
 #   MISSING     a role declares it, but it is not installed   -> re-run the playbook
 set -euo pipefail
 
+# Python sorts by codepoint; sort/comm sort by locale. Force byte order so the
+# two agree, otherwise comm reports "input is not in sorted order".
+export LC_ALL=C
+
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
