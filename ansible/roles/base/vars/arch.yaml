@@ -37,6 +37,7 @@ base_packages:
   - tmux
   - neovim
   - python-pynvim
+  - tree-sitter-cli
   - vim
   - nano
   - less

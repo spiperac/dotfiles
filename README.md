@@ -1,6 +1,6 @@
 # Dotfiles
 
-My configuration files and the Ansible setup for Fedora Workstation.
+My configuration files and the Ansible setup for Arch Workstation.
 
 ![screenshot](./screenshot.png)
 
