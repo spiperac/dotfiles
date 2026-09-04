@@ -16,7 +16,7 @@
 
 (setq bookmark-default-file       (expand-file-name "bookmarks" my-cache-dir)
       custom-file                  (expand-file-name "custom.el" my-cache-dir)
-      place-file                   (expand-file-name "places" my-cache-dir)
+      save-place-file              (expand-file-name "places" my-cache-dir)
       recentf-save-file            (expand-file-name "recentf" my-cache-dir)
       savehist-file                (expand-file-name "history" my-cache-dir)
       ielm-history-file-name       (expand-file-name "ielm-history.eld" my-cache-dir)
@@ -47,7 +47,7 @@
 ;; CUSTOM FILE
 ;; ============================================================
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(make-directory my-cache-dir t)
 (unless (file-exists-p custom-file) (write-region "" nil custom-file))
 (load custom-file :noerror)
 
@@ -321,8 +321,6 @@
   (define-key my-leader-map (kbd "sb")  #'consult-buffer)
   (define-key my-leader-map (kbd "sg")  #'consult-git-grep)
   (define-key my-leader-map (kbd "/")   #'consult-line)
-  (define-key my-leader-map (kbd "M")   #'notmuch)
-  (define-key my-leader-map (kbd "i c") #'my/erc-connect)
   (define-key my-leader-map (kbd "gg")  #'magit)
   (define-key my-leader-map (kbd "gc")  #'my/git-clone)
   (define-key my-leader-map (kbd "pn")  #'my/new-project)
@@ -356,8 +354,7 @@
   :config
   (evil-collection-init 'magit)
   (evil-collection-init 'dired)   ;; dirvish overrides dired
-  (evil-collection-init 'dashboard)
-  (evil-collection-init 'notmuch))
+  (evil-collection-init 'dashboard))
 
 ;; -- Modeline --
 
@@ -594,63 +591,12 @@
   (org-download-image-dir "./images")
   (org-download-method 'directory))
 
-;; -- Email - Notmuch --
-
-(require 'notmuch)
-(setq user-full-name "Strahinja Piperac")
-(setq user-mail-adress "strahinj@piperac.net")
-(setq message-send-mail-function 'message-send-mail-with-sendmail
-      sendmail-program "msmtp"
-      mail-specify-envelope-from t
-      mail-envelope-from 'header
-      )
-(setq message-kill-buffer-on-exit t)
-(customize-set-variable 'notmuch-search-oldest-first nil)
-
-(defvar spiperac/unread-count "0")
-
-(defun spiperac/update-unread-count ()
-  (setq spiperac/unread-count
-        (string-trim (shell-command-to-string "notmuch count tag:unread"))))
-
-(run-at-time 0 900 (lambda ()
-  (start-process "mbsync" nil "/run/current-system/sw/bin/mbsync" "-a")
-  (run-at-time 30 nil (lambda ()  ; increased from 5 to 10
-    (unless gptel--request-alist
-      (notmuch-poll))
-    (spiperac/update-unread-count)))))
-
-(add-to-list 'mode-line-misc-info
-  '(:eval (unless (string= spiperac/unread-count "0")
-            (concat " ✉️ " spiperac/unread-count))))
-
-;; -- IRC --
-(require 'auth-source-pass)
-(auth-source-pass-enable)
-
-(defvar my/erc-servers
-  '(("Libera"      :server "irc.libera.chat"      :port 6697 :nick "strah" :pass-path "irc/libera/strah")
-    ("OverTheWire" :server "ircs.overthewire.org"  :port 6697 :nick "strah" :pass-path "irc/overthewire/strah"))
-  "List of IRC servers for ERC.")
-
-(defun my/erc-connect ()
-  (interactive)
-  (let* ((choice    (completing-read "Connect to IRC server: "
-                                     (mapcar #'car my/erc-servers)))
-         (server    (alist-get choice my/erc-servers nil nil #'equal))
-         (host      (plist-get server :server))
-         (port      (plist-get server :port))
-         (nick      (plist-get server :nick))
-         (pass-path (plist-get server :pass-path))
-         (password  (auth-source-pass-get 'secret pass-path)))
-    (erc-tls :server host :port port :nick nick :password password)))
-
 ;; -- LLMs --
 (use-package gptel
   :config
   (setq gptel-api-key (string-trim (shell-command-to-string "pass claude/api-key")))
   (setq gptel-backend (gptel-make-anthropic "Claude" :stream t :key gptel-api-key))
-  (setq gptel-model 'claude-sonnet-4-6))
+  (setq gptel-model 'claude-sonnet-5))
 
 ;; ============================================================
 ;; PUBLISHING
