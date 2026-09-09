@@ -16,3 +16,4 @@ apps_flatpaks:
   - md.obsidian.Obsidian
   - com.fastmail.Fastmail
   - io.github.screwys.Rufin
+  - in.suyogtandel.picoforge

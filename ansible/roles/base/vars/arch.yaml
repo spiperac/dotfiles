@@ -43,6 +43,7 @@ base_packages:
   - less
   - foot
   - ghostty
+  - pass
   - nix
 
   # Fonts

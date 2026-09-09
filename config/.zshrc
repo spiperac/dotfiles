@@ -120,6 +120,7 @@ export VISUAL='nvim'
 export PAGER='less'
 export LESS='-R'
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
+export EZA_ICONS_AUTO=1
 
 #### Aliases
 alias ls='eza'
