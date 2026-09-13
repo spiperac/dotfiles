@@ -18,3 +18,24 @@
   when:
     - desktop_services | length > 0
     - ansible_facts['service_mgr'] == 'systemd'
+
+- name: Find batteries without charge limit enabled
+  ansible.builtin.shell:
+    cmd: |
+      for dev in $(upower -e | grep battery_); do
+        state=$(busctl get-property org.freedesktop.UPower "$dev" \
+          org.freedesktop.UPower.Device ChargeThresholdSupported ChargeThresholdEnabled | tr '\n' ' ')
+        [ "$state" = "b true b false " ] && echo "$dev"
+      done
+      true
+  register: charge_limit_batteries
+  changed_when: false
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Enable battery charge limit
+  ansible.builtin.command:
+    cmd: >-
+      busctl call org.freedesktop.UPower {{ item }}
+      org.freedesktop.UPower.Device EnableChargeThreshold b true
+  loop: "{{ charge_limit_batteries.stdout_lines | default([]) }}"
+  when: ansible_facts['service_mgr'] == 'systemd'

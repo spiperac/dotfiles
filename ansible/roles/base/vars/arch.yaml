@@ -15,6 +15,7 @@ base_packages:
   - duf
   - htop
   - btop
+  - yazi
   - rsync
   - stow
   - wl-clipboard
