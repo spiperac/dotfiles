@@ -32,17 +32,14 @@
 
   roles:
     - { role: system, tags: [system] }
-    - { role: repos, tags: [repos] }
     - { role: base, tags: [base] }
     - { role: desktop, tags: [desktop] }
     - { role: gnome, tags: [gnome] }
     - { role: sway, tags: [sway] }
     - { role: apps, tags: [apps] }
-    - { role: development, tags: [development, dev] }
-    - { role: devops, tags: [devops] }
+    - { role: media, tags: [media] }
+    - { role: dev, tags: [dev] }
     - { role: security, tags: [security] }
-    - { role: pentest, tags: [pentest] }
-    - { role: virtualization, tags: [virtualization, virt] }
 
   post_tasks:
     - name: Ensure ~/.config exists

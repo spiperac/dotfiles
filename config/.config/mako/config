@@ -1,17 +1,19 @@
-background-color=#282a36
-text-color=#f8f8f2
-border-color=#bd93f9
-border-radius=0
+font=Fira Code 12
+background-color=#1e1e1ed9
+text-color=#eeeeee
+border-color=#3a3a3a
 border-size=2
-default-timeout=30000
-height=200
-font=Monospace 14
+border-radius=6
+padding=10
+margin=10
+width=400
+max-icon-size=48
+max-visible=3
+default-timeout=10000
+anchor=top-right
 
 [urgency=low]
-border-color=#282a36
-
-[urgency=normal]
-border-color=#f1fa8c
+text-color=#888888
 
 [urgency=high]
-border-color=#ff5555
+border-color=#c01c28

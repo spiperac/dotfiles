@@ -1,6 +1,6 @@
 ---
 desktop_packages:
   - tailscale
-  - cifs-utils
+
 desktop_services:
   - tailscaled.service

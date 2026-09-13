@@ -2,3 +2,34 @@
 security_packages:
   - openvpn
   - wireshark
+
+  # Pentest
+  - nmap
+  - nmap-ncat
+  - gobuster
+  - whatweb
+  - samba-client
+  - proxychains-ng
+  - rlwrap
+  - sshuttle
+  - freerdp
+  - remmina
+  - remmina-plugins-rdp
+  - rizin
+  - rizin-cutter
+  - exploitdb
+
+security_flatpaks:
+  - net.portswigger.BurpSuite-Community
+
+security_pipx:
+  - sqlmap
+  - exegol
+
+security_go:
+  - github.com/ffuf/ffuf/v2@latest
+  - github.com/projectdiscovery/dnsx/cmd/dnsx@latest
+  - github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+
+seclists_dir: /usr/share/seclists
+ligolo_version: "0.9.1"

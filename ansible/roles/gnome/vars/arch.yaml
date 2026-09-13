@@ -1,5 +1,7 @@
 ---
 gnome_packages:
+  - gnome
+  - gnome-circle
   - gnome-tweaks
   - gpaste
   - gnome-shell-extension-appindicator

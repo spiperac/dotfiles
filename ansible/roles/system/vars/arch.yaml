@@ -25,3 +25,6 @@ system_packages:
 system_ucode:
   GenuineIntel: intel-ucode
   AuthenticAMD: amd-ucode
+
+# Repositories
+kubernetes_release: "v1.36"

@@ -16,6 +16,7 @@ sway_packages:
   - brightnessctl
   - nautilus
   - fontawesome-fonts-all
+  - papirus-icon-theme
 
   # Applets
   - blueman
@@ -28,6 +29,5 @@ sway_packages:
   - gcr
 
   # Portals
-  - xdg-desktop-portal
   - xdg-desktop-portal-wlr
   - xdg-desktop-portal-gtk

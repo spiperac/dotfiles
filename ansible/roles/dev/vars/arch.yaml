@@ -1,5 +1,5 @@
 ---
-development_packages:
+dev_packages:
   - python
   - python-pipx
   - pre-commit
@@ -19,13 +19,38 @@ development_packages:
   - rust
   - rust-analyzer
 
-development_pipx: []
+  # DevOps
+  - ansible-core
+  - helm
+  - opentofu
+  - trivy
+  - doctl
+  - kubectl
+  - k9s
 
-development_npm:
+dev_pipx:
+  - checkov
+
+dev_npm:
   - "@anthropic-ai/claude-code"
   - "@agentclientprotocol/claude-agent-acp"
   - yaml-language-server
 
-development_go:
+dev_go:
   - github.com/jorgerojas26/lazysql@latest
   - github.com/hashicorp/terraform-ls@latest
+
+dev_docker_packages:
+  - docker
+  - docker-compose
+  - docker-buildx
+
+dev_virt_packages:
+  - qemu-desktop
+  - libvirt
+  - virt-manager
+  - virt-viewer
+  - virt-install
+  - guestfs-tools
+  - edk2-ovmf
+  - virtiofsd

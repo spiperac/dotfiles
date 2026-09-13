@@ -1,14 +1,9 @@
 #!/usr/bin/env bash
 
 songs() {
-    song=$(mpc listall --format '%artist% - %title%\t%file%' | \
-        awk -F'\t' '{print $1}' | \
-        fuzzel --dmenu -p "song: ")
-    [ -n "$song" ] && {
-        file=$(mpc listall --format '%artist% - %title%\t%file%' | \
-            awk -F'\t' -v s="$song" '$1==s{print $2}')
-        mpc clear && mpc add "$file" && mpc play
-    }
+    file=$(mpc listall --format '%artist% - %title%\t%file%' | \
+        fuzzel --dmenu --with-nth=1 --accept-nth=2 -p "song: ")
+    [ -n "$file" ] && mpc clear && mpc add "$file" && mpc play
 }
 
 artists() {

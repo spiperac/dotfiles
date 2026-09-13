@@ -1,14 +1,11 @@
 ---
 desktop_packages:
-  - gnome
-  - gnome-circle
   - gdm
   - power-profiles-daemon
   - networkmanager
   - bluez
   - bluez-utils
   - tailscale
-  - cifs-utils
 
   # Audio
   - pipewire

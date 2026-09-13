@@ -1,0 +1,9 @@
+---
+media_packages:
+  - mpv
+
+  # NAS
+  - cifs-utils
+
+media_flatpaks:
+  - io.github.screwys.Rufin

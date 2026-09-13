@@ -25,5 +25,5 @@ Log out and back in for the login shell and group changes.
 Single role:
 
 ```bash
-cd ansible && ansible-playbook site.yml -K --tags pentest
+cd ansible && ansible-playbook site.yml -K --tags security
 ```

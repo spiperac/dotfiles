@@ -3,3 +3,7 @@ system_packages:
   - fprintd
   - fwupd
   - smartmontools
+
+# Repositories
+terra_includepkgs: "ghostty*,zed*,ghidra*,dbeaver*,*-nerd-fonts"
+kubernetes_release: "v1.36"

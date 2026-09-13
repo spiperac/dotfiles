@@ -1,6 +1,5 @@
 ---
 apps_packages:
-  - mpv
   - pinta
   - zathura
   - zathura-pdf-mupdf
@@ -14,5 +13,4 @@ apps_flatpaks:
   - com.bitwarden.desktop
   - md.obsidian.Obsidian
   - com.fastmail.Fastmail
-  - io.github.screwys.Rufin
   - in.suyogtandel.picoforge

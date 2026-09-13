@@ -1,0 +1,66 @@
+---
+dev_packages:
+  - python3
+  - pipx
+  - pre-commit
+  - uv
+  - golang
+  - gopls
+  - golangci-lint
+  - nodejs24
+  - nodejs24-npm
+  - gh
+  - jujutsu
+  - direnv
+  - pandoc-cli
+  - ImageMagick
+  - emacs
+  - gdb
+  - rust
+  - cargo
+  - rust-analyzer
+
+  # DevOps
+  - ansible-core
+  - helm
+  - opentofu
+  - trivy
+  - doctl
+  - kubectl
+  - k9s
+
+dev_pipx:
+  - checkov
+
+dev_npm:
+  - "@anthropic-ai/claude-code"
+  - "@agentclientprotocol/claude-agent-acp"
+  - yaml-language-server
+
+dev_go:
+  - github.com/jorgerojas26/lazysql@latest
+  - github.com/hashicorp/terraform-ls@latest
+
+dev_docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin
+
+dev_virt_packages:
+  - vagrant
+  - vagrant-libvirt
+  - qemu-kvm
+  - libvirt
+  - libvirt-daemon-kvm
+  - libvirt-daemon-config-network
+  - libvirt-nss
+  - virt-manager
+  - virt-viewer
+  - virt-install
+  - guestfs-tools
+  - edk2-ovmf
+  - virtiofsd
+  - chezdav
+  - libphodav
