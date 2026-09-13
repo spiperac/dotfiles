@@ -20,7 +20,7 @@ window#waybar {
 }
 
 #workspaces button { color: #666; }
-#workspaces button.focused { color: #fff; }
+#workspaces button.focused { color: #1793d1; }
 #workspaces button.urgent { color: #ff5555; }
 
 /* Center clock */
@@ -29,29 +29,29 @@ window#waybar {
 }
 
 /* Right modules */
-#custom-weather,
 #pulseaudio,
 #mpd,
 #custom-network,
 #network,
 #battery,
 #tray {
-    padding: 0 10px;
-    margin: 4px 3px;
+    padding: 0 5px;
+    margin: 4px 0;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.06);
+}
+
+#tray {
+    margin-right: 12px;
 }
 
 
 /* Battery states */
 #battery.warning {
-    background: #e5a50a;
-    color: #000000;
+    color: #e5a50a;
 }
 
 #battery.critical {
-    background: #c01c28;
-    color: #ffffff;
+    color: #c01c28;
 }
 
 /* Hover effect */
@@ -62,7 +62,8 @@ window#waybar {
 }
 
 #custom-logo {
+    font-family: "Font Awesome 7 Free Solid";
     margin-left: 8px;
     margin-right: 6px;
-    color: red;
+    color: #1793d1;
 }

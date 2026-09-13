@@ -1,0 +1,33 @@
+---
+sway_packages:
+  - sway
+  - swaybg
+  - azote
+  - swaylock
+  - swayidle
+  - waybar
+  - mako
+  - fuzzel
+  - grim
+  - slurp
+  - wl-clipboard
+  - wmenu
+  - cliphist
+  - brightnessctl
+  - nautilus
+  - otf-font-awesome
+
+  # Applets
+  - blueman
+  - network-manager-applet
+  - pavucontrol
+
+  # Session
+  - polkit-gnome
+  - gnome-keyring
+  - gcr-4
+
+  # Portals
+  - xdg-desktop-portal
+  - xdg-desktop-portal-wlr
+  - xdg-desktop-portal-gtk

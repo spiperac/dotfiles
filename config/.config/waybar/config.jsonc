@@ -6,18 +6,27 @@
 
   "modules-left": ["custom/logo", "sway/workspaces"],
   "modules-center": ["clock"],
-  "modules-right": [ "custom/weather", "tray", "idle_inhibitor", "mpd", "pulseaudio", "network", "battery"],
+  "modules-right": [ "tray", "pulseaudio", "network", "battery"],
 
   "clock": {
-      "format": "{:%H:%M}",
+      "format": "{:%d %b %H:%M}",
       "tooltip-format": "<big>{:%A, %d %B %Y}</big>\n<tt><small>{calendar}</small></tt>"
   },
 
   "sway/workspaces": {
-    "format": "⬤",
-    "format-focused": "⬤",
-    "format-urgent": "⬤"
-	},
+    "format": "{icon}",
+    "persistent-workspaces": {
+      "1": [], "2": [], "3": [], "4": [], "5": []
+    },
+    "format-icons": {
+      "1": "\uf120",
+      "2": "\uf0ac",
+      "3": "\uf121",
+      "4": "\uf249",
+      "5": "\uf001",
+      "default": "⬤"
+    }
+  },
 
   "battery": {
     "format": " {capacity}%",
@@ -51,25 +60,18 @@
 },
 
   "network": {
-      "format-wifi": " {essid}",
+      "format-wifi": " {signalStrength}%",
       "format-ethernet": "\uf796 {ifname}",
-      "format-disconnected": "󰖪 disconnected",
+      "format-disconnected": "󰖪",
       "tooltip-format": "{ifname} {ipaddr}/{cidr}",
       "max-length": 10,
       "on-click": "nm-connection-editor"
   },
 
-  "custom/network": {
-    "exec": "~/.config/waybar/network.sh",
-    "interval": 10,
-    "return-type": "json",
-    "format": "  {text} "
-  },
-
   "pulseaudio": {
     "format": " {volume}%",
     "format-muted": " mute",
-    "on-click": "pwvucontrol"
+    "on-click": "pavucontrol"
   },
 
   "tray": {
@@ -77,13 +79,7 @@
   },
 
   "custom/logo": {
-      "format": "\uf3a4",
+      "format": "\uf6cf",
       "tooltip": false
-  },
-  "custom/weather": {
-      "exec": "~/scripts/weather.sh",
-      "interval": 1800,
-      "return-type": "json",
-      "on-click": "~/scripts/weather.sh"
   }
 }

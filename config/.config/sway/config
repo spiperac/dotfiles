@@ -12,8 +12,8 @@ set $lock swaylock -c 000000
 set $fmenu fuzzel
 
 default_border none
-gaps inner 10
-gaps outer 5
+gaps inner 0
+gaps outer 0
 workspace 2 gaps inner 0
 workspace 2 gaps outer 0
 
@@ -24,11 +24,13 @@ input "type:keyboard" {
 
 ### Autostart
 exec waybar
-exec nm-applet
+exec nm-applet --indicator
 exec blueman-applet
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always mako
 
 ### Output (wallpaper and scaling)
+exec ~/.azotebg
 
 # t480s
 output "eDP-1" scale 1.25
@@ -128,17 +130,17 @@ mode "resize" {
 bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym --locked XF86AudioMicMute exec mixer mic.mute toggle
+bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 # Brightness
-bindsym --locked XF86MonBrightnessDown exec /usr/bin/backlight decr 5
-bindsym --locked XF86MonBrightnessUp exec /usr/bin/backlight incr 5
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
 
 # Screenshot
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png | wl-copy
 
 # Clipboard history
-exec_always pkill wl-paste; wl-paste --watch cliphist store
+exec_always sh -c 'pkill wl-paste; wl-paste --watch cliphist store'
 bindsym $mod+shift+v exec cliphist list | fuzzel --dmenu --with-nth 2 | cliphist decode | wl-copy
 
 # Mouse modifier
@@ -154,11 +156,20 @@ exec swayidle -w \
 bindswitch lid:on exec swaylock -f -c 000000
 
 # App Rules
-for_window [app_id="nemo"] floating enable
+for_window [app_id="org.gnome.Nautilus"] floating enable
 for_window [app_id="io.bassi.Amberol"] floating enable
-for_window [app_id="pwvucontrol"] floating enable
+for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
 for_window [class="Firefox"] gaps inner 0 outer 0
 
-# fix for nixos
-exec dbus-update-activation-environment --all
+# Workspace assignments
+assign [app_id="^firefox$"] workspace 2
+assign [app_id="^(google-chrome|chromium)$"] workspace 2
+assign [class="^(Google-chrome|Chromium)$"] workspace 2
+assign [app_id="^emacs$"] workspace 3
+assign [class="^Emacs$"] workspace 3
+assign [app_id="^(obsidian|md.obsidian.Obsidian)$"] workspace 4
+assign [class="^obsidian$"] workspace 4
+for_window [workspace="^2$"] layout tabbed
+
+include /etc/sway/config.d/*

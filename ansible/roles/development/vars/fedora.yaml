@@ -22,5 +22,11 @@ development_packages:
 
 development_pipx: []
 
+development_npm:
+  - "@anthropic-ai/claude-code"
+  - "@agentclientprotocol/claude-agent-acp"
+  - yaml-language-server
+
 development_go:
   - github.com/jorgerojas26/lazysql@latest
+  - github.com/hashicorp/terraform-ls@latest

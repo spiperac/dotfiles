@@ -35,6 +35,7 @@
     - { role: base, tags: [base] }
     - { role: desktop, tags: [desktop] }
     - { role: gnome, tags: [gnome] }
+    - { role: sway, tags: [sway] }
     - { role: apps, tags: [apps] }
     - { role: development, tags: [development, dev] }
     - { role: devops, tags: [devops] }

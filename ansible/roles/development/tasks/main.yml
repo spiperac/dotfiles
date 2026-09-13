@@ -28,3 +28,14 @@
     PIPX_HOME: "{{ dotfiles_home }}/.local/pipx"
     PIPX_BIN_DIR: "{{ dotfiles_home }}/.local/bin"
   loop: "{{ development_pipx }}"
+
+- name: Install development tools with npm
+  community.general.npm:
+    name: "{{ item }}"
+    global: true
+    state: latest
+  become: false
+  environment:
+    NPM_CONFIG_PREFIX: "{{ dotfiles_home }}/.local"
+  loop: "{{ development_npm }}"
+  when: development_npm is defined and development_npm | length > 0

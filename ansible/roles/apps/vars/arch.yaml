@@ -10,6 +10,8 @@ apps_packages:
   - fastfetch
   - foliate
   - halloy
+  - llama-cpp
+  - ggml-blas
 
 apps_flatpaks:
   - com.bitwarden.desktop
