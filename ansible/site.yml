@@ -52,6 +52,30 @@
       become: false
       tags: [dotfiles]
 
+    - name: Ensure ~/.ssh dirs exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0700"
+      loop:
+        - "{{ dotfiles_home }}/.ssh"
+        - "{{ dotfiles_home }}/.ssh/config.d"
+      become: false
+      tags: [iam]
+
+    - name: Write general SSH config
+      ansible.builtin.copy:
+        content: |
+          Include ~/.ssh/config.d/*
+
+          Host *
+              AddKeysToAgent yes
+              ServerAliveInterval 60
+        dest: "{{ dotfiles_home }}/.ssh/config"
+        mode: "0600"
+      become: false
+      tags: [iam]
+
     - name: Link scripts
       ansible.builtin.file:
         src: "{{ dotfiles_repo }}/scripts"
@@ -72,3 +96,12 @@
       register: stow_run
       changed_when: "'LINK:' in stow_run.stderr or 'UNLINK:' in stow_run.stderr"
       tags: [dotfiles]
+
+    # Last on purpose: needs the security key to decrypt
+    - name: Write private SSH hosts from pass
+      ansible.builtin.copy:
+        content: "{{ lookup('community.general.passwordstore', 'ssh/hosts', returnall=true) }}\n"
+        dest: "{{ dotfiles_home }}/.ssh/config.d/hosts"
+        mode: "0600"
+      become: false
+      tags: [iam]
