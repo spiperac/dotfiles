@@ -9,3 +9,7 @@ dotfiles_stow_ignore:
   - assets
 
 dotfiles_stow_ignore_re: "^({{ dotfiles_stow_ignore | join('|') }})$"
+
+nas_shares:
+  - { share: video, path: /mnt/nas/media }
+  - { share: home, path: /mnt/nas/backup }

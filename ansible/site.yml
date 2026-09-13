@@ -23,10 +23,11 @@
         key: "{{ dotfiles_user }}"
       tags: always
 
-    - name: Set home and uid
+    - name: Set home, uid and gid
       ansible.builtin.set_fact:
         dotfiles_home: "{{ ansible_facts['getent_passwd'][dotfiles_user][4] }}"
         dotfiles_uid: "{{ ansible_facts['getent_passwd'][dotfiles_user][1] }}"
+        dotfiles_gid: "{{ ansible_facts['getent_passwd'][dotfiles_user][2] }}"
       tags: always
 
   roles:
@@ -97,11 +98,67 @@
       changed_when: "'LINK:' in stow_run.stderr or 'UNLINK:' in stow_run.stderr"
       tags: [dotfiles]
 
-    # Last on purpose: needs the security key to decrypt
+    # Last on purpose: these need the security key to decrypt from pass
     - name: Write private SSH hosts from pass
       ansible.builtin.copy:
         content: "{{ lookup('community.general.passwordstore', 'ssh/hosts', returnall=true) }}\n"
         dest: "{{ dotfiles_home }}/.ssh/config.d/hosts"
         mode: "0600"
       become: false
+      tags: [iam]
+
+    - name: Write NAS credentials from pass
+      ansible.builtin.copy:
+        content: |
+          username={{ lookup('community.general.passwordstore', 'nas/username') }}
+          password={{ lookup('community.general.passwordstore', 'nas/password') }}
+        dest: /etc/nas-credentials
+        owner: root
+        group: root
+        mode: "0600"
+      tags: [iam]
+
+    - name: Write NAS mount units
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=NAS {{ item.share }}
+          After=network-online.target tailscaled.service
+          Wants=network-online.target
+
+          [Mount]
+          What=//{{ lookup('community.general.passwordstore', 'nas/host') }}/{{ item.share }}
+          Where={{ item.path }}
+          Type=cifs
+          Options=credentials=/etc/nas-credentials,vers=3.1.1,uid={{ dotfiles_uid }},gid={{ dotfiles_gid }},_netdev
+          TimeoutSec=10s
+        dest: "/etc/systemd/system/{{ item.path | regex_replace('^/', '') | replace('/', '-') }}.mount"
+        mode: "0644"
+      loop: "{{ nas_shares }}"
+      tags: [iam]
+
+    - name: Write NAS automount units
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=Automount NAS {{ item.share }}
+
+          [Automount]
+          Where={{ item.path }}
+          TimeoutIdleSec=5min
+
+          [Install]
+          WantedBy=remote-fs.target
+        dest: "/etc/systemd/system/{{ item.path | regex_replace('^/', '') | replace('/', '-') }}.automount"
+        mode: "0644"
+      loop: "{{ nas_shares }}"
+      tags: [iam]
+
+    - name: Enable NAS automounts
+      ansible.builtin.systemd_service:
+        name: "{{ item.path | regex_replace('^/', '') | replace('/', '-') }}.automount"
+        enabled: true
+        state: started
+        daemon_reload: true
+      loop: "{{ nas_shares }}"
       tags: [iam]

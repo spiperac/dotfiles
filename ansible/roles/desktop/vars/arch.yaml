@@ -7,6 +7,8 @@ desktop_packages:
   - networkmanager
   - bluez
   - bluez-utils
+  - tailscale
+  - cifs-utils
 
   # Audio
   - pipewire
@@ -20,3 +22,4 @@ desktop_services:
   - gdm.service
   - NetworkManager.service
   - power-profiles-daemon.service
+  - tailscaled.service
