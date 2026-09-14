@@ -1,6 +1,10 @@
 ---
 media_packages:
   - mpv
+  - vlc
+  - imv
+  - ytfzf
+  - fragments
 
   # NAS
   - cifs-utils
