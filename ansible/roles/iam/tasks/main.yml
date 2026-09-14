@@ -1,0 +1,81 @@
+---
+- name: Ensure ~/.ssh dirs exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0700"
+  loop:
+    - "{{ dotfiles_home }}/.ssh"
+    - "{{ dotfiles_home }}/.ssh/config.d"
+  become: false
+
+- name: Write general SSH config
+  ansible.builtin.copy:
+    content: |
+      Include ~/.ssh/config.d/*
+
+      Host *
+          AddKeysToAgent yes
+          ServerAliveInterval 60
+    dest: "{{ dotfiles_home }}/.ssh/config"
+    mode: "0600"
+  become: false
+
+- name: Write private SSH hosts from pass
+  ansible.builtin.copy:
+    content: "{{ lookup('community.general.passwordstore', 'ssh/hosts', returnall=true) }}\n"
+    dest: "{{ dotfiles_home }}/.ssh/config.d/hosts"
+    mode: "0600"
+  become: false
+
+- name: Write NAS credentials from pass
+  ansible.builtin.copy:
+    content: |
+      username={{ lookup('community.general.passwordstore', 'nas/username') }}
+      password={{ lookup('community.general.passwordstore', 'nas/password') }}
+    dest: /etc/nas-credentials
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Write NAS mount units
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=NAS {{ item.share }}
+      After=network-online.target tailscaled.service
+      Wants=network-online.target
+
+      [Mount]
+      What=//{{ lookup('community.general.passwordstore', 'nas/host') }}/{{ item.share }}
+      Where={{ item.path }}
+      Type=cifs
+      Options=credentials=/etc/nas-credentials,vers=3.1.1,uid={{ dotfiles_uid }},gid={{ dotfiles_gid }},_netdev
+      TimeoutSec=10s
+    dest: "/etc/systemd/system/{{ item.path | regex_replace('^/', '') | replace('/', '-') }}.mount"
+    mode: "0644"
+  loop: "{{ nas_shares }}"
+
+- name: Write NAS automount units
+  ansible.builtin.copy:
+    content: |
+      [Unit]
+      Description=Automount NAS {{ item.share }}
+
+      [Automount]
+      Where={{ item.path }}
+      TimeoutIdleSec=5min
+
+      [Install]
+      WantedBy=remote-fs.target
+    dest: "/etc/systemd/system/{{ item.path | regex_replace('^/', '') | replace('/', '-') }}.automount"
+    mode: "0644"
+  loop: "{{ nas_shares }}"
+
+- name: Enable NAS automounts
+  ansible.builtin.systemd_service:
+    name: "{{ item.path | regex_replace('^/', '') | replace('/', '-') }}.automount"
+    enabled: true
+    state: started
+    daemon_reload: true
+  loop: "{{ nas_shares }}"

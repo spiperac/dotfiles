@@ -91,7 +91,6 @@ bindsym $mod+0 workspace 10
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
 
-
 bindsym $mod+Shift+1 move container to workspace 1
 bindsym $mod+Shift+2 move container to workspace 2
 bindsym $mod+Shift+3 move container to workspace 3

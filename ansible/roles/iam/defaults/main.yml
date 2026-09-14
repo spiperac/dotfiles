@@ -1,0 +1,4 @@
+---
+nas_shares:
+  - { share: video, path: /mnt/nas/media }
+  - { share: home, path: /mnt/nas/backup }

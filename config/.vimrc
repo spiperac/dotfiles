@@ -5,6 +5,8 @@
 """"""""""""
 " Settings
 """"""""""""
+let mapleader = " "
+
 syntax on
 set nocompatible
 set number
@@ -99,8 +101,8 @@ function! s:ensure(repo)
 endfunction
 
 " Plugins
-" call s:ensure('junegunn/fzf')
-" call s:ensure('junegunn/fzf.vim')
+call s:ensure('junegunn/fzf')
+call s:ensure('junegunn/fzf.vim')
 
 
 nnoremap <leader>fo :History<CR>
@@ -116,8 +118,6 @@ endfunction
 """"""""""""""
 " Keybinds
 """"""""""""""
-let mapleader = " "
-
 nnoremap <C-w><C-x> :qa!<CR>
 nnoremap <leader>v :vsplit<CR>
 nnoremap <leader>q :close<CR>
