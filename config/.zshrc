@@ -10,14 +10,10 @@ fi
 # Locale
 export LANG=en_US.UTF-8
 
-# Wayland Display set
-#export WAYLAND_DISPLAY=wayland-0
-
-# Path
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/scripts:$PATH"
-export PATH="$HOME/tools/scripts:$PATH"
+# Path (-U keeps entries unique in nested shells)
+typeset -U path
+path=("$HOME/scripts" "$HOME/.cargo/bin" "$HOME/.local/bin" $path)
+export PATH
 
 # ZSH Configuration
 autoload -U colors && colors
@@ -33,31 +29,14 @@ zstyle ':vcs_info:git*' actionformats '%F{green}(%b)%f %F{red}| %a%f'
 zstyle ':vcs_info:git*' stagedstr '%F{yellow} ●%f'
 zstyle ':vcs_info:git*' unstagedstr '%F{red} ●%f'
 
-# Faster compinit - only run once per day
+# Faster compinit - full check only once per day
+setopt EXTENDED_GLOB
 autoload -Uz compinit
-if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
   compinit
 else
   compinit -C
 fi
-
-# Enhanced Git info in prompt
-git_info() {
-  local branch
-  branch=$(git symbolic-ref --short HEAD 2>/dev/null) || return
-  [[ -n $branch ]] || return
-  
-  local status_color="%F{green}"
-  local git_status=$(git status --porcelain 2>/dev/null)
-  
-  if [[ -n $git_status ]]; then
-    status_color="%F{red}"  # Dirty repo
-  elif git log --oneline @{u}..HEAD 2>/dev/null | grep -q .; then
-    status_color="%F{yellow}"  # Ahead of remote
-  fi
-  
-  echo "$status_color( $branch)%f"
-}
 
 precmd() {
   vcs_info
@@ -70,23 +49,19 @@ HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
 setopt SHARE_HISTORY
-setopt INC_APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
-setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_FCNTL_LOCK
 
-
-
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # Case-insensitive
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format '%B%F{blue}-- %d --%f%b'
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 zstyle ':completion:*:ssh:*' config on
 
 # Zsh line editor and other options
@@ -94,7 +69,6 @@ setopt AUTO_LIST               # show completions automatically
 setopt LIST_AMBIGUOUS          # list options when ambiguous
 setopt AUTO_CD                 # cd by typing directory name
 setopt CORRECT                 # suggest corrections for commands
-setopt EXTENDED_GLOB           # extended globbing patterns
 
 # fzf: Ctrl-R history, Ctrl-T files, Alt-C cd
 command -v fzf >/dev/null && source <(fzf --zsh)
@@ -112,7 +86,7 @@ bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
 
 # direnv
-eval "$(direnv hook zsh)"
+command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # User configuration
 export EDITOR='nvim'
@@ -123,11 +97,13 @@ export FZF_DEFAULT_OPTS='--height 50% --layout=reverse --border'
 export EZA_ICONS_AUTO=1
 
 #### Aliases
-alias ls='eza'
-alias ll='eza -l --git'
-alias la='eza -la --git'
-alias vf='vim $(fzf --preview "head -100 {}")'
-alias fz='cd $(dirname $(find . -type f | fzf --exclude .git --exclude .local --exclude node_modules))'
+if command -v eza >/dev/null; then
+  alias ls='eza'
+  alias ll='eza -l --git'
+  alias la='eza -la --git'
+fi
+alias vf='$EDITOR "$(fzf --preview "head -100 {}")"'
+alias fz='cd "$(dirname "$(fd -t f -H -E .git -E .local -E node_modules | fzf)")"'
 
 # Navigation
 alias ..='cd ..'
@@ -144,8 +120,6 @@ alias gl='git log --oneline --graph --decorate'
 
 # Quality of life
 alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
 alias tree='tree -C'
 alias df='df -h'
 alias du='du -h'

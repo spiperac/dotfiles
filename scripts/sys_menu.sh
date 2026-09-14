@@ -5,6 +5,11 @@ menu() {
     fuzzel --dmenu --auto-select --no-sort -p "$1"
 }
 
+# Number of the picked entry ("2  ..." -> 2)
+num() {
+    awk '{print $1}' <<< "$1"
+}
+
 pass_store() {
     entry=$(cd ~/.password-store && fd -e gpg | sed 's/\.gpg$//' | sort | fuzzel --dmenu -p "pass: ")
     [ -n "$entry" ] || return
@@ -17,27 +22,45 @@ pass_store() {
 
 power_profile() {
     current=$(powerprofilesctl get)
-    choice=$(printf '1  power-saver\n2  balanced\n3  performance\n' \
+    choice=$(printf '1    power-saver\n2    balanced\n3    performance\n' \
         | sed "s/  $current$/  $current (current)/" | menu "profile: ")
-    [ -n "$choice" ] || return
-    profile=$(awk '{print $2}' <<< "$choice")
+    case $(num "$choice") in
+        1) profile=power-saver ;;
+        2) profile=balanced ;;
+        3) profile=performance ;;
+        *) return ;;
+    esac
     powerprofilesctl set "$profile" && notify-send "Power profile" "$profile"
 }
 
 power_menu() {
-    choice=$(printf '1  Lock\n2  Suspend\n3  Log out\n4  Reboot\n5  Shut down\n' | menu "power: ")
-    case "$choice" in
-        "1  Lock")      swaylock -f -c 000000 ;;
-        "2  Suspend")   systemctl suspend ;;
-        "3  Log out")   swaymsg exit ;;
-        "4  Reboot")    systemctl reboot ;;
-        "5  Shut down") systemctl poweroff ;;
+    choice=$(printf '1    Lock\n2    Suspend\n3    Log out\n4    Reboot\n5    Shut down\n' | menu "power: ")
+    case $(num "$choice") in
+        1) swaylock -f -c 000000 ;;
+        2) systemctl suspend ;;
+        3) swaymsg exit ;;
+        4) systemctl reboot ;;
+        5) systemctl poweroff ;;
     esac
 }
 
-choice=$(printf '1  Pass Store\n2  Power Profile\n3  Power Menu\n' | menu "system: ")
-case "$choice" in
-    "1  Pass Store")    pass_store ;;
-    "2  Power Profile") power_profile ;;
-    "3  Power Menu")    power_menu ;;
+kill_process() {
+    choice=$(ps -axo pid=,comm= | sort -k2 | fuzzel --dmenu -p "kill: ")
+    [ -n "$choice" ] || return
+    read -r pid name <<< "$choice"
+    confirm=$(printf '1  No\n2  Yes\n' | menu "kill $name ($pid)? ")
+    [ "$(num "$confirm")" = 2 ] || return
+    if kill -9 "$pid" 2>/dev/null; then
+        notify-send "Killed" "$name ($pid)"
+    else
+        notify-send -u critical "Kill failed" "$name ($pid)"
+    fi
+}
+
+choice=$(printf '1    Pass Store\n2    Power Profile\n3    Power Menu\n4  󰓾  Kill Process\n' | menu "system: ")
+case $(num "$choice") in
+    1) pass_store ;;
+    2) power_profile ;;
+    3) power_menu ;;
+    4) kill_process ;;
 esac
