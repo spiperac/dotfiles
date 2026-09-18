@@ -12,11 +12,11 @@ sway_packages:
   - gui-apps/wmenu
 
   # File manager
-  - lxde-base/pcmanfm
+  - x11-misc/pcmanfm
   - gnome-base/gvfs
 
   # Applets
-  - net-misc/network-manager-applet
+  - gnome-extra/nm-applet
   - media-sound/pavucontrol
 
   # Portals

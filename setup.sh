@@ -11,14 +11,16 @@ source /etc/os-release
 
 # Check every atom referenced by the Gentoo role vars against the
 # emerge tree, to catch typos before a full play run.
-if [ "${1:-}" = "verify" ]; then
-    if [ "$ID" != "gentoo" ]; then
+case "${1:-}" in
+    verify|--verify)
+        if [ "$ID" != "gentoo" ]; then
         echo "verify is only supported on Gentoo." >&2
         exit 1
     fi
     "$REPO_DIR/scripts/verify_atoms.py"
     exit "$?"
-fi
+    ;;
+esac
 
 case "$ID" in
     fedora)

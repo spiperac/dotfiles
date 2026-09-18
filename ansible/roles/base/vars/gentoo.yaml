@@ -19,7 +19,7 @@ base_packages:
   - app-admin/stow
   - gui-apps/wl-clipboard
   - net-analyzer/mtr
-  - net-dns/bind-tools
+  - net-dns/doggo
   - net-misc/whois
   - sys-process/lsof
   - net-misc/socat
@@ -51,9 +51,6 @@ base_packages:
 
   # Password store
   - app-admin/pass
-
-  # Nix
-  - sys-apps/nix
 
   # Fonts
   - media-fonts/fira-code

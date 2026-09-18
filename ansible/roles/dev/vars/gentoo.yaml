@@ -4,13 +4,12 @@ dev_packages:
   - dev-vcs/pre-commit
   - dev-python/uv
   - dev-lang/go
-  - dev-lang/nodejs
+  - net-libs/nodejs
   - app-text/pandoc
   - media-gfx/imagemagick
   - app-editors/emacs
   - sys-devel/gdb
   - dev-lang/rust
-  - dev-lang/cargo
 
   # DevOps
   - app-admin/ansible
