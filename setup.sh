@@ -38,10 +38,19 @@ case "$ID" in
         ;;
 esac
 
-# Gentoo uses doas; sudo is used on every other distribution.
-BECOME_METHOD="$(case "$ID" in gentoo) echo doas ;; *) echo sudo ;; esac)"
+# Gentoo uses doas with a nopass rule; ansible drops the doas -n flag
+# whenever a become password is set, so -K must not be passed there.
+# sudo on every other distribution needs -K.
+case "$ID" in
+    gentoo)
+        BECOME_ARGS=(-e ansible_become_method=doas)
+        ;;
+    *)
+        BECOME_ARGS=(-K)
+        ;;
+esac
 
 cd "$REPO_DIR/ansible"
 ansible-galaxy collection install -r requirements.yml
-exec ansible-playbook site.yml -K -e ansible_become_method="$BECOME_METHOD" "$@"
+exec ansible-playbook site.yml "${BECOME_ARGS[@]}" "$@"
 
