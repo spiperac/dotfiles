@@ -2,7 +2,6 @@
 - name: Provision workstation
   hosts: localhost
   become: true
-  become_method: "{{ 'doas' if ansible_facts['distribution'] == 'Gentoo' else 'sudo' }}"
   gather_facts: true
 
   pre_tasks:

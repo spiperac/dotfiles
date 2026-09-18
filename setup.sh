@@ -38,7 +38,10 @@ case "$ID" in
         ;;
 esac
 
+# Gentoo uses doas; sudo is used on every other distribution.
+BECOME_METHOD="$(case "$ID" in gentoo) echo doas ;; *) echo sudo ;; esac)"
+
 cd "$REPO_DIR/ansible"
 ansible-galaxy collection install -r requirements.yml
-exec ansible-playbook site.yml -K "$@"
+exec ansible-playbook site.yml -K -e ansible_become_method="$BECOME_METHOD" "$@"
 
