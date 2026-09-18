@@ -1,0 +1,63 @@
+---
+base_packages:
+  # VCS
+  - dev-vcs/git
+
+  # Core tools
+  - sys-devel/make
+  - sys-apps/ripgrep
+  - sys-apps/fd
+  - app-shells/fzf
+  - sys-apps/bat
+  - sys-apps/eza
+  - app-misc/jq
+  - app-text/tree
+  - sys-apps/file
+  - sys-fs/duf
+  - sys-process/htop
+  - net-misc/rsync
+  - app-admin/stow
+  - gui-apps/wl-clipboard
+  - net-analyzer/mtr
+  - net-dns/bind-tools
+  - net-misc/whois
+  - sys-process/lsof
+  - net-misc/socat
+  - net-misc/wget
+  - net-misc/curl
+
+  # Archiving
+  - app-arch/7zip
+  - app-arch/unzip
+  - app-arch/zip
+  - app-arch/xz-utils
+
+  # Crypto / network
+  - dev-libs/openssl
+  - net-misc/openssh
+  - app-crypt/gnupg
+  - app-crypt/pinentry
+
+  # Shell & editors
+  - app-shells/zsh
+  - app-misc/tmux
+  - app-editors/neovim
+  - dev-python/pynvim
+  - dev-util/tree-sitter-cli
+  - app-editors/vim
+  - app-editors/nano
+  - sys-apps/less
+  - gui-apps/foot
+
+  # Password store
+  - app-admin/pass
+
+  # Nix
+  - sys-apps/nix
+
+  # Fonts
+  - media-fonts/fira-code
+  - media-fonts/fontawesome
+  - media-fonts/symbols-nerd-font
+
+base_login_shell: /bin/zsh

@@ -1,13 +1,23 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
 
 - name: Install Desktop packages
   ansible.builtin.package:
     name: "{{ desktop_packages }}"
     state: present
   when: desktop_packages | length > 0
+
+- name: Deploy greetd config
+  ansible.builtin.copy:
+    src: greetd/config.toml
+    dest: /etc/greetd/config.toml
+    owner: root
+    group: root
+    mode: "0644"
+  when:
+    - ansible_facts['distribution'] == 'Gentoo'
 
 - name: Enable Desktop services
   ansible.builtin.systemd_service:
@@ -18,6 +28,19 @@
   when:
     - desktop_services | length > 0
     - ansible_facts['service_mgr'] == 'systemd'
+
+- name: Enable PipeWire user services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    scope: global
+  loop:
+    - pipewire.socket
+    - pipewire-pulse.socket
+    - wireplumber.service
+  when:
+    - ansible_facts['service_mgr'] == 'systemd'
+    - ansible_facts['distribution'] == 'Gentoo'
 
 - name: Find batteries without charge limit enabled
   ansible.builtin.shell:

@@ -1,7 +1,7 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
 
 - name: Install base packages
   ansible.builtin.package:
@@ -31,14 +31,14 @@
     cmd: "nix-channel --add {{ nix_channel_url }} {{ nix_channel_name }}"
     creates: "{{ dotfiles_home }}/.nix-channels"
   become: false
-  when: "'nix' in base_packages"
+  when: base_packages | select('contains', 'nix') | list | length > 0
 
 - name: Populate nix store
   ansible.builtin.command:
     cmd: nix-channel --update
     creates: /nix/store
   become: false
-  when: "'nix' in base_packages"
+  when: base_packages | select('contains', 'nix') | list | length > 0
 
 - name: Install tmux plugins
   ansible.builtin.git:
@@ -53,3 +53,18 @@
   ansible.builtin.user:
     name: "{{ dotfiles_user }}"
     shell: "{{ base_login_shell }}"
+
+- name: Set Fira Code as default system font
+  ansible.builtin.copy:
+    dest: /etc/fonts/local.conf
+    content: |
+      <?xml version="1.0"?>
+      <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+      <fontconfig>
+        <alias>
+          <family>monospace</family>
+          <prefer><family>Fira Code</family></prefer>
+        </alias>
+      </fontconfig>
+    mode: "0644"
+  when: ansible_facts['distribution'] == "Gentoo"

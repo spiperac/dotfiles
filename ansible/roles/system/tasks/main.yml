@@ -1,7 +1,7 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
 
 - name: Install system packages
   ansible.builtin.package:
@@ -149,9 +149,35 @@
         - { regexp: '^#?\s*Color\s*$', line: "Color" }
         - { regexp: '^#?\s*ILoveCandy\s*$', line: "ILoveCandy" }
 
+- name: Configure Gentoo package manager
+  when: ansible_facts['distribution'] == 'Gentoo'
+  block:
+    - name: Create portage package.use directory
+      ansible.builtin.file:
+        path: /etc/portage/package.use
+        state: directory
+        mode: "0755"
+
+    - name: Sync portage package.use files
+      ansible.builtin.copy:
+        src: files/package.use/
+        dest: /etc/portage/package.use/
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Deploy portage make.conf if provided
+      ansible.builtin.copy:
+        src: files/make.conf
+        dest: /etc/portage/make.conf
+        owner: root
+        group: root
+        mode: "0644"
+      when: lookup('ansible.builtin.first_found', [role_path ~ '/files/make.conf'], errors='ignore', skip=true) != ''
+
 - name: Install flatpak
   ansible.builtin.package:
-    name: flatpak
+    name: "{{ flatpak_package }}"
     state: present
 
 - name: Add Flathub remote

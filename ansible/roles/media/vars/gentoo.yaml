@@ -1,0 +1,15 @@
+---
+media_packages:
+  - media-video/mpv
+  - media-video/vlc
+  - media-gfx/imv
+  - net-fs/cifs-utils
+  - net-misc/aria2
+
+  # Reading
+  - app-text/zathura
+  - app-text/zathura-pdf-mupdf
+  - app-text/zathura-cb
+
+media_flatpaks:
+  - io.github.screwys.Rufin

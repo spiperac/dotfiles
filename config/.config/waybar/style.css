@@ -1,5 +1,5 @@
 * {
-    font-family: "Fira Code", "Font Awesome 7 Brands", "Font Awesome 7 Free Solid", monospace;
+    font-family: "Fira Code", "Font Awesome 6 Brands", "Font Awesome 6 Free Solid", monospace;
     font-size: 16px;
     border: none;
     border-radius: 0;
@@ -62,7 +62,7 @@ window#waybar {
 }
 
 #custom-logo {
-    font-family: "Font Awesome 7 Free Solid";
+    font-family: "Font Awesome 6 Free Solid";
     margin-left: 8px;
     margin-right: 6px;
     color: #1793d1;

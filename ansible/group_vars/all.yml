@@ -1,6 +1,8 @@
 ---
 dotfiles_repo: "{{ playbook_dir | dirname }}"
 
+flatpak_package: flatpak
+
 dotfiles_stow_ignore:
   - sway
   - waybar

@@ -1,0 +1,22 @@
+---
+system_packages:
+  # Privilege escalation
+  - app-admin/doas
+
+  # Already installed manually, declared for completeness
+  - gnome-base/gnome-keyring
+  - gnome-extra/polkit-gnome
+
+  # Hardware / firmware
+  - sys-apps/fwupd
+  - sys-auth/fprintd
+  - sys-apps/smartmontools
+
+  # Firewall
+  - net-firewall/ufw
+
+  # Snapshots (btrfs)
+  - sys-fs/btrfs-progs
+  - app-backup/snapper
+
+flatpak_package: sys-apps/flatpak

@@ -1,16 +1,58 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
+
+- name: Configure GURU overlay
+  ansible.builtin.copy:
+    dest: /etc/portage/repos.conf/guru.conf
+    content: |
+      [guru]
+      location = /var/db/repos/guru
+      sync-type = git
+      sync-uri = https://github.com/gentoo/guru.git
+      masters = gentoo
+      auto-sync = yes
+    owner: root
+    group: root
+    mode: "0644"
+  when: ansible_facts['distribution'] == 'Gentoo'
+
+- name: Sync GURU overlay
+  ansible.builtin.command:
+    argv:
+      - emaint
+      - sync
+      - -r
+      - guru
+  changed_when: false
+  when: ansible_facts['distribution'] == 'Gentoo'
 
 - name: Install Sway packages
   ansible.builtin.package:
     name: "{{ sway_packages }}"
     state: present
 
+- name: Clone pixora-icons
+  ansible.builtin.git:
+    repo: https://github.com/tsora1603/pixora-icons.git
+    dest: /usr/share/icons/pixora-icons
+    depth: 1
+  when: ansible_facts['distribution'] == 'Gentoo'
+
 - name: Enable gcr ssh-agent socket
   ansible.builtin.systemd_service:
     name: gcr-ssh-agent.socket
     enabled: true
     scope: global
-  when: ansible_facts['service_mgr'] == 'systemd'
+  when: ansible_facts['service_mgr'] == 'systemd' and ansible_facts['distribution'] != 'Gentoo'
+
+- name: Enable gnome-keyring user units
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    scope: global
+  loop:
+    - gnome-keyring-daemon.service
+    - gnome-keyring-daemon.socket
+  when: ansible_facts['service_mgr'] == 'systemd' and ansible_facts['distribution'] == 'Gentoo'

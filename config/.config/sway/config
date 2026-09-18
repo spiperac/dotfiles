@@ -30,7 +30,7 @@ input "type:keyboard" {
 exec waybar
 exec nm-applet --indicator
 exec blueman-applet
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec ~/scripts/polkit-gnome.sh
 exec_always mako
 
 ### Output (wallpaper and scaling)

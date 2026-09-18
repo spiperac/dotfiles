@@ -1,0 +1,33 @@
+---
+sway_packages:
+  # Core
+  - gui-wm/sway
+  - gui-apps/swaybg
+  - gui-apps/swaylock
+  - gui-apps/swayidle
+  - gui-apps/waybar
+  - gui-apps/mako
+  - gui-apps/grim
+  - gui-apps/slurp
+  - gui-apps/wmenu
+
+  # File manager
+  - lxde-base/pcmanfm
+  - gnome-base/gvfs
+
+  # Applets
+  - net-misc/network-manager-applet
+  - media-sound/pavucontrol
+
+  # Portals
+  - sys-apps/xdg-desktop-portal-gtk
+  - gui-libs/xdg-desktop-portal-wlr
+
+  # Icons
+  - x11-themes/papirus-icon-theme
+
+  # Overlay (GURU)
+  - gui-apps/fuzzel
+  - app-misc/cliphist
+  - app-misc/brightnessctl
+  - gui-apps/azote

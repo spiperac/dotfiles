@@ -1,0 +1,28 @@
+---
+desktop_packages:
+  # Already installed manually, declared for completeness
+  - net-misc/networkmanager
+  - gui-libs/greetd
+  - gui-apps/tuigreet
+
+  # Networking
+  - net-vpn/tailscale
+  - net-vpn/openvpn
+
+  # Bluetooth
+  - net-wireless/bluez
+  - net-wireless/blueman
+
+  # Power
+  - sys-power/power-profiles-daemon
+
+  # Audio
+  - media-video/pipewire
+  - media-video/wireplumber
+
+desktop_services:
+  - NetworkManager.service
+  - power-profiles-daemon.service
+  - tailscaled.service
+  - bluetooth.service
+  - greetd.service

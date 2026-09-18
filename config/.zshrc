@@ -133,3 +133,6 @@ alias tn='tmux new -s'
 
 alias claude-work='CLAUDE_CONFIG_DIR=$HOME/.claude-work claude'
 alias claude-personal='CLAUDE_CONFIG_DIR=$HOME/.claude-personal claude'
+
+# opencode
+export PATH=/home/strah/.opencode/bin:$PATH

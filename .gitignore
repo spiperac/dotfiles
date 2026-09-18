@@ -12,6 +12,7 @@ transient/*
 */transient/*
 error.log
 session*
+__pycache__/
 
 # emacs stuff
 config/.emacs.d/auto-save-list/*

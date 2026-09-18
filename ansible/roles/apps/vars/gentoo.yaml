@@ -1,0 +1,14 @@
+---
+apps_packages:
+  - www-client/firefox-bin
+  - app-misc/fastfetch
+
+  # Overlay (GURU)
+  - app-misc/pfetch
+  - net-irc/halloy
+
+apps_flatpaks:
+  - com.bitwarden.desktop
+  - md.obsidian.Obsidian
+  - com.discordapp.Discord
+  - in.suyogtandel.picoforge

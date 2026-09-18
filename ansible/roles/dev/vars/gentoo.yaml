@@ -1,0 +1,34 @@
+---
+dev_packages:
+  - dev-lang/python
+  - dev-vcs/pre-commit
+  - dev-python/uv
+  - dev-lang/go
+  - dev-lang/nodejs
+  - app-text/pandoc
+  - media-gfx/imagemagick
+  - app-editors/emacs
+  - sys-devel/gdb
+  - dev-lang/rust
+  - dev-lang/cargo
+
+  # DevOps
+  - app-admin/ansible
+  - app-admin/helm
+  - app-admin/opentofu
+  - sys-cluster/kubectl
+  - sys-cluster/k9scli
+
+dev_pipx: []
+
+dev_npm:
+  - "@anthropic-ai/claude-code"
+  - "@agentclientprotocol/claude-agent-acp"
+
+dev_go: []
+
+dev_docker_packages:
+  - app-containers/podman
+  - app-containers/podman-compose
+
+dev_virt_packages: []

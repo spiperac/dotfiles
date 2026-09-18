@@ -9,6 +9,17 @@ export LC_ALL=C.UTF-8 LANG=C.UTF-8
 
 source /etc/os-release
 
+# Check every atom referenced by the Gentoo role vars against the
+# emerge tree, to catch typos before a full play run.
+if [ "${1:-}" = "verify" ]; then
+    if [ "$ID" != "gentoo" ]; then
+        echo "verify is only supported on Gentoo." >&2
+        exit 1
+    fi
+    "$REPO_DIR/scripts/verify_atoms.py"
+    exit "$?"
+fi
+
 case "$ID" in
     fedora)
         command -v ansible >/dev/null 2>&1 || sudo dnf install -y ansible-core git stow
@@ -16,8 +27,11 @@ case "$ID" in
     arch)
         command -v ansible >/dev/null 2>&1 || sudo pacman -Syu --noconfirm ansible-core git stow
         ;;
+    gentoo)
+        command -v ansible >/dev/null 2>&1 || doas emerge -av app-admin/ansible-core app-admin/stow
+        ;;
     *)
-        echo "This bootstrap targets Fedora or Arch Linux." >&2
+        echo "This bootstrap targets Fedora, Arch Linux or Gentoo." >&2
         exit 1
         ;;
 esac

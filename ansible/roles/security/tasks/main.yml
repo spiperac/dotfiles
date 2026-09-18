@@ -1,7 +1,7 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else 'fedora.yaml' }}"
+    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
 
 - name: Install security packages
   ansible.builtin.package:
@@ -13,6 +13,7 @@
     name: "{{ dotfiles_user }}"
     groups: wireshark
     append: true
+  when: ansible_facts['distribution'] != 'Gentoo'
 
 - name: Install security flatpaks
   community.general.flatpak:
@@ -49,12 +50,14 @@
     depth: 1
     version: master
     update: false
+  when: ansible_facts['distribution'] != 'Gentoo'
 
 - name: Create ligolo-ng directory
   ansible.builtin.file:
     path: /opt/ligolo-ng
     state: directory
     mode: "0755"
+  when: ansible_facts['distribution'] != 'Gentoo'
 
 - name: Download ligolo-ng
   ansible.builtin.unarchive:
@@ -66,6 +69,7 @@
   loop:
     - proxy
     - agent
+  when: ansible_facts['distribution'] != 'Gentoo'
 
 - name: Link ligolo-ng
   ansible.builtin.file:
@@ -75,3 +79,4 @@
   loop:
     - proxy
     - agent
+  when: ansible_facts['distribution'] != 'Gentoo'

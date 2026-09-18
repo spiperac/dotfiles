@@ -1,0 +1,18 @@
+---
+security_packages:
+  - net-analyzer/nmap
+  - net-analyzer/wireshark
+  - dev-util/rizin
+  - app-admin/checksec
+  - app-misc/binwalk
+
+  # Exploit dev
+  - dev-util/pwntools
+  - dev-debug/pwndbg
+
+security_flatpaks:
+  - net.portswigger.BurpSuite-Community
+
+security_pipx: []
+
+security_go: []
