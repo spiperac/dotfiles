@@ -8,7 +8,7 @@ dev_packages:
   - app-text/pandoc
   - media-gfx/imagemagick
   - app-editors/emacs
-  - sys-devel/gdb
+  - dev-debug/gdb
   - dev-lang/rust
 
   # DevOps
