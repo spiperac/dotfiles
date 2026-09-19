@@ -30,10 +30,10 @@
       project-list-file            (expand-file-name "projects.eld" my-cache-dir))
 
 ;; Native comp cache (eln-cache)
-(when (fboundp 'startup-redirect-eln-cache)
-  (startup-redirect-eln-cache
-   (expand-file-name "eln-cache/" my-cache-dir)))
 
+(if (and (fboundp 'startup-redirect-eln-cache)
+         (boundp 'native-comp-eln-load-path))
+    (startup-redirect-eln-cache (expand-file-name "eln-cache/" my-cache-dir)))
 ;; ============================================================
 ;; ENCODING
 ;; ============================================================

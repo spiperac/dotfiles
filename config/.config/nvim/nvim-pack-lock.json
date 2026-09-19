@@ -1,8 +1,16 @@
 {
   "plugins": {
+    "OSC11.nvim": {
+      "rev": "548380b6ef9f45d877215657bca55f5ca2ca4f1a",
+      "src": "https://github.com/afonsofrancof/OSC11.nvim"
+    },
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
+    },
+    "gruvbox": {
+      "rev": "ef8864bb42bf244f0295d1c5a403b27e3d139695",
+      "src": "https://github.com/morhetz/gruvbox"
     },
     "mason-tool-installer.nvim": {
       "rev": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc",

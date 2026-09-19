@@ -1,6 +1,6 @@
 * {
     font-family: "Fira Code", "Font Awesome 6 Brands", "Font Awesome 6 Free Solid", monospace;
-    font-size: 16px;
+    font-size: 20px;
     border: none;
     border-radius: 0;
 }
@@ -20,7 +20,7 @@ window#waybar {
 }
 
 #workspaces button { color: #666; }
-#workspaces button.focused { color: #1793d1; }
+#workspaces button.focused { color: #bb9af7; }
 #workspaces button.urgent { color: #ff5555; }
 
 /* Center clock */
@@ -65,5 +65,5 @@ window#waybar {
     font-family: "Font Awesome 6 Free Solid";
     margin-left: 8px;
     margin-right: 6px;
-    color: #1793d1;
+    color: #a06cd5;
 }

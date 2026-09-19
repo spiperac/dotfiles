@@ -43,7 +43,6 @@ vim.o.smartcase = true
 
 -- Files
 vim.o.undofile = true
-vim.o.autowrite = false
 vim.o.timeoutlen = 300
 vim.o.updatetime = 300
 vim.opt.swapfile = false
@@ -59,23 +58,6 @@ vim.o.showmatch = true
 vim.o.signcolumn = "no"
 vim.opt.guicursor = "n-v-c:block-blinkwait500-blinkon500-blinkoff500"
 
--- Netrw
-vim.g.netrw_banner = 0       -- hide banner
-vim.g.netrw_liststyle = 3    -- tree-style listing
-vim.g.netrw_winsize = 30     -- set width
-vim.g.netrw_browse_split = 4 -- open in prior window
-vim.g.netrw_fastbrowse = 0   -- Netrw fastbrowse off
-vim.g.netrw_clipboard = 0
-
--- Fix for WSL clipboard
-if vim.fn.has("wsl") == 1 then
-  vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-      vim.fn.setreg("+", vim.fn.substitute(vim.fn.getreg("+"), "\r\n", "\n", "g"))
-    end,
-  })
-end
-
 -- Disable auto comment on new line (ftplugins re-enable it, so reapply per buffer)
 vim.api.nvim_create_autocmd("BufWinEnter", {
   callback = function()
@@ -89,11 +71,39 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 vim.pack.add({
   { src = 'https://github.com/srcery-colors/srcery-vim' },
+  { src = 'https://github.com/morhetz/gruvbox' },
+  { src = 'https://github.com/afonsofrancof/OSC11.nvim' },
 })
 
 vim.cmd("colorscheme srcery")
 
+-- Follow the terminal's light/dark theme (OSC 11). OSC11.nvim hooks
+-- TermResponse directly, so srcery's `set background=dark` can't break it.
+require("osc11").setup({
+  on_dark = function()
+    vim.opt.background = "dark"
+    if vim.g.colors_name ~= "srcery" then
+      vim.cmd("colorscheme srcery")
+    end
+  end,
+  on_light = function()
+    vim.opt.background = "light"
+    if vim.g.colors_name ~= "gruvbox" then
+      vim.cmd("colorscheme gruvbox")
+    end
+  end,
+})
+
+-- Nvim queries the terminal's background before user config loads, so OSC11's
+-- listener misses the first response. Re-query so a terminal already in light
+-- mode is respected from the first frame.
+if vim.o.ttyfast then
+  vim.api.nvim_ui_send('\027]11;?\007')
+end
+
 do
+  -- Re-applied on every colorscheme load so theme toggles (OSC 11) keep the
+  -- transparent/padding look instead of inheriting colors from the new theme.
   local bg_groups = {
     -- Core editor
     "Normal", "NormalNC", "EndOfBuffer",
@@ -103,42 +113,72 @@ do
     "NormalFloat", "FloatBorder", "FloatTitle",
     "Pmenu", "WinBar", "WinBarNC", "MsgArea",
 
+    -- Tabline (blank padding row)
+    "TabLine", "TabLineFill", "TabLineSel",
+
     -- mini.nvim
     "MiniFilesNormal", "MiniFilesBorder", "MiniFilesTitle", "MiniFilesTitleFocused",
     "MiniPickNormal", "MiniPickBorder", "MiniPickPrompt",
   }
 
-  for _, group in ipairs(bg_groups) do
-    local hl = vim.api.nvim_get_hl(0, { name = group })
-    hl.bg, hl.ctermbg = nil, nil
-    vim.api.nvim_set_hl(0, group, hl)
+  local function apply_theme_patches()
+    -- Keep transparency: strip backgrounds of UI chrome so the terminal shows through.
+    -- (This block is your original config's bg-strip, unchanged.)
+    for _, group in ipairs(bg_groups) do
+      local hl = vim.api.nvim_get_hl(0, { name = group })
+      hl.bg, hl.ctermbg = nil, nil
+      vim.api.nvim_set_hl(0, group, hl)
+    end
+
+    -- Mode indicator colors (unchanged from the original config)
+    vim.cmd([[
+      hi StatusInsert guibg=green guifg=white
+      hi StatusVisual guibg=orange guifg=#0f0f0f
+      hi StatusReplace guibg=red guifg=white
+      hi StatusCommand guibg=purple guifg=white
+    ]])
+
+    if vim.o.background == "light" then
+      -- Gruvbox light's StatusLine/StatusLineNC use gui=inverse, which nvim
+      -- forwards to the terminal as SGR 7 (inverse video). The terminal then
+      -- swaps the colors of every group drawn inside the statusline (mode and
+      -- branch text, etc.). Redeclare the bar without inverse, using the exact
+      -- colors gruvbox's inverse would render on light anyway.
+      vim.cmd([[
+        hi StatusLine   guibg=#d5c4a1 guifg=#3c3836 gui=NONE
+        hi StatusLineNC guibg=#ebdbb2 guifg=#7c6f64 gui=NONE
+
+        " gruvbox's light Cursor is a bare inverse with no colors, which is
+        " invisible on a transparent terminal. Give it a solid dark block.
+        hi Cursor guibg=#3c3836 guifg=#fbf1c7
+        hi! link vCursor Cursor
+        hi! link iCursor Cursor
+        hi! link lCursor Cursor
+
+        " NORMAL-mode indicator + branch colors: dark text on the light bar
+        hi GitStatus guifg=#3c3836
+        hi GitClean guifg=#79740e
+        hi GitDirty guifg=#9d0006
+        hi GitAhead guifg=#af3a03
+      ]])
+    else
+      -- srcery dark
+      vim.cmd([[
+        hi GitStatus guifg=white
+        hi GitClean guifg=#7fa563
+        hi GitDirty guifg=#d8647e
+        hi GitAhead guifg=#f3be7c
+
+        " srcery's CursorLine matches its background, so pickers need their own
+        hi MiniPickMatchCurrent guibg=#3b3935
+        hi MiniFilesCursorLine  guibg=#3b3935
+      ]])
+    end
   end
+
+  apply_theme_patches()
+  vim.api.nvim_create_autocmd("ColorScheme", { callback = apply_theme_patches })
 end
-
--- Highlight groups
-vim.cmd([[
-  hi StatusLineNC   guifg=NONE
-  hi StatusNormalHL  guifg=white
-  hi StatusInsert guibg=green guifg=white
-  hi StatusVisual guibg=orange guifg=#0f0f0f
-  hi StatusLsp guifg=white guibg=NONE
-  hi GitStatus    guifg=white
-  hi GitClean guifg=#7fa563 guibg=NONE
-  hi GitDirty guifg=#d8647e guibg=NONE
-  hi GitAhead guifg=#f3be7c guibg=NONE
-  hi ModifiedHL guifg=#ffd700
-  hi StatusReplace guibg=red guifg=white
-  hi StatusCommand guibg=purple guifg=white
-  hi GreenLetters guifg=#A8E6CF
-  hi WinBar guibg=NONE guifg=#A8E6CF
-  hi WinBarNC guibg=NONE guifg=grey
-  hi PmenuKind  guifg=#FF5874
-  hi PmenuExtra guifg=#82AAFF
-
-  " srcery's CursorLine matches its background, so pickers need their own
-  hi MiniPickMatchCurrent guibg=#3b3935
-  hi MiniFilesCursorLine  guibg=#3b3935
-]])
 
 -- ============================================================
 -- KEYMAPS
@@ -422,7 +462,7 @@ do
     local mode = vim.api.nvim_get_mode().mode:sub(1, 1)
     local m = modes[mode]
     local mode_part = m and ("%#" .. m[2] .. "# " .. m[1] .. " %*")
-        or ("%#StatusNormalHL# " .. mode:upper() .. " %*")
+        or (" " .. mode:upper() .. " ")
 
     -- File
     local path = vim.api.nvim_buf_get_name(buf)
@@ -430,9 +470,8 @@ do
     if path ~= "" then
       label = vim.fn.fnamemodify(path, ":t") .. " · " .. vim.fn.fnamemodify(path, ":p:h:t")
     end
-    local file_hl = bo.modified and "%#ModifiedHL#" or "%#GreenLetters#"
-    local file_part = " " .. file_icon(bo.filetype) .. " " .. file_hl .. esc(label) .. "%* %p%% "
-        .. (bo.modified and "%#ModifiedHL# [+]%*" or "")
+    local file_part = " " .. file_icon(bo.filetype) .. " " .. esc(label) .. " %p%% "
+        .. (bo.modified and " [+]" or "")
 
     -- LSP
     local clients = vim.lsp.get_clients({ bufnr = buf })
@@ -455,7 +494,7 @@ do
     return mode_part
         .. file_part
         .. " %="
-        .. "%#StatusLsp#LSP:" .. esc(lsp) .. "%* "
+        .. "LSP:" .. esc(lsp) .. " "
         .. esc(bo.filetype) .. "/" .. esc(bo.fileencoding) .. "  "
         .. git_part .. "  "
   end
@@ -503,8 +542,10 @@ do
     end,
   })
 
-  -- Blank winbar: keeps a line of space above each window
-  vim.o.winbar = " "
+  -- Blank tabline: keeps a line of space above each window (same padding the
+  -- old winbar gave, without the per-window bar)
+  vim.o.showtabline = 2
+  vim.o.tabline = " "
 end
 
 -- ============================================================
@@ -644,6 +685,8 @@ require("mason-tool-installer").setup({
     "lua-language-server",
     "terraform-ls",
     "pyright",
+    "gopls",
+    "yaml-language-server",
   },
   run_on_start = false,
 })

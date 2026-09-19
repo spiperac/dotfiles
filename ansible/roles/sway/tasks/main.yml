@@ -56,3 +56,9 @@
     - gnome-keyring-daemon.service
     - gnome-keyring-daemon.socket
   when: ansible_facts['service_mgr'] == 'systemd' and ansible_facts['distribution'] == 'Gentoo'
+
+- name: Prefer dark color scheme
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+- name: Dark GTK theme
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark

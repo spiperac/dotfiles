@@ -13,6 +13,12 @@ export LANG=en_US.UTF-8
 # SSH agent provided by gnome-keyring
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
 
+# Rootless podman/crun needs systemd's user bus (cgroup creation via sd-bus);
+# point at the systemd-managed bus when the socket exists.
+if [[ -S "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/bus" ]]; then
+  export DBUS_SESSION_BUS_ADDRESS="unix:path=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/bus"
+fi
+
 # Path (-U keeps entries unique in nested shells)
 typeset -U path
 path=("$HOME/scripts" "$HOME/.cargo/bin" "$HOME/.local/bin" $path)

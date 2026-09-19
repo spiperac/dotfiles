@@ -40,6 +40,7 @@ exec ~/.azotebg
 
 # t480s
 output "eDP-1" scale 1.25
+exec swaybg -o "eDP-1" ~/.config/assets/wallpaper.jpg
 
 # x1nano
 output "Chimei Innolux Corporation 0x1301 Unknown" scale 1.6
@@ -167,6 +168,7 @@ for_window [app_id="org.gnome.Nautilus"] floating enable
 for_window [app_id="io.bassi.Amberol"] floating enable
 for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
+for_window [app_id="imv"] floating enable
 for_window [class="Firefox"] gaps inner 0 outer 0
 
 # Workspace assignments
