@@ -36,7 +36,6 @@ exec ~/scripts/polkit-gnome.sh
 exec_always mako
 
 ### Output (wallpaper and scaling)
-exec ~/.azotebg
 
 # t480s
 output "eDP-1" scale 1.25

@@ -2,7 +2,6 @@
 sway_packages:
   - sway
   - swaybg
-  - azote
   - swaylock
   - swayidle
   - waybar

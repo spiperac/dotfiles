@@ -31,4 +31,3 @@ sway_packages:
   - gui-apps/fuzzel
   - app-misc/cliphist
   - app-misc/brightnessctl
-  - gui-apps/azote
