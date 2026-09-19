@@ -6,7 +6,7 @@ set $left h
 set $down j
 set $up k
 set $right l
-set $term ghostty
+set $term foot
 set $menu wmenu-run
 set $lock swaylock -c 000000 
 set $fmenu fuzzel

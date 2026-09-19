@@ -16,7 +16,9 @@
   loop:
     - nix-daemon.socket
     - nix-daemon.service
-  when: ansible_facts['service_mgr'] == 'systemd'
+  when: 
+    - ansible_facts['service_mgr'] == 'systemd'
+    - base_packages | select('contains', 'nix') | list | length > 0 
 
 - name: Enable flakes
   ansible.builtin.lineinfile:

@@ -5,11 +5,10 @@ dev_packages:
   - dev-python/uv
   - dev-lang/go
   - net-libs/nodejs
-  - app-text/pandoc
   - media-gfx/imagemagick
   - app-editors/emacs
   - dev-debug/gdb
-  - dev-lang/rust
+  - dev-lang/rust-bin
 
   # DevOps
   - app-admin/ansible

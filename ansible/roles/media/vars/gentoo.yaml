@@ -1,7 +1,6 @@
 ---
 media_packages:
   - media-video/mpv
-  - media-video/vlc
   - media-gfx/imv
   - net-fs/cifs-utils
   - net-misc/aria2
