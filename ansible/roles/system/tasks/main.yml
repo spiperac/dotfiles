@@ -166,6 +166,20 @@
         group: root
         mode: "0644"
 
+    - name: Create portage package.accept_keywords directory
+      ansible.builtin.file:
+        path: /etc/portage/package.accept_keywords
+        state: directory
+        mode: "0755"
+
+    - name: Sync portage package.accept_keywords files
+      ansible.builtin.copy:
+        src: files/package.accept_keywords/
+        dest: /etc/portage/package.accept_keywords/
+        owner: root
+        group: root
+        mode: "0644"
+
     - name: Deploy portage make.conf if provided
       ansible.builtin.copy:
         src: files/make.conf
