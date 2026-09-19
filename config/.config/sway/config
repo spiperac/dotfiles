@@ -28,7 +28,7 @@ input "type:keyboard" {
 
 ### Autostart
 exec --no-startup-id dbus-update-activation-environment --all XDG_CURRENT_DESKTOP=sway
-exec --no-startup-id gnome-keyring-daemon --start --components=secrets
+exec --no-startup-id gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
 exec waybar
 exec nm-applet --indicator
 exec blueman-applet

@@ -10,6 +10,9 @@ fi
 # Locale
 export LANG=en_US.UTF-8
 
+# SSH agent provided by gnome-keyring
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
+
 # Path (-U keeps entries unique in nested shells)
 typeset -U path
 path=("$HOME/scripts" "$HOME/.cargo/bin" "$HOME/.local/bin" $path)

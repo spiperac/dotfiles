@@ -47,10 +47,10 @@
     scope: global
   when: ansible_facts['service_mgr'] == 'systemd' and ansible_facts['distribution'] != 'Gentoo'
 
-- name: Enable gnome-keyring user units
+- name: Disable gnome-keyring user units
   ansible.builtin.systemd_service:
     name: "{{ item }}"
-    enabled: true
+    enabled: false
     scope: global
   loop:
     - gnome-keyring-daemon.service
