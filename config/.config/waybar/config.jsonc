@@ -62,7 +62,7 @@
   "network": {
       "format-wifi": " {signalStrength}%",
       "format-ethernet": "\uf796 {ifname}",
-      "format-disconnected": "󰖪",
+      "format-disconnected": "\uf127",
       "tooltip-format": "{ifname} {ipaddr}/{cidr}",
       "max-length": 10,
       "on-click": "nm-connection-editor"

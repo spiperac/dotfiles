@@ -1,4 +1,4 @@
-font=Fira Code 12
+font=Fira Code 14
 background-color=#1e1e1ed9
 text-color=#eeeeee
 border-color=#3a3a3a
@@ -6,7 +6,7 @@ border-size=2
 border-radius=6
 padding=10
 margin=10
-width=400
+width=350
 max-icon-size=48
 max-visible=3
 default-timeout=10000

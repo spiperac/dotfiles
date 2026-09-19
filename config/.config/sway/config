@@ -169,6 +169,8 @@ for_window [app_id="org.pulseaudio.pavucontrol"] floating enable
 for_window [app_id="nm-connection-editor"] floating enable
 for_window [app_id="imv"] floating enable
 for_window [class="Firefox"] gaps inner 0 outer 0
+for_window [app_id="pcmanfm"] floating enable
+for_window [app_id="pcmanfm"] resize set 960 560
 
 # Workspace assignments
 assign [app_id="^firefox$"] workspace 2
