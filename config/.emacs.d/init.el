@@ -548,11 +548,7 @@
 
 (use-package org
   :hook (org-mode . visual-line-mode)
-  :bind (:map org-mode-map ("C-c s" . strah/insert-src-block))
-  :custom
-  (org-default-notes-file "~/code/notes/agenda.org")
-  (org-agenda-files '("~/code/notes/agenda.org"))
-  (org-capture-templates '(("t" "Todo" entry (file "~/code/notes/agenda.org") "* TODO %?"))))
+  :bind (:map org-mode-map ("C-c s" . strah/insert-src-block)))
 
 (use-package htmlize :defer t)
 (use-package simple-httpd :defer t)

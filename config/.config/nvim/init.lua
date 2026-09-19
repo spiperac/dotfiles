@@ -160,6 +160,8 @@ do
         hi GitClean guifg=#79740e
         hi GitDirty guifg=#9d0006
         hi GitAhead guifg=#af3a03
+        hi StatusLspOn guifg=#79740e
+        hi StatusLspOff guifg=#9d0006
       ]])
     else
       -- srcery dark
@@ -168,6 +170,8 @@ do
         hi GitClean guifg=#7fa563
         hi GitDirty guifg=#d8647e
         hi GitAhead guifg=#f3be7c
+        hi StatusLspOn guifg=#7fa563
+        hi StatusLspOff guifg=#d8647e
 
         " srcery's CursorLine matches its background, so pickers need their own
         hi MiniPickMatchCurrent guibg=#3b3935
@@ -468,14 +472,30 @@ do
     local path = vim.api.nvim_buf_get_name(buf)
     local label = "[No Name]"
     if path ~= "" then
-      label = vim.fn.fnamemodify(path, ":t") .. " · " .. vim.fn.fnamemodify(path, ":p:h:t")
+      local root = git_root(buf)
+      local rel = root and vim.fs.relpath(root, path)
+      if not rel then
+        label = vim.fn.fnamemodify(path, ":t")
+      else
+        local dirs = {}
+        for d in vim.fn.fnamemodify(rel, ":h"):gmatch("[^/]+") do
+          if d ~= "." then dirs[#dirs + 1] = d end
+        end
+        if #dirs == 0 then
+          label = vim.fn.fnamemodify(rel, ":t")
+        else
+          if #dirs > 3 then
+            dirs = { "…", dirs[#dirs - 1], dirs[#dirs] }
+          end
+          label = vim.fn.fnamemodify(rel, ":t") .. " · " .. table.concat(dirs, "/")
+        end
+      end
     end
     local file_part = " " .. file_icon(bo.filetype) .. " " .. esc(label) .. " %p%% "
         .. (bo.modified and " [+]" or "")
 
     -- LSP
-    local clients = vim.lsp.get_clients({ bufnr = buf })
-    local lsp = clients[1] and clients[1].name or "none"
+    local lsp_on = #vim.lsp.get_clients({ bufnr = buf }) > 0
 
     -- Git
     local git_part = ""
@@ -494,8 +514,7 @@ do
     return mode_part
         .. file_part
         .. " %="
-        .. "LSP:" .. esc(lsp) .. " "
-        .. esc(bo.filetype) .. "/" .. esc(bo.fileencoding) .. "  "
+        .. (lsp_on and "%#StatusLspOn#●%*" or "%#StatusLspOff#●%*") .. "  "
         .. git_part .. "  "
   end
 
@@ -683,6 +702,7 @@ require("mason").setup({
 require("mason-tool-installer").setup({
   ensure_installed = {
     "lua-language-server",
+    "rust-analyzer",
     "terraform-ls",
     "pyright",
     "gopls",

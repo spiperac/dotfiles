@@ -1,0 +1,18 @@
+sys-fs/duf ~amd64
+x11-misc/pcmanfm ~amd64
+gui-apps/foot ~amd64
+gui-apps/fuzzel ~amd64
+app-misc/cliphist ~amd64
+app-misc/brightnessctl ~amd64
+gui-apps/azote ~amd64
+dev-python/pillow-jxl-plugin ~amd64
+x11-libs/libfm ~amd64
+app-misc/pfetch ~amd64
+net-irc/halloy ~amd64
+app-text/pandoc ~amd64 
+app-text/pandoc-cli ~amd64 
+dev-haskell/pandoc ~amd64
+app-editors/emacs ~amd64
+app-editors/nvim ~amd64
+
+

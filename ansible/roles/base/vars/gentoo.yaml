@@ -8,6 +8,7 @@ base_packages:
   - sys-apps/ripgrep
   - sys-apps/fd
   - app-shells/fzf
+  - sys-apps/ripgrep
   - sys-apps/bat
   - sys-apps/eza
   - app-misc/jq

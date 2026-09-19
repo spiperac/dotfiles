@@ -1,0 +1,19 @@
+net-fs/cifs-utils -acl
+app-editors/emacs jit harfbuzz libxml2 tree-sitter source
+sys-devel/gcc jit
+
+gnome-base/gvfs udisks gudev
+>=net-libs/ngtcp2-1.24.0 gnutls
+gnome-extra/nm-applet appindicator
+
+net-libs/nodejs npm
+net-misc/openssh security-key
+x11-misc/pcmanfm gvfs
+
+media-video/pipewire sound-server pulseaudio pipewire-alsa
+gui-apps/swaybg gdk-pixbuf
+sys-apps/systemd boot
+sys-apps/systemd-utils boot kernel-install
+sys-kernel/installkernel systemd systemd-boot
+sys-kernel/installkernel -dracut ugrd
+gui-apps/waybar tray wifi network
