@@ -39,7 +39,7 @@ exec_always mako
 
 # t480s
 output "eDP-1" scale 1.25
-exec swaybg -o "eDP-1" ~/.config/assets/wallpaper.jpg
+exec swaybg -o "eDP-1" -i ~/.config/assets/wallpaper.jpg
 
 # x1nano
 output "Chimei Innolux Corporation 0x1301 Unknown" scale 1.6

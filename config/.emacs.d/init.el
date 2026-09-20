@@ -13,6 +13,8 @@
 
 ;; NO LITERING!!
 (defvar my-cache-dir "~/.cache/emacs/")
+(add-to-list 'exec-path "~/.local/share/nvim/mason/bin")
+(setenv "PATH" (mapconcat #'identity exec-path path-separator))
 
 (setq bookmark-default-file       (expand-file-name "bookmarks" my-cache-dir)
       custom-file                  (expand-file-name "custom.el" my-cache-dir)
@@ -243,7 +245,7 @@
   (get-buffer (alist-get 'name tab)))
 
 (defun strah/tab-dirty-p (tab)
-  (when-let ((buf (strah/tab-buffer tab)))
+  (when-let* ((buf (strah/tab-buffer tab)))
     (buffer-modified-p buf)))
 
 (defun strah/tab-git-dirty-p (tab)
@@ -462,11 +464,6 @@
   (dired-sidebar-no-delete-other-windows t)
   (dired-sidebar-use-project-root t)   ;; <-- follows project.el
   (dired-sidebar-use-custom-font t))
-
-;; -- Direnv --
-
-(use-package direnv
-  :config (direnv-mode))
 
 ;; -- Eglot (built-in Emacs 29+) --
 
