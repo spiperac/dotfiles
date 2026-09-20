@@ -2,5 +2,5 @@
 vt = 7
 
 [default_session]
-command = "tuigreet --time --cmd \"dbus-run-session sway\""
+command = "agreety --cmd sway"
 user = "greetd"

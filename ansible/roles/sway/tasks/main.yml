@@ -62,3 +62,26 @@
 
 - name: Dark GTK theme
   ansible.builtin.command: gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+
+- name: Create systemd user unit directory
+  ansible.builtin.file:
+    path: "{{ dotfiles_home }}/.config/systemd/user"
+    state: directory
+    mode: "0755"
+  become: false
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Install sway-session.target
+  ansible.builtin.copy:
+    src: sway-session.target
+    dest: "{{ dotfiles_home }}/.config/systemd/user/sway-session.target"
+    mode: "0644"
+  become: false
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Reload systemd user daemon
+  ansible.builtin.systemd_service:
+    scope: user
+    daemon_reload: true
+  become: false
+  when: ansible_facts['service_mgr'] == 'systemd'

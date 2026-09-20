@@ -184,3 +184,6 @@ assign [app_id="^io\.github\.screwys\.Rufin$"] workspace 5
 for_window [workspace="^2$"] layout tabbed
 
 include /etc/sway/config.d/*
+
+exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
+exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.target
