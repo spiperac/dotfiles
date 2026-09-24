@@ -1,20 +1,20 @@
 ---
 desktop_packages:
-  # Already installed manually, declared for completeness
-  - net-misc/networkmanager
+  # General 
   - gui-libs/greetd
-  - gui-apps/tuigreet
 
   # Networking
   - net-vpn/tailscale
   - net-vpn/openvpn
+  - net-misc/networkmanager
+  - net-vpn/networkmanager-openvpn
 
   # Bluetooth
   - net-wireless/bluez
   - net-wireless/blueman
 
   # Power
-  - sys-power/power-profiles-daemon
+  - sys-power/tlp
 
   # Audio
   - media-video/pipewire
@@ -22,7 +22,8 @@ desktop_packages:
 
 desktop_services:
   - NetworkManager.service
-  - power-profiles-daemon.service
+  - tlp.service
+  - tlp-pd.service
   - tailscaled.service
   - bluetooth.service
   - greetd.service

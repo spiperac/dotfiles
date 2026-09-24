@@ -1,31 +1,45 @@
 * {
     font-family: "Fira Code", "Font Awesome 6 Brands", "Font Awesome 6 Free Solid", monospace;
-    font-size: 20px;
+    font-size: 18px;
     border: none;
     border-radius: 0;
 }
 
 window#waybar {
-    background: rgba(30, 30, 30, 0.85);
+    background: rgba(18, 17, 16, 0.95);
     color: #eeeeee;
 }
 
 /* Workspaces */
 #workspaces {
-    margin-left: 8px;
+    margin-left: 6px;
 }
 
 #workspaces button {
-    padding: 0 6px;
+    padding: 0 4px;
+    margin: 4px 1px;
+    color: #8a8a8a;
 }
 
-#workspaces button { color: #666; }
-#workspaces button.focused { color: #bb9af7; }
-#workspaces button.urgent { color: #ff5555; }
+#workspaces button.focused {
+    background: #ffb877;
+    color: #241a10;
+}
+
+#workspaces button.urgent {
+    background: #ff5555;
+    color: #ffffff;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #eeeeee;
+}
 
 /* Center clock */
 #clock {
     font-weight: bold;
+    padding: 0 6px;
 }
 
 /* Right modules */
@@ -36,14 +50,12 @@ window#waybar {
 #battery,
 #tray {
     padding: 0 5px;
-    margin: 4px 0;
-    border-radius: 6px;
+    margin: 2px 0;
 }
 
 #tray {
-    margin-right: 12px;
+    margin-right: 10px;
 }
-
 
 /* Battery states */
 #battery.warning {
@@ -62,8 +74,12 @@ window#waybar {
 }
 
 #custom-logo {
-    font-family: "Font Awesome 6 Free Solid";
     margin-left: 8px;
     margin-right: 6px;
-    color: #a06cd5;
+    min-width: 20px;
+    min-height: 20px;
+    background-image: url("logo.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

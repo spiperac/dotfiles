@@ -1,10 +1,8 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 34,
+  "height": 30,
   "spacing": 6,
-  "margin-left": 200,
-  "margin-right": 200,
 
   "modules-left": ["custom/logo", "sway/workspaces"],
   "modules-center": ["clock"],
@@ -16,18 +14,7 @@
   },
 
   "sway/workspaces": {
-    "format": "{icon}",
-    "persistent-workspaces": {
-      "1": [], "2": [], "3": [], "4": [], "5": []
-    },
-    "format-icons": {
-      "1": "\uf120",
-      "2": "\uf0ac",
-      "3": "\uf121",
-      "4": "\uf249",
-      "5": "\uf001",
-      "default": "⬤"
-    }
+    "format": "{name}"
   },
 
   "battery": {
@@ -81,7 +68,7 @@
   },
 
   "custom/logo": {
-      "format": "\uf6cf",
+      "format": " ",
       "tooltip": false
   }
 }
