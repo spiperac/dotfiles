@@ -2,10 +2,17 @@
 desktop_packages:
   - gdm
   - power-profiles-daemon
-  - networkmanager
+  - caligula
+
+  # Bluetooth
   - bluez
   - bluez-utils
+ 
+  # Networking
   - tailscale
+  - networkmanager
+  - openvpn
+  - networkmanager-openvpn
 
   # Audio
   - pipewire

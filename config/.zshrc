@@ -88,8 +88,6 @@ bindkey "^[OB" history-beginning-search-forward-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
 
-# direnv
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 
 # User configuration
 export EDITOR='nvim'

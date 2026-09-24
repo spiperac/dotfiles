@@ -3,10 +3,15 @@
 #
 #   ./scripts/reconcile.sh          # report drift
 #   ./scripts/reconcile.sh --prune  # also list orphan removal candidates
+#   ./scripts/reconcile.sh --purge  # remove undeclared packages (asks first)
 #
 # Two directions of drift:
 #   UNDECLARED  installed explicitly, but no role asks for it -> add it to a role
 #   MISSING     a role declares it, but it is not installed   -> re-run the playbook
+#
+# Roles are read from ansible/site.yml. A role whose `when`/tags skip it on the
+# current host (e.g. sway when distribution != Archlinux) does not count its
+# packages as expected, so they surface as UNDECLARED and become purge-eligible.
 set -euo pipefail
 
 # Python sorts by codepoint; sort/comm sort by locale. Force byte order so the
@@ -20,27 +25,77 @@ trap 'rm -rf "$TMP"' EXIT
 command -v pacman >/dev/null || { echo "reconcile.sh currently supports Arch only." >&2; exit 1; }
 
 # Pull the declared names out of the role vars, keyed by what kind of thing they
-# are. Only *_packages feed the pacman comparison; pipx/go/flatpak are reported
-# separately because they are installed by different managers.
+# are. Only *_packages feed the pacman comparison; flatpak is reported
+# separately because it is installed by a different manager. Only roles that
+# site.yml runs on this host contribute their packages.
 python3 - "$REPO_DIR" "$TMP" <<'PY'
-import pathlib, sys, yaml
+import pathlib, re, sys, yaml
 
 repo, tmp = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
-buckets = {"packages": set(), "flatpaks": set(), "pipx": set(), "go": set()}
+buckets = {"packages": set(), "flatpaks": set(), "go": set()}
+
+# pacman present means Arch; it is the only distribution reconcile supports.
+distro = "Archlinux"
+
+# Collect the roles site.yml references, along with each one's `when` gate.
+playbook = yaml.safe_load((repo / "ansible" / "site.yml").read_text()) or []
+roles = {}
+for play in playbook:
+    for entry in play.get("roles", []) or []:
+        if isinstance(entry, str):
+            roles[entry] = None
+        elif isinstance(entry, dict):
+            roles[entry.get("role")] = entry.get("when")
+    for task in play.get("post_tasks", []) or []:
+        if isinstance(task, dict) and task.get("ansible.builtin.import_role"):
+            roles[task["ansible.builtin.import_role"]["name"]] = None
+
+WHEN_RE = re.compile(r"""ansible_facts\['distribution'\]\s*(==|!=)\s*'([A-Za-z]+)'""")
+
+def active(name, when):
+    if not when:
+        return True, None
+    m = WHEN_RE.fullmatch(when.strip())
+    if not m:
+        # Unknown expression: err on the side of including the role rather than
+        # silently un-expecting the packages it declares.
+        print(f"WARNING: role {name}: unparsed when clause, treated as active: {when}", file=sys.stderr)
+        return True, None
+    op, value = m.groups()
+    run = (distro == value) if op == "==" else (distro != value)
+    return run, None if run else f"{name}  (when: {when.strip()})"
+
+active_roles = {}
+skipped = []
+for name, when in roles.items():
+    if not name:
+        continue
+    run, note = active(name, when)
+    active_roles[name] = run
+    if not run:
+        skipped.append(note)
 
 for f in sorted((repo / "ansible" / "roles").glob("*/vars/arch.yaml")):
+    role = f.parts[-3]
+    if role in active_roles:
+        if not active_roles[role]:
+            continue
+    else:
+        print(f"WARNING: role {role} has vars but is absent from ansible/site.yml", file=sys.stderr)
     for key, val in (yaml.safe_load(f.read_text()) or {}).items():
         if not isinstance(val, list):
             continue
         for suffix, bucket in (
             ("_packages", "packages"),
             ("_flatpaks", "flatpaks"),
-            ("_pipx", "pipx"),
             ("_go", "go"),
         ):
             if key.endswith(suffix):
                 buckets[bucket].update(str(v) for v in val)
                 break
+
+if skipped:
+    (tmp / "skipped_roles").write_text("".join(f"{r}\n" for r in skipped))
 
 for name, items in buckets.items():
     (tmp / f"declared_{name}").write_text("".join(f"{i}\n" for i in sorted(items)))
@@ -86,6 +141,12 @@ report() { # label, file
   status=1
 }
 
+if [[ -s $TMP/skipped_roles ]]; then
+  echo "ROLES SKIPPED on this host — their packages are not expected:"
+  sed 's/^/  /' "$TMP/skipped_roles"
+  echo
+fi
+
 report "UNDECLARED — installed by hand, not in any role" "$TMP/undeclared"
 report "MISSING — declared by a role, not installed" "$TMP/missing"
 
@@ -99,14 +160,6 @@ if command -v flatpak >/dev/null; then
   report "MISSING FLATPAKS — declared by a role, not installed" "$TMP/missing_flatpak"
 fi
 
-if command -v pipx >/dev/null; then
-  pipx list --short 2>/dev/null | awk '{print $1}' | sort > "$TMP/have_pipx" || : > "$TMP/have_pipx"
-  comm -23 "$TMP/declared_pipx" "$TMP/have_pipx" > "$TMP/missing_pipx"
-  comm -13 "$TMP/declared_pipx" "$TMP/have_pipx" > "$TMP/undeclared_pipx"
-  report "UNDECLARED PIPX — installed by hand, not in any role" "$TMP/undeclared_pipx"
-  report "MISSING PIPX — declared by a role, not installed" "$TMP/missing_pipx"
-fi
-
 if [[ ${1:-} == --prune ]]; then
   mapfile -t orphans < <(pacman -Qdtq 2>/dev/null || true)
   if (( ${#orphans[@]} )); then
@@ -114,6 +167,43 @@ if [[ ${1:-} == --prune ]]; then
     printf '  %s\n' "${orphans[@]}"
     echo '  remove with: sudo pacman -Rns $(pacman -Qdtq)'
     echo
+  fi
+fi
+
+if [[ ${1:-} == --purge ]]; then
+  purge_pacman=(); purge_flatpak=()
+  mapfile -t purge_pacman < "$TMP/undeclared"
+  if command -v flatpak >/dev/null && [[ -f "$TMP/undeclared_flatpak" ]]; then
+    mapfile -t purge_flatpak < "$TMP/undeclared_flatpak"
+  fi
+
+  total=$(( ${#purge_pacman[@]} + ${#purge_flatpak[@]} ))
+  if (( total == 0 )); then
+    echo "Nothing to purge — no undeclared packages."
+    exit 0
+  fi
+
+  echo "Purging ${total} undeclared package(s):"
+
+  if (( ${#purge_pacman[@]} )); then
+    printf '  pacman: sudo pacman -Rns %s\n' "${purge_pacman[*]}"
+  fi
+  if (( ${#purge_flatpak[@]} )); then
+    printf '  flatpak: flatpak uninstall -y %s\n' "${purge_flatpak[*]}"
+  fi
+
+  read -r -p "Run these commands? [y/N] " -n 1 answer
+  echo
+  if [[ ${answer,,} != y ]]; then
+    echo "Aborted."
+    exit 0
+  fi
+
+  if (( ${#purge_flatpak[@]} )); then
+    flatpak uninstall -y "${purge_flatpak[@]}"
+  fi
+  if (( ${#purge_pacman[@]} )); then
+    sudo pacman -Rns "${purge_pacman[@]}"
   fi
 fi
 

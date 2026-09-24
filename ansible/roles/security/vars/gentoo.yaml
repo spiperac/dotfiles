@@ -13,6 +13,4 @@ security_packages:
 security_flatpaks:
   - net.portswigger.BurpSuite-Community
 
-security_pipx: []
-
 security_go: []

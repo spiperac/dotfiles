@@ -35,7 +35,7 @@
     - { role: base, tags: [base] }
     - { role: desktop, tags: [desktop] }
     - { role: gnome, tags: [gnome], when: "ansible_facts['distribution'] != 'Gentoo'" }
-    - { role: sway, tags: [sway] }
+    - { role: sway, tags: [sway], when: "ansible_facts['distribution'] != 'Archlinux'" }
     - { role: apps, tags: [apps] }
     - { role: media, tags: [media] }
     - { role: dev, tags: [dev] }

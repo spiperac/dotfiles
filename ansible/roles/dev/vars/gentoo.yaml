@@ -17,8 +17,6 @@ dev_packages:
   - sys-cluster/kubectl
   - sys-cluster/k9scli
 
-dev_pipx: []
-
 dev_npm:
   - "@anthropic-ai/claude-code"
   - "@agentclientprotocol/claude-agent-acp"

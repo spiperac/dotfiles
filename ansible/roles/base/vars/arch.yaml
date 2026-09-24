@@ -1,6 +1,9 @@
 ---
 base_packages:
+  # VCS
   - git
+
+  # Core tools
   - cmake
   - gcc
   - make
@@ -26,14 +29,20 @@ base_packages:
   - socat
   - wget
   - curl
+
+  # Archiving
   - 7zip
   - unzip
   - zip
   - xz
+
+  # Crypto
   - openssl
   - openssh
   - gnupg
   - pinentry
+
+  # Shell & Editors
   - zsh
   - tmux
   - neovim
@@ -42,6 +51,8 @@ base_packages:
   - vim
   - nano
   - less
+
+  # Terminal emulators
   - foot
   - ghostty
   - pass

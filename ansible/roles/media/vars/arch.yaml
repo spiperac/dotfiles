@@ -1,10 +1,15 @@
 ---
 media_packages:
   - mpv
-  - vlc
   - imv
   - ytfzf
-  - fragments
+  - aria2 
+
+  # Reading
+  - foliate
+  - zathura
+  - zathura-pdf-mupdf
+  - zathura-cb
 
   # NAS
   - cifs-utils

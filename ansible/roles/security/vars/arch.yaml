@@ -26,10 +26,6 @@ security_packages:
 security_flatpaks:
   - net.portswigger.BurpSuite-Community
 
-security_pipx:
-  - sqlmap
-  - exegol
-
 security_go:
   - github.com/ffuf/ffuf/v2@latest
   - github.com/projectdiscovery/dnsx/cmd/dnsx@latest

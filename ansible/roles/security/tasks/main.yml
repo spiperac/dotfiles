@@ -22,16 +22,6 @@
     method: system
     remote: flathub
 
-- name: Install security tools with pipx
-  community.general.pipx:
-    name: "{{ item }}"
-    state: install
-  become: false
-  environment:
-    PIPX_HOME: "{{ dotfiles_home }}/.local/pipx"
-    PIPX_BIN_DIR: "{{ dotfiles_home }}/.local/bin"
-  loop: "{{ security_pipx }}"
-
 - name: Install security tools with Go
   ansible.builtin.command:
     cmd: "go install {{ item }}"

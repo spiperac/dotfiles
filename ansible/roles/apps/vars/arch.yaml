@@ -2,18 +2,13 @@
 apps_packages:
   - firefox
   - pinta
-  - zathura
-  - zathura-pdf-mupdf
-  - zathura-cb
   - discord
   - fastfetch
-  - foliate
+  - pfetch-rs
   - halloy
-  - llama-cpp
-  - ggml-blas
 
 apps_flatpaks:
   - com.bitwarden.desktop
   - md.obsidian.Obsidian
-  - com.fastmail.Fastmail
   - in.suyogtandel.picoforge
+  - com.discordapp.Discord

@@ -1,7 +1,6 @@
 ---
 dev_packages:
   - python3
-  - pipx
   - pre-commit
   - uv
   - golang
@@ -28,9 +27,6 @@ dev_packages:
   - doctl
   - kubectl
   - k9s
-
-dev_pipx:
-  - checkov
 
 dev_npm:
   - "@anthropic-ai/claude-code"

@@ -1,56 +1,39 @@
 ---
 dev_packages:
   - python
-  - python-pipx
   - pre-commit
   - uv
   - go
-  - gopls
-  - golangci-lint
   - nodejs
   - npm
   - github-cli
   - jujutsu
-  - direnv
-  - pandoc-cli
   - imagemagick
   - emacs
   - gdb
   - rust
-  - rust-analyzer
 
   # DevOps
-  - ansible-core
+  - ansible
   - helm
   - opentofu
-  - trivy
-  - doctl
   - kubectl
   - k9s
-
-dev_pipx:
-  - checkov
 
 dev_npm:
   - "@anthropic-ai/claude-code"
   - "@agentclientprotocol/claude-agent-acp"
-  - yaml-language-server
 
-dev_go:
-  - github.com/jorgerojas26/lazysql@latest
-  - github.com/hashicorp/terraform-ls@latest
+dev_go: []
 
 dev_docker_packages:
-  - docker
-  - docker-compose
-  - docker-buildx
+  - podman
+  - podman-compose
+  - podman-docker
 
 dev_virt_packages:
   - qemu-desktop
-  - libvirt
-  - virt-manager
-  - virt-viewer
-  - virt-install
-  - guestfs-tools
-  - edk2-ovmf
   - virtiofsd
+  - libvirt
+  - virt-viewer
+  - edk2-ovmf
