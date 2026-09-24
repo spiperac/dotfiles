@@ -55,7 +55,6 @@ base_packages:
 
   # Fonts
   - media-fonts/fira-code
-  - media-fonts/fontawesome
   - media-fonts/symbols-nerd-font
 
 base_login_shell: /bin/zsh

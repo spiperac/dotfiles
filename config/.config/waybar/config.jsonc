@@ -50,7 +50,7 @@
 
   "network": {
       "format-wifi": " {signalStrength}%",
-      "format-ethernet": "\uf796 {ifname}",
+      "format-ethernet": "\uf0c1 {ifname}",
       "format-disconnected": "\uf127",
       "tooltip-format": "{ifname} {ipaddr}/{cidr}",
       "max-length": 10,
