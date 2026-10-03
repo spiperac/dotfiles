@@ -6,8 +6,14 @@ apps_apt_repos:
     components: main
     signed_by: "https://pkgs.tailscale.com/stable/debian/{{ ansible_facts['distribution_release'] }}.noarmor.gpg"
 
+  - name: mozilla
+    uris: https://packages.mozilla.org/apt
+    suites: mozilla
+    components: main
+    signed_by: https://packages.mozilla.org/apt/repo-signing-key.gpg
+
 apps_packages:
-  - firefox-esr
+  - firefox
   - fastfetch
 
   # Networking

@@ -10,6 +10,5 @@ dotfiles_stow_ignore:
   - waybar
   - fuzzel
   - mako
-  - assets
 
 dotfiles_stow_ignore_re: "^({{ dotfiles_stow_ignore | join('|') }})$"
