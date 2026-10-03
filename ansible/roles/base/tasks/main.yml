@@ -1,46 +1,245 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
+    file: "{{ distro }}.yaml"
+
+- name: Configure Arch package manager
+  when: distro == 'arch'
+  block:
+    - name: Enable multilib repository
+      ansible.builtin.blockinfile:
+        path: /etc/pacman.conf
+        marker: "# {mark} ANSIBLE MANAGED: multilib"
+        block: |
+          [multilib]
+          Include = /etc/pacman.d/mirrorlist
+
+    - name: Set pacman options
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        insertafter: '^\[options\]'
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop:
+        - { regexp: '^#?\s*ParallelDownloads', line: "ParallelDownloads = 5" }
+        - { regexp: '^#?\s*Color\s*$', line: "Color" }
+        - { regexp: '^#?\s*ILoveCandy\s*$', line: "ILoveCandy" }
+
+- name: Configure Gentoo package manager
+  when: distro == 'gentoo'
+  block:
+    - name: Create portage config directories
+      ansible.builtin.file:
+        path: "/etc/portage/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - package.use
+        - package.accept_keywords
+        - repos.conf
+
+    - name: Sync portage package.use files
+      ansible.builtin.copy:
+        src: package.use/
+        dest: /etc/portage/package.use/
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Sync portage package.accept_keywords files
+      ansible.builtin.copy:
+        src: package.accept_keywords/
+        dest: /etc/portage/package.accept_keywords/
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Deploy portage make.conf
+      ansible.builtin.copy:
+        src: make.conf
+        dest: /etc/portage/make.conf
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Configure GURU overlay
+      ansible.builtin.copy:
+        dest: /etc/portage/repos.conf/guru.conf
+        content: |
+          [guru]
+          location = /var/db/repos/guru
+          sync-type = git
+          sync-uri = https://github.com/gentoo/guru.git
+          masters = gentoo
+          auto-sync = yes
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Sync GURU overlay
+      ansible.builtin.command:
+        argv: [emaint, sync, -r, guru]
+      changed_when: false
+
+- name: Configure Debian package sources
+  when: distro == 'debian'
+  block:
+    - name: Install deb822 repository support
+      ansible.builtin.apt:
+        name: python3-debian
+        state: present
+
+    - name: Add Debian repositories
+      ansible.builtin.deb822_repository:
+        name: "{{ item.name }}"
+        types: deb
+        uris: "{{ item.uris }}"
+        suites: "{{ item.suites }}"
+        components: "{{ base_debian_components }}"
+        signed_by: /usr/share/keyrings/debian-archive-keyring.pgp
+      loop:
+        - name: debian
+          uris: https://deb.debian.org/debian
+          suites:
+            - "{{ ansible_facts['distribution_release'] }}"
+            - "{{ ansible_facts['distribution_release'] }}-updates"
+        - name: debian-security
+          uris: https://deb.debian.org/debian-security
+          suites:
+            - "{{ ansible_facts['distribution_release'] }}-security"
+      loop_control:
+        label: "{{ item.name }}"
+      register: base_debian_repos
+
+    - name: Remove legacy sources.list
+      ansible.builtin.file:
+        path: /etc/apt/sources.list
+        state: absent
+      register: base_legacy_sources
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: "{{ 0 if (base_debian_repos is changed or base_legacy_sources is changed) else 3600 }}"
 
 - name: Install base packages
   ansible.builtin.package:
     name: "{{ base_packages }}"
     state: present
 
-- name: Enable nix daemon
+- name: Install CPU microcode
+  ansible.builtin.package:
+    name: "{{ base_ucode[ansible_facts['processor_vendor_id']] }}"
+    state: present
+  when:
+    - base_ucode is defined
+    - ansible_facts['processor_vendor_id'] is defined
+    - ansible_facts['processor_vendor_id'] in base_ucode
+
+- name: Generate locales
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ base_locales }}"
+
+- name: Set system locale
+  ansible.builtin.copy:
+    dest: "{{ base_locale_file }}"
+    content: "LANG={{ base_locales[0] }}\n"
+    mode: "0644"
+
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ base_timezone }}"
+
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Disable iwd
+  ansible.builtin.systemd_service:
+    name: iwd.service
+    enabled: false
+  when: "'iwd' in base_packages"
+
+- name: Enable base services
   ansible.builtin.systemd_service:
     name: "{{ item }}"
     enabled: true
     state: started
-  loop:
-    - nix-daemon.socket
-    - nix-daemon.service
-  when: 
+  loop: "{{ base_services }}"
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Configure snapper
+  when:
+    - ansible_facts['mounts'] | selectattr('mount', 'equalto', '/') | map(attribute='fstype') | first | default('') == 'btrfs'
     - ansible_facts['service_mgr'] == 'systemd'
-    - base_packages | select('contains', 'nix') | list | length > 0 
+  block:
+    - name: Create snapper root config
+      ansible.builtin.command:
+        cmd: snapper --config root create-config /
+        creates: /etc/snapper/configs/root
 
-- name: Enable flakes
-  ansible.builtin.lineinfile:
-    path: "{{ dotfiles_home }}/.config/nix/nix.conf"
-    line: "experimental-features = nix-command flakes"
-    create: true
-    mode: "0644"
-  become: false
+    - name: Enable snapper timers
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - snapper-timeline.timer
+        - snapper-cleanup.timer
 
-- name: Add nix channel
-  ansible.builtin.command:
-    cmd: "nix-channel --add {{ nix_channel_url }} {{ nix_channel_name }}"
-    creates: "{{ dotfiles_home }}/.nix-channels"
-  become: false
-  when: base_packages | select('contains', 'nix') | list | length > 0
+- name: Install flatpak
+  ansible.builtin.package:
+    name: "{{ flatpak_package }}"
+    state: present
 
-- name: Populate nix store
-  ansible.builtin.command:
-    cmd: nix-channel --update
-    creates: /nix/store
-  become: false
-  when: base_packages | select('contains', 'nix') | list | length > 0
+- name: Add Flathub remote
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    method: system
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Set up nix
+  when: base_nix | bool
+  block:
+    - name: Enable nix daemon
+      ansible.builtin.systemd_service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - nix-daemon.socket
+        - nix-daemon.service
+      when: ansible_facts['service_mgr'] == 'systemd'
+
+    - name: Add user to nix group
+      ansible.builtin.user:
+        name: "{{ dotfiles_user }}"
+        groups: "{{ base_nix_group }}"
+        append: true
+      when: base_nix_group is defined
+
+    - name: Enable flakes
+      ansible.builtin.lineinfile:
+        path: "{{ dotfiles_home }}/.config/nix/nix.conf"
+        line: "experimental-features = nix-command flakes"
+        create: true
+        mode: "0644"
+      become: false
+
+    - name: Add nix channel
+      ansible.builtin.command:
+        cmd: "nix-channel --add {{ nix_channel_url }} {{ nix_channel_name }}"
+        creates: "{{ dotfiles_home }}/.nix-channels"
+      become: false
+
+    - name: Populate nix store
+      ansible.builtin.command:
+        cmd: nix-channel --update
+        creates: /nix/store
+      become: false
 
 - name: Install tmux plugins
   ansible.builtin.git:
@@ -56,7 +255,7 @@
     name: "{{ dotfiles_user }}"
     shell: "{{ base_login_shell }}"
 
-- name: Set Fira Code as default system font
+- name: Set Fira Code as default monospace font
   ansible.builtin.copy:
     dest: /etc/fonts/local.conf
     content: |
@@ -69,4 +268,4 @@
         </alias>
       </fontconfig>
     mode: "0644"
-  when: ansible_facts['distribution'] == "Gentoo"
+  when: distro == 'gentoo'

@@ -3,9 +3,17 @@ apps_packages:
   - www-client/firefox-bin
   - app-misc/fastfetch
 
+  # Networking
+  - net-vpn/openvpn
+  - net-vpn/networkmanager-openvpn
+  - net-vpn/tailscale
+
   # Overlay (GURU)
   - app-misc/pfetch
   - net-irc/halloy
+
+apps_services:
+  - tailscaled.service
 
 apps_flatpaks:
   - com.bitwarden.desktop

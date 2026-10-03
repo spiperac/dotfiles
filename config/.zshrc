@@ -9,6 +9,7 @@ fi
 
 # Locale
 export LANG=en_US.UTF-8
+PROMPT_EOL_MARK=''
 
 # SSH agent provided by gnome-keyring
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
@@ -43,7 +44,6 @@ fi
 
 precmd() {
   vcs_info
-  print ""
   PROMPT="%F{blue}%~%f ${vcs_info_msg_0_}"$'\n'"%(?:%F{green}❯%f:%F{red}❯%f) "
 }
 

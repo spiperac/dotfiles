@@ -1,14 +1,22 @@
 ---
 apps_packages:
   - firefox
-  - pinta
-  - discord
   - fastfetch
   - pfetch-rs
   - halloy
+  - caligula
+
+  # Networking
+  - openvpn
+  - networkmanager-openvpn
+  - tailscale
+
+apps_services:
+  - tailscaled.service
 
 apps_flatpaks:
   - com.bitwarden.desktop
   - md.obsidian.Obsidian
   - in.suyogtandel.picoforge
   - com.discordapp.Discord
+  - com.github.PintaProject.Pinta

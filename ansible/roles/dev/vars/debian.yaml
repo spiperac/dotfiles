@@ -1,0 +1,46 @@
+---
+dev_apt_repos:
+  - name: opentofu
+    uris: https://packages.opentofu.org/opentofu/tofu/any/
+    suites: any
+    components: main
+    signed_by: https://packages.opentofu.org/opentofu/tofu/gpgkey
+
+dev_packages:
+  # Build
+  - build-essential
+  - cmake
+
+  # Languages & tools
+  - python3
+  - pre-commit
+  - golang-go
+  - gh
+  - imagemagick
+  - emacs
+  - gdb
+  - rustc
+  - cargo
+
+  # DevOps
+  - ansible
+  - kubectl
+  - tofu
+
+dev_go:
+  - github.com/derailed/k9s@latest
+
+dev_pipx:
+  - name: uv
+
+dev_docker_packages:
+  - podman
+  - podman-compose
+  - podman-docker
+
+dev_virt_packages:
+  - qemu-system-x86
+  - virtiofsd
+  - libvirt-daemon-system
+  - virt-viewer
+  - ovmf

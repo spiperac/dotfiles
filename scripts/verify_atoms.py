@@ -2,7 +2,7 @@
 """Check that every Gentoo atom referenced by the dotfiles exists in the emerge tree.
 
 Scans ansible/roles/*/vars/gentoo.yaml for every key that ends in
-"_packages", plus the atoms mentioned in roles/system/files/package.use/*,
+"_packages", plus the atoms mentioned in roles/base/files/package.use/*,
 and checks each one against the ebuilds present in every synced repository
 (/var/db/repos/*). Overlay packages (e.g. GURU) count as found as long as
 the overlay is synced. Exits 1 if any atom is missing (a likely typo).
@@ -14,7 +14,7 @@ from pathlib import Path
 
 REPO_DIR = Path(__file__).resolve().parents[1]
 VARS_DIR = REPO_DIR / "ansible" / "roles"
-PACKAGE_USE_DIR = VARS_DIR / "system" / "files" / "package.use"
+PACKAGE_USE_DIR = VARS_DIR / "base" / "files" / "package.use"
 EBUILD_TREE = Path("/var/db/repos")
 
 

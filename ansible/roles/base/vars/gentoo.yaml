@@ -1,14 +1,30 @@
 ---
 base_packages:
+  # Privilege escalation
+  - app-admin/doas
+
+  # Hardware & firmware
+  - sys-apps/fwupd
+  - sys-auth/fprintd
+  - sys-apps/smartmontools
+
+  # Networking
+  - net-misc/networkmanager
+
+  # Firewall
+  - net-firewall/ufw
+
+  # Snapshots (btrfs)
+  - sys-fs/btrfs-progs
+  - app-backup/snapper
+
   # VCS
   - dev-vcs/git
 
   # Core tools
-  - dev-build/make
   - sys-apps/ripgrep
   - sys-apps/fd
   - app-shells/fzf
-  - sys-apps/ripgrep
   - sys-apps/bat
   - sys-apps/eza
   - app-misc/jq
@@ -33,28 +49,37 @@ base_packages:
   - app-arch/zip
   - app-arch/xz-utils
 
-  # Crypto / network
+  # Crypto
   - dev-libs/openssl
   - net-misc/openssh
   - app-crypt/gnupg
   - app-crypt/pinentry
+  - app-admin/pass
 
   # Shell & editors
   - app-shells/zsh
   - app-misc/tmux
   - app-editors/neovim
-  - dev-python/pynvim
   - dev-util/tree-sitter-cli
   - app-editors/vim
   - app-editors/nano
   - sys-apps/less
-  - gui-apps/foot
 
-  # Password store
-  - app-admin/pass
+  # Terminal emulators
+  - gui-apps/foot
 
   # Fonts
   - media-fonts/fira-code
   - media-fonts/symbols-nerd-font
 
+base_services:
+  - NetworkManager.service
+  - ufw.service
+
+base_locale_file: /etc/locale.conf
+
 base_login_shell: /bin/zsh
+
+base_nix: false
+
+flatpak_package: sys-apps/flatpak

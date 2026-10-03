@@ -1,5 +1,9 @@
 ---
 dev_packages:
+  # Build
+  - dev-build/make
+
+  # Languages & tools
   - dev-lang/python
   - dev-vcs/pre-commit
   - dev-python/uv
@@ -17,11 +21,9 @@ dev_packages:
   - sys-cluster/kubectl
   - sys-cluster/k9scli
 
-dev_npm:
-  - "@anthropic-ai/claude-code"
-  - "@agentclientprotocol/claude-agent-acp"
-
 dev_go: []
+
+dev_pipx: []
 
 dev_docker_packages:
   - app-containers/podman

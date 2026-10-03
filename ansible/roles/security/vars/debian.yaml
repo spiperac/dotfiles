@@ -1,28 +1,28 @@
 ---
 security_packages:
-  - wireshark-qt
-  - arch-audit
+  - wireshark
+  - debsecan
 
   # Pentest
   - nmap
   - gobuster
   - smbclient
-  - proxychains-ng
+  - proxychains4
   - rlwrap
   - sshuttle
-  - freerdp
+  - freerdp3-wayland
   - remmina
-  - rizin
-  - rz-cutter
-  - exploitdb
-  - pwndbg
-  - python-pwntools
-  - ropper
   - checksec
   - binwalk
 
+  # Exploit dev
+  - python3-pwntools
+  - python3-ropgadget
+
 security_flatpaks:
   - net.portswigger.BurpSuite-Community
+  - re.rizin.cutter
+  - re.rizin.cutter.plugin.rz-ghidra
 
 security_go:
   - github.com/ffuf/ffuf/v2@latest
@@ -35,6 +35,8 @@ security_go_links:
   ligolo-proxy: proxy
   ligolo-agent: agent
 
-security_pipx: []
+security_pipx:
+  - name: pwndbg
+    source: git+https://github.com/pwndbg/pwndbg
 
 seclists_dir: /usr/share/seclists

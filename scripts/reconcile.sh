@@ -9,9 +9,10 @@
 #   UNDECLARED  installed explicitly, but no role asks for it -> add it to a role
 #   MISSING     a role declares it, but it is not installed   -> re-run the playbook
 #
-# Roles are read from ansible/site.yml. A role whose `when`/tags skip it on the
-# current host (e.g. sway when distribution != Archlinux) does not count its
-# packages as expected, so they surface as UNDECLARED and become purge-eligible.
+# Roles are read from ansible/site.yml, desktop sessions from
+# ansible/host_vars/<host>.yml (host: DOTFILES_HOST, default this machine's hostname).
+# Packages of a session the host does not pick are not expected, so they
+# surface as UNDECLARED and become purge-eligible.
 set -euo pipefail
 
 # Python sorts by codepoint; sort/comm sort by locale. Force byte order so the
@@ -19,115 +20,165 @@ set -euo pipefail
 export LC_ALL=C
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+HOST="${DOTFILES_HOST:-$(uname -n)}"
+HOST="${HOST%%.*}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 
-command -v pacman >/dev/null || { echo "reconcile.sh currently supports Arch only." >&2; exit 1; }
+if command -v pacman >/dev/null; then
+  DISTRO=arch
+  REMOVE=(sudo pacman -Rns)
+elif command -v dpkg-query >/dev/null && [[ -r /etc/debian_version ]]; then
+  DISTRO=debian
+  REMOVE=(doas apt-get purge)
+else
+  echo "reconcile.sh supports Arch and Debian only." >&2
+  exit 1
+fi
 
 # Pull the declared names out of the role vars, keyed by what kind of thing they
-# are. Only *_packages feed the pacman comparison; flatpak is reported
-# separately because it is installed by a different manager. Only roles that
-# site.yml runs on this host contribute their packages.
-python3 - "$REPO_DIR" "$TMP" <<'PY'
+# are. Only *_packages feed the package manager comparison; flatpak is reported
+# separately because it is installed by a different manager.
+python3 - "$REPO_DIR" "$TMP" "$HOST" "$DISTRO" <<'PY'
 import pathlib, re, sys, yaml
 
-repo, tmp = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
-buckets = {"packages": set(), "flatpaks": set(), "go": set()}
+repo, tmp, host, distro = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]), sys.argv[3], sys.argv[4]
+ansible = repo / "ansible"
+buckets = {"packages": set(), "flatpaks": set()}
 
-# pacman present means Arch; it is the only distribution reconcile supports.
-distro = "Archlinux"
+host_vars = ansible / "host_vars" / f"{host}.yml"
+if not host_vars.exists():
+    sys.exit(f"Host '{host}' has no ansible/host_vars/{host}.yml (set DOTFILES_HOST).")
+sessions = (yaml.safe_load(host_vars.read_text()) or {}).get("desktop_sessions", [])
 
-# Collect the roles site.yml references, along with each one's `when` gate.
-playbook = yaml.safe_load((repo / "ansible" / "site.yml").read_text()) or []
-roles = {}
+playbook = yaml.safe_load((ansible / "site.yml").read_text()) or []
+roles = []
 for play in playbook:
     for entry in play.get("roles", []) or []:
-        if isinstance(entry, str):
-            roles[entry] = None
-        elif isinstance(entry, dict):
-            roles[entry.get("role")] = entry.get("when")
+        roles.append(entry if isinstance(entry, str) else entry.get("role"))
     for task in play.get("post_tasks", []) or []:
         if isinstance(task, dict) and task.get("ansible.builtin.import_role"):
-            roles[task["ansible.builtin.import_role"]["name"]] = None
+            roles.append(task["ansible.builtin.import_role"]["name"])
 
-WHEN_RE = re.compile(r"""ansible_facts\['distribution'\]\s*(==|!=)\s*'([A-Za-z]+)'""")
+for f in sorted((ansible / "roles").glob(f"*/vars/{distro}.yaml")):
+    if f.parts[-3] not in roles:
+        print(f"WARNING: role {f.parts[-3]} has vars but is absent from ansible/site.yml", file=sys.stderr)
 
-def active(name, when):
-    if not when:
-        return True, None
-    m = WHEN_RE.fullmatch(when.strip())
-    if not m:
-        # Unknown expression: err on the side of including the role rather than
-        # silently un-expecting the packages it declares.
-        print(f"WARNING: role {name}: unparsed when clause, treated as active: {when}", file=sys.stderr)
-        return True, None
-    op, value = m.groups()
-    run = (distro == value) if op == "==" else (distro != value)
-    return run, None if run else f"{name}  (when: {when.strip()})"
+# Installed outside the *_packages lists: flatpak itself and the CPU microcode.
+flatpak_package = (yaml.safe_load((ansible / "group_vars" / "all.yml").read_text()) or {}).get("flatpak_package")
+vendor = next((l.split(":", 1)[1].strip() for l in open("/proc/cpuinfo") if l.startswith("vendor_id")), None)
 
-active_roles = {}
-skipped = []
-for name, when in roles.items():
-    if not name:
+for role in roles:
+    f = ansible / "roles" / role / "vars" / f"{distro}.yaml"
+    if not f.exists():
         continue
-    run, note = active(name, when)
-    active_roles[name] = run
-    if not run:
-        skipped.append(note)
-
-for f in sorted((repo / "ansible" / "roles").glob("*/vars/arch.yaml")):
-    role = f.parts[-3]
-    if role in active_roles:
-        if not active_roles[role]:
-            continue
-    else:
-        print(f"WARNING: role {role} has vars but is absent from ansible/site.yml", file=sys.stderr)
-    for key, val in (yaml.safe_load(f.read_text()) or {}).items():
+    data = yaml.safe_load(f.read_text()) or {}
+    flatpak_package = data.get("flatpak_package", flatpak_package)
+    ucode = data.get("base_ucode") or {}
+    if vendor in ucode:
+        buckets["packages"].add(ucode[vendor])
+    for key, val in data.items():
         if not isinstance(val, list):
             continue
-        for suffix, bucket in (
-            ("_packages", "packages"),
-            ("_flatpaks", "flatpaks"),
-            ("_go", "go"),
-        ):
+        session = re.match(r"desktop_(sway|gnome)_", key)
+        if session and session.group(1) not in sessions:
+            continue
+        for suffix, bucket in (("_packages", "packages"), ("_flatpaks", "flatpaks")):
             if key.endswith(suffix):
                 buckets[bucket].update(str(v) for v in val)
                 break
 
-if skipped:
-    (tmp / "skipped_roles").write_text("".join(f"{r}\n" for r in skipped))
+if flatpak_package:
+    buckets["packages"].add(flatpak_package)
+
+(tmp / "sessions").write_text(", ".join(sessions) or "none")
 
 for name, items in buckets.items():
     (tmp / f"declared_{name}").write_text("".join(f"{i}\n" for i in sorted(items)))
 PY
 
-pacman -Qeq | sort > "$TMP/installed"
-pacman -Qq  | sort > "$TMP/installed_all"
-
-# Expected = declared + members of any declared group + direct deps of declared
-# packages. A dependency that happens to be marked explicit is not real drift.
-pacman -Sg 2>/dev/null | sort -u > "$TMP/groups" || : > "$TMP/groups"
-comm -12 "$TMP/declared_packages" "$TMP/groups" > "$TMP/declared_groups"
-
 cp "$TMP/declared_packages" "$TMP/expected"
-# A group is satisfied when its members are present; the group name itself is
-# never an installed package, so it must not count as MISSING.
-mapfile -t groups < <(cat "$TMP/declared_groups"; echo base; echo base-devel)
-pacman -Sqg "${groups[@]}" 2>/dev/null >> "$TMP/expected" || true
+: > "$TMP/declared_groups"
+
+case "$DISTRO" in
+  arch)
+    pacman -Qeq | sort > "$TMP/installed"
+    pacman -Qq  | sort > "$TMP/installed_all"
+    pacman -Qi > "$TMP/db" 2>/dev/null
+
+    # A group is satisfied when its members are present; the group name itself is
+    # never an installed package, so it must not count as MISSING.
+    pacman -Sg 2>/dev/null | sort -u > "$TMP/groups" || : > "$TMP/groups"
+    comm -12 "$TMP/declared_packages" "$TMP/groups" > "$TMP/declared_groups"
+    mapfile -t groups < <(cat "$TMP/declared_groups"; echo base; echo base-devel)
+    pacman -Sqg "${groups[@]}" 2>/dev/null >> "$TMP/expected" || true
+    ;;
+  debian)
+    apt-mark showmanual | sort > "$TMP/installed"
+    dpkg-query -W -f='${db:Status-Abbrev}\t${Package}\n' | awk -F'\t' '$1 ~ /^ii/ {print $2}' | sort -u > "$TMP/installed_all"
+    dpkg-query -W -f='${db:Status-Abbrev}\t${Package}\t${Provides}\t${Pre-Depends}, ${Depends}, ${Recommends}\n' \
+      | awk -F'\t' '$1 ~ /^ii/' > "$TMP/db"
+
+    # The base system the installer marks as manual, like Arch's base group.
+    dpkg-query -W -f='${db:Status-Abbrev}\t${Package}\t${Priority}\t${Essential}\n' \
+      | awk -F'\t' '$1 ~ /^ii/ && ($3 == "required" || $3 == "important" || $4 == "yes") {print $2}' >> "$TMP/expected"
+    ;;
+esac
 
 comm -23 <(comm -23 "$TMP/declared_packages" "$TMP/installed_all") \
          "$TMP/declared_groups" > "$TMP/missing"
-# Direct dependencies of every declared package that is actually installed, in
-# one batched query (pactree per-package is ~100x slower). Version constraints
-# and soname provides are stripped; leftovers simply never match a package name.
-mapfile -t present < <(comm -12 "$TMP/declared_packages" "$TMP/installed_all")
-if (( ${#present[@]} )); then
-  pacman -Qi "${present[@]}" 2>/dev/null \
-    | awk -F': ' '/^Depends On/ && $2 != "None" {print $2}' \
-    | tr ' ' '\n' \
-    | sed 's/[<>=].*//' \
-    | grep -v '^$' >> "$TMP/expected" || true
-fi
+
+# Expected also covers everything the expected packages pull in as dependencies,
+# all the way down. A dependency that happens to be marked explicit is not real
+# drift. Dependencies resolve to an installed package by name or by what it
+# provides; on Debian every alternative and Recommends count too, since apt
+# installs recommends by default.
+python3 - "$TMP" "$DISTRO" <<'PY'
+import pathlib, re, sys
+
+tmp, distro = pathlib.Path(sys.argv[1]), sys.argv[2]
+deps, owner = {}, {}
+
+def add(name, provides, depends):
+    owner[name] = name
+    for p in provides:
+        owner.setdefault(p, name)
+    deps[name] = depends
+
+if distro == "arch":
+    strip = lambda d: re.split(r"[<>=]", d, maxsplit=1)[0]
+    for block in (tmp / "db").read_text().split("\n\n"):
+        fields, key = {}, None
+        for line in block.splitlines():
+            m = re.match(r"^(\S[^:]*?)\s*: (.*)$", line)
+            if m:
+                key = m.group(1)
+                fields[key] = m.group(2)
+            elif key:
+                fields[key] += " " + line.strip()
+        if "Name" in fields:
+            add(fields["Name"],
+                [strip(p) for p in fields.get("Provides", "None").split() if p != "None"],
+                [strip(d) for d in fields.get("Depends On", "None").split() if d != "None"])
+else:
+    names = lambda field: [re.sub(r"\s*\(.*?\)|:\w+$", "", n).strip()
+                           for n in re.split(r"[,|]", field) if n.strip()]
+    for line in (tmp / "db").read_text().splitlines():
+        _, name, provides, depends = line.split("\t")
+        add(name, names(provides), names(depends))
+
+seen = set()
+stack = [n for n in (tmp / "expected").read_text().split() if n in deps]
+while stack:
+    name = stack.pop()
+    if name in seen:
+        continue
+    seen.add(name)
+    stack.extend(owner[d] for d in deps[name] if d in owner)
+
+with open(tmp / "expected", "a") as f:
+    f.write("".join(f"{n}\n" for n in sorted(seen)))
+PY
 sort -u -o "$TMP/expected" "$TMP/expected"
 
 comm -23 "$TMP/installed" "$TMP/expected" > "$TMP/undeclared"
@@ -141,17 +192,14 @@ report() { # label, file
   status=1
 }
 
-if [[ -s $TMP/skipped_roles ]]; then
-  echo "ROLES SKIPPED on this host — their packages are not expected:"
-  sed 's/^/  /' "$TMP/skipped_roles"
-  echo
-fi
+echo "HOST: $HOST ($DISTRO, desktop sessions: $(cat "$TMP/sessions"))"
+echo
 
 report "UNDECLARED — installed by hand, not in any role" "$TMP/undeclared"
 report "MISSING — declared by a role, not installed" "$TMP/missing"
 
-# Non-pacman managers. Both directions, so something installed outside the
-# playbook shows up the same way an undeclared pacman package does.
+# Other package managers. Both directions, so something installed outside the
+# playbook shows up the same way an undeclared package does.
 if command -v flatpak >/dev/null; then
   flatpak list --app --columns=application 2>/dev/null | sort > "$TMP/have_flatpak" || : > "$TMP/have_flatpak"
   comm -23 "$TMP/declared_flatpaks" "$TMP/have_flatpak" > "$TMP/missing_flatpak"
@@ -161,23 +209,32 @@ if command -v flatpak >/dev/null; then
 fi
 
 if [[ ${1:-} == --prune ]]; then
-  mapfile -t orphans < <(pacman -Qdtq 2>/dev/null || true)
+  case "$DISTRO" in
+    arch)
+      mapfile -t orphans < <(pacman -Qdtq 2>/dev/null || true)
+      prune_hint='sudo pacman -Rns $(pacman -Qdtq)'
+      ;;
+    debian)
+      mapfile -t orphans < <(apt-get -s autoremove 2>/dev/null | awk '/^Remv /{print $2}')
+      prune_hint='doas apt-get autoremove --purge'
+      ;;
+  esac
   if (( ${#orphans[@]} )); then
     echo "ORPHANS — no longer required by anything (${#orphans[@]}):"
     printf '  %s\n' "${orphans[@]}"
-    echo '  remove with: sudo pacman -Rns $(pacman -Qdtq)'
+    echo "  remove with: $prune_hint"
     echo
   fi
 fi
 
 if [[ ${1:-} == --purge ]]; then
-  purge_pacman=(); purge_flatpak=()
-  mapfile -t purge_pacman < "$TMP/undeclared"
+  purge_packages=(); purge_flatpak=()
+  mapfile -t purge_packages < "$TMP/undeclared"
   if command -v flatpak >/dev/null && [[ -f "$TMP/undeclared_flatpak" ]]; then
     mapfile -t purge_flatpak < "$TMP/undeclared_flatpak"
   fi
 
-  total=$(( ${#purge_pacman[@]} + ${#purge_flatpak[@]} ))
+  total=$(( ${#purge_packages[@]} + ${#purge_flatpak[@]} ))
   if (( total == 0 )); then
     echo "Nothing to purge — no undeclared packages."
     exit 0
@@ -185,8 +242,8 @@ if [[ ${1:-} == --purge ]]; then
 
   echo "Purging ${total} undeclared package(s):"
 
-  if (( ${#purge_pacman[@]} )); then
-    printf '  pacman: sudo pacman -Rns %s\n' "${purge_pacman[*]}"
+  if (( ${#purge_packages[@]} )); then
+    printf '  %s: %s %s\n' "$DISTRO" "${REMOVE[*]}" "${purge_packages[*]}"
   fi
   if (( ${#purge_flatpak[@]} )); then
     printf '  flatpak: flatpak uninstall -y %s\n' "${purge_flatpak[*]}"
@@ -202,8 +259,8 @@ if [[ ${1:-} == --purge ]]; then
   if (( ${#purge_flatpak[@]} )); then
     flatpak uninstall -y "${purge_flatpak[@]}"
   fi
-  if (( ${#purge_pacman[@]} )); then
-    sudo pacman -Rns "${purge_pacman[@]}"
+  if (( ${#purge_packages[@]} )); then
+    "${REMOVE[@]}" "${purge_packages[@]}"
   fi
 fi
 

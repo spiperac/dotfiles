@@ -1,12 +1,43 @@
 ---
 - name: Load distribution variables
   ansible.builtin.include_vars:
-    file: "{{ 'arch.yaml' if ansible_facts['os_family'] == 'Archlinux' or ansible_facts['distribution'] == 'Archlinux' else ('gentoo.yaml' if ansible_facts['distribution'] == 'Gentoo' else 'fedora.yaml') }}"
+    file: "{{ distro }}.yaml"
+
+- name: Add development apt repositories
+  ansible.builtin.deb822_repository:
+    name: "{{ item.name }}"
+    types: deb
+    uris: "{{ item.uris }}"
+    suites: "{{ item.suites }}"
+    components: "{{ item.components }}"
+    signed_by: "{{ item.signed_by }}"
+  loop: "{{ dev_apt_repos }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: dev_apt_repos_result
+  when: distro == 'debian'
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+  when:
+    - distro == 'debian'
+    - dev_apt_repos_result is changed
 
 - name: Install development packages
   ansible.builtin.package:
     name: "{{ dev_packages }}"
     state: present
+
+- name: Install development tools with pipx
+  community.general.pipx:
+    name: "{{ item.name }}"
+    source: "{{ item.source | default(omit) }}"
+    state: latest
+  become: false
+  loop: "{{ dev_pipx }}"
+  loop_control:
+    label: "{{ item.name }}"
 
 - name: Install development tools with Go
   ansible.builtin.command:
@@ -16,19 +47,7 @@
     GOBIN: "{{ dotfiles_home }}/.local/bin"
     PATH: "{{ dotfiles_home }}/.local/bin:{{ ansible_facts['env']['PATH'] }}"
   loop: "{{ dev_go }}"
-  when: dev_go is defined and dev_go | length > 0
   changed_when: false
-
-- name: Install development tools with npm
-  community.general.npm:
-    name: "{{ item }}"
-    global: true
-    state: latest
-  become: false
-  environment:
-    NPM_CONFIG_PREFIX: "{{ dotfiles_home }}/.local"
-  loop: "{{ dev_npm }}"
-  when: dev_npm is defined and dev_npm | length > 0
 
 - name: Install virtualization packages
   ansible.builtin.package:

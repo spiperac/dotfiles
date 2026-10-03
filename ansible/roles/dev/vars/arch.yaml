@@ -1,11 +1,15 @@
 ---
 dev_packages:
+  # Build
+  - cmake
+  - gcc
+  - make
+
+  # Languages & tools
   - python
   - pre-commit
   - uv
   - go
-  - nodejs
-  - npm
   - github-cli
   - jujutsu
   - imagemagick
@@ -20,11 +24,9 @@ dev_packages:
   - kubectl
   - k9s
 
-dev_npm:
-  - "@anthropic-ai/claude-code"
-  - "@agentclientprotocol/claude-agent-acp"
-
 dev_go: []
+
+dev_pipx: []
 
 dev_docker_packages:
   - podman

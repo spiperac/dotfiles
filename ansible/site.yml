@@ -1,6 +1,6 @@
 ---
 - name: Provision workstation
-  hosts: localhost
+  hosts: workstations
   become: true
   gather_facts: true
 
@@ -8,8 +8,8 @@
     - name: Check distribution
       ansible.builtin.assert:
         that:
-          - ansible_facts['distribution'] in ['Fedora', 'Archlinux', 'Gentoo']
-        fail_msg: "This playbook targets Fedora, Arch Linux or Gentoo (found {{ ansible_facts['distribution'] }})."
+          - ansible_facts['distribution'] in ['Archlinux', 'Gentoo', 'Debian']
+        fail_msg: "This playbook targets Arch Linux, Gentoo or Debian (found {{ ansible_facts['distribution'] }})."
       tags: always
 
     - name: Resolve user
@@ -31,11 +31,8 @@
       tags: always
 
   roles:
-    - { role: system, tags: [system] }
     - { role: base, tags: [base] }
     - { role: desktop, tags: [desktop] }
-    - { role: gnome, tags: [gnome], when: "ansible_facts['distribution'] != 'Gentoo'" }
-    - { role: sway, tags: [sway], when: "ansible_facts['distribution'] != 'Archlinux'" }
     - { role: apps, tags: [apps] }
     - { role: media, tags: [media] }
     - { role: dev, tags: [dev] }

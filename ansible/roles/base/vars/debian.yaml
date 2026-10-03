@@ -1,0 +1,115 @@
+---
+base_debian_components:
+  - main
+  - contrib
+  - non-free
+  - non-free-firmware
+
+base_packages:
+  # Privilege escalation
+  - opendoas
+
+  # Boot & hardware
+  - linux-image-amd64
+  - firmware-linux
+  - firmware-iwlwifi
+  - firmware-sof-signed
+  - initramfs-tools
+  - efibootmgr
+  - intel-media-va-driver-non-free
+  - i965-va-driver
+  - mesa-vulkan-drivers
+  - systemd-zram-generator
+  - fprintd
+  - fwupd
+  - smartmontools
+  - locales
+
+  # Networking
+  - network-manager
+
+  # Firewall
+  - ufw
+
+  # Snapshots
+  - btrfs-progs
+  - snapper
+
+  # VCS
+  - git
+
+  # Core tools
+  - ripgrep
+  - fd-find
+  - fzf
+  - bat
+  - eza
+  - jq
+  - tree
+  - file
+  - duf
+  - htop
+  - btop
+  - rsync
+  - stow
+  - wl-clipboard
+  - mtr-tiny
+  - bind9-dnsutils
+  - whois
+  - lsof
+  - socat
+  - wget
+  - curl
+
+  # Archiving
+  - 7zip
+  - unzip
+  - zip
+  - xz-utils
+
+  # Crypto
+  - openssl
+  - openssh-client
+  - gnupg
+  - pinentry-curses
+  - pinentry-gnome3
+  - pass
+
+  # Shell & editors
+  - zsh
+  - tmux
+  - neovim
+  - tree-sitter-cli
+  - vim
+  - nano
+  - less
+
+  # Terminal emulators
+  - foot
+
+  # Package managers
+  - nix-bin
+  - nix-setup-systemd
+  - pipx
+
+  # Fonts
+  - fonts-noto-core
+  - fonts-noto-color-emoji
+  - fonts-dejavu
+  - fonts-liberation
+  - fonts-firacode
+
+base_services:
+  - NetworkManager.service
+  - ufw.service
+
+base_ucode:
+  GenuineIntel: intel-microcode
+  AuthenticAMD: amd64-microcode
+
+base_locale_file: /etc/default/locale
+
+base_login_shell: /usr/bin/zsh
+
+base_nix: true
+base_nix_group: nix-users

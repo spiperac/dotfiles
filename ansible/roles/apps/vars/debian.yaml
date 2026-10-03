@@ -1,0 +1,32 @@
+---
+apps_apt_repos:
+  - name: tailscale
+    uris: https://pkgs.tailscale.com/stable/debian
+    suites: "{{ ansible_facts['distribution_release'] }}"
+    components: main
+    signed_by: "https://pkgs.tailscale.com/stable/debian/{{ ansible_facts['distribution_release'] }}.noarmor.gpg"
+
+apps_packages:
+  - firefox-esr
+  - fastfetch
+
+  # Networking
+  - openvpn
+  - network-manager-openvpn
+  - network-manager-openvpn-gnome
+  - tailscale
+
+apps_services:
+  - tailscaled.service
+
+apps_flatpaks:
+  - com.bitwarden.desktop
+  - md.obsidian.Obsidian
+  - in.suyogtandel.picoforge
+  - com.discordapp.Discord
+  - com.github.PintaProject.Pinta
+  - org.squidowl.halloy
+  - io.gitlab.news_flash.NewsFlash
+  - io.gitlab.adhami3310.Converter
+  - dev.bragefuglseth.Fretboard
+  - org.gnome.Solanum

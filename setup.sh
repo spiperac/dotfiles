@@ -23,8 +23,8 @@ case "${1:-}" in
 esac
 
 case "$ID" in
-    fedora)
-        command -v ansible >/dev/null 2>&1 || sudo dnf install -y ansible-core git stow
+    debian)
+        command -v ansible >/dev/null 2>&1 || { doas apt-get update && doas apt-get install -y ansible git stow; }
         ;;
     arch)
         command -v ansible >/dev/null 2>&1 || sudo pacman -Syu --noconfirm ansible-core git stow
@@ -33,16 +33,16 @@ case "$ID" in
         command -v ansible >/dev/null 2>&1 || doas emerge -av app-admin/ansible-core app-admin/stow
         ;;
     *)
-        echo "This bootstrap targets Fedora, Arch Linux or Gentoo." >&2
+        echo "This bootstrap targets Arch Linux, Gentoo or Debian." >&2
         exit 1
         ;;
 esac
 
-# Gentoo uses doas with a nopass rule; ansible drops the doas -n flag
-# whenever a become password is set, so -K must not be passed there.
-# sudo on every other distribution needs -K.
+# Gentoo and Debian use doas with a nopass rule; ansible drops the doas -n
+# flag whenever a become password is set, so -K must not be passed there.
+# sudo on Arch needs -K.
 case "$ID" in
-    gentoo)
+    gentoo|debian)
         BECOME_ARGS=(-e ansible_become_method=doas)
         ;;
     *)
@@ -50,7 +50,17 @@ case "$ID" in
         ;;
 esac
 
+# Each machine provisions itself: run the play only for the inventory entry
+# matching this hostname (see ansible/inventory.ini and ansible/host_vars/).
+# DOTFILES_HOST overrides it, e.g. on a fresh install before the hostname is set.
+HOST="${DOTFILES_HOST:-$(uname -n)}"
+HOST="${HOST%%.*}"
+
 cd "$REPO_DIR/ansible"
+if ! ansible-inventory --host "$HOST" >/dev/null 2>&1; then
+    echo "Host '$HOST' is not in ansible/inventory.ini." >&2
+    exit 1
+fi
 ansible-galaxy collection install -r requirements.yml
-exec ansible-playbook site.yml "${BECOME_ARGS[@]}" "$@"
+exec ansible-playbook site.yml --limit "$HOST" "${BECOME_ARGS[@]}" "$@"
 

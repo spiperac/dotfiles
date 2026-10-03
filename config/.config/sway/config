@@ -32,7 +32,7 @@ exec --no-startup-id gnome-keyring-daemon --start --components=ssh,secrets,pkcs1
 exec waybar
 exec nm-applet --indicator
 exec blueman-applet
-exec ~/scripts/polkit-gnome.sh
+exec ~/scripts/polkit-agent.sh
 exec_always mako
 
 ### Output (wallpaper and scaling)

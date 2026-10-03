@@ -1,0 +1,77 @@
+---
+- name: Install sway packages
+  ansible.builtin.package:
+    name: "{{ desktop_sway_packages }}"
+    state: present
+
+- name: Set up greetd
+  when:
+    - "'gnome' not in desktop_sessions"
+    - ansible_facts['service_mgr'] == 'systemd'
+  block:
+    - name: Deploy greetd config
+      ansible.builtin.template:
+        src: greetd.toml.j2
+        dest: /etc/greetd/config.toml
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Enable greetd
+      ansible.builtin.systemd_service:
+        name: greetd.service
+        enabled: true
+        state: started
+
+- name: Enable sway services
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    state: started
+  loop: "{{ desktop_sway_services }}"
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Enable sway user units
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+    scope: global
+  loop: "{{ desktop_sway_user_units }}"
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Disable sway user units
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: false
+    scope: global
+  loop: "{{ desktop_sway_user_units_disabled }}"
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Prefer dark color scheme
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+- name: Dark GTK theme
+  ansible.builtin.command: gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+
+- name: Create systemd user unit directory
+  ansible.builtin.file:
+    path: "{{ dotfiles_home }}/.config/systemd/user"
+    state: directory
+    mode: "0755"
+  become: false
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Install sway-session.target
+  ansible.builtin.copy:
+    src: sway-session.target
+    dest: "{{ dotfiles_home }}/.config/systemd/user/sway-session.target"
+    mode: "0644"
+  become: false
+  when: ansible_facts['service_mgr'] == 'systemd'
+
+- name: Reload systemd user daemon
+  ansible.builtin.systemd_service:
+    scope: user
+    daemon_reload: true
+  become: false
+  when: ansible_facts['service_mgr'] == 'systemd'

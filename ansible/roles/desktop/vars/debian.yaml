@@ -4,13 +4,9 @@ desktop_supported_sessions:
   - gnome
 
 desktop_packages:
-  - power-profiles-daemon
-  - bluez-utils
-  - pipewire-alsa
   - pipewire-jack
 
-desktop_services:
-  - power-profiles-daemon.service
+desktop_services: []
 
 desktop_sway_packages:
   # Core
@@ -19,7 +15,7 @@ desktop_sway_packages:
   - swaylock
   - swayidle
   - waybar
-  - mako
+  - mako-notifier
   - fuzzel
   - grim
   - slurp
@@ -40,48 +36,52 @@ desktop_sway_packages:
   - pavucontrol
 
   # Session
-  - polkit-gnome
+  - mate-polkit
   - gnome-keyring
-  - gcr-4
+  - gcr4
 
   # Portals
   - xdg-desktop-portal-wlr
   - xdg-desktop-portal-gtk
 
-  # Bluetooth
+  # Bluetooth & power
   - bluez
+  - power-profiles-daemon
 
   # Audio
   - pipewire
+  - pipewire-alsa
   - pipewire-pulse
   - wireplumber
-  - gst-plugin-pipewire
+  - gstreamer1.0-pipewire
 
 desktop_sway_services:
   - bluetooth.service
+  - power-profiles-daemon.service
 
 desktop_sway_user_units:
   - gcr-ssh-agent.socket
 
 desktop_sway_user_units_disabled: []
 
-desktop_greetd_user: greeter
+desktop_greetd_user: _greetd
 
 desktop_gnome_packages:
-  - gnome
+  - gnome-core
   - gnome-tweaks
-  - gpaste
+  - gpaste-2
+  - gnome-shell-extension-gpaste
   - gnome-shell-extension-appindicator
   - seahorse
   - android-file-transfer
   - errands
-  - newsflash
   - amberol
-  - switcheroo
-  - fretboard
-  - solanum
 
-desktop_gnome_flatpaks: []
+desktop_gnome_flatpaks:
+  - io.gitlab.news_flash.NewsFlash
+  - io.gitlab.adhami3310.Converter
+  - dev.bragefuglseth.Fretboard
+  - org.gnome.Solanum
 
 desktop_gnome_services:
   - gdm.service

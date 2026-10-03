@@ -1,6 +1,0 @@
----
-desktop_packages:
-  - tailscale
-
-desktop_services:
-  - tailscaled.service

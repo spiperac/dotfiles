@@ -1,29 +1,70 @@
 ---
+desktop_supported_sessions:
+  - sway
+
 desktop_packages:
-  # General 
+  - sys-power/tlp
+
+desktop_services:
+  - tlp.service
+  - tlp-pd.service
+
+desktop_sway_packages:
+  # Core
+  - gui-wm/sway
+  - gui-apps/swaybg
+  - gui-apps/swaylock
+  - gui-apps/swayidle
+  - gui-apps/waybar
+  - gui-apps/mako
+  - gui-apps/grim
+  - gui-apps/slurp
+  - gui-apps/wmenu
+
+  # Display manager
   - gui-libs/greetd
 
-  # Networking
-  - net-vpn/tailscale
-  - net-vpn/openvpn
-  - net-misc/networkmanager
-  - net-vpn/networkmanager-openvpn
+  # File manager & icons
+  - x11-misc/pcmanfm
+  - gnome-base/gvfs
+  - sys-fs/udisks
+  - x11-themes/papirus-icon-theme
+
+  # Applets
+  - gnome-extra/nm-applet
+  - media-sound/pavucontrol
+  - net-wireless/blueman
+
+  # Session
+  - gnome-base/gnome-keyring
+  - gnome-extra/polkit-gnome
+
+  # Portals
+  - sys-apps/xdg-desktop-portal-gtk
+  - gui-libs/xdg-desktop-portal-wlr
 
   # Bluetooth
   - net-wireless/bluez
-  - net-wireless/blueman
-
-  # Power
-  - sys-power/tlp
 
   # Audio
   - media-video/pipewire
   - media-video/wireplumber
 
-desktop_services:
-  - NetworkManager.service
-  - tlp.service
-  - tlp-pd.service
-  - tailscaled.service
+  # Overlay (GURU)
+  - gui-apps/fuzzel
+  - app-misc/cliphist
+  - app-misc/brightnessctl
+
+desktop_sway_services:
   - bluetooth.service
-  - greetd.service
+
+desktop_sway_user_units:
+  - pipewire.socket
+  - pipewire-pulse.socket
+  - wireplumber.service
+
+desktop_sway_user_units_disabled:
+  - gnome-keyring-daemon.service
+  - gnome-keyring-daemon.socket
+
+desktop_greetd_user: greetd

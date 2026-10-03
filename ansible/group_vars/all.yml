@@ -1,6 +1,8 @@
 ---
 dotfiles_repo: "{{ playbook_dir | dirname }}"
 
+distro: "{{ {'Archlinux': 'arch', 'Gentoo': 'gentoo', 'Debian': 'debian'}[ansible_facts['distribution']] }}"
+
 flatpak_package: flatpak
 
 dotfiles_stow_ignore:
