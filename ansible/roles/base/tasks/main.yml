@@ -201,45 +201,41 @@
     method: system
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
 
-# - name: Set up nix
-#   when: base_nix | bool
-#   block:
-#     # - name: Enable nix daemon
-#     #   ansible.builtin.systemd_service:
-#     #     name: "{{ item }}"
-#     #     enabled: true
-#     #     state: started
-#     #   loop:
-#     #     - nix-daemon.socket
-#     #     - nix-daemon.service
-#     #   when: ansible_facts['service_mgr'] == 'systemd'
-#
-#     - name: Add user to nix group
-#       ansible.builtin.user:
-#         name: "{{ dotfiles_user }}"
-#         groups: "{{ base_nix_group }}"
-#         append: true
-#       when: base_nix_group is defined
-#
-#     - name: Enable flakes
-#       ansible.builtin.lineinfile:
-#         path: "{{ dotfiles_home }}/.config/nix/nix.conf"
-#         line: "experimental-features = nix-command flakes"
-#         create: true
-#         mode: "0644"
-#       become: false
-#
-#     - name: Add nix channel
-#       ansible.builtin.command:
-#         cmd: "nix-channel --add {{ nix_channel_url }} {{ nix_channel_name }}"
-#         creates: "{{ dotfiles_home }}/.nix-channels"
-#       become: false
-#
-#     - name: Populate nix store
-#       ansible.builtin.command:
-#         cmd: nix-channel --update
-#         creates: /nix/store
-#       become: false
+- name: Set up nix
+  when: base_nix | bool
+  block:
+    - name: Install Nix daemon setup
+      ansible.builtin.apt:
+        name: nix-setup-systemd
+        state: present
+      become: true
+
+    - name: Add user to nix group
+      ansible.builtin.user:
+        name: "{{ dotfiles_user }}"
+        groups: "{{ base_nix_group }}"
+        append: true
+      when: base_nix_group is defined
+
+    - name: Enable flakes
+      ansible.builtin.lineinfile:
+        path: "{{ dotfiles_home }}/.config/nix/nix.conf"
+        line: "experimental-features = nix-command flakes"
+        create: true
+        mode: "0644"
+      become: false
+
+    - name: Add nix channel
+      ansible.builtin.command:
+        cmd: "nix-channel --add {{ nix_channel_url }} {{ nix_channel_name }}"
+        creates: "{{ dotfiles_home }}/.nix-channels"
+      become: false
+
+    - name: Populate nix store
+      ansible.builtin.command:
+        cmd: nix-channel --update
+        creates: /nix/store
+      become: false
 
 - name: Install tmux plugins
   ansible.builtin.git:
@@ -269,3 +265,22 @@
       </fontconfig>
     mode: "0644"
   when: distro == 'gentoo'
+
+- name: Create Hack font directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/Hack"
+    state: directory
+    mode: "0755"
+
+- name: Install Hack Nerd Font
+  ansible.builtin.unarchive:
+    src: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
+    dest: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/Hack"
+    remote_src: true
+    creates: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/Hack/HackNerdFont-Regular.ttf"
+  register: hack_font
+
+- name: Rebuild font cache
+  ansible.builtin.command: fc-cache -f
+  when: hack_font is changed
+  changed_when: true
