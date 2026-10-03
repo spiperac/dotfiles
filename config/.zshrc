@@ -16,7 +16,7 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
 
 # Path (-U keeps entries unique in nested shells)
 typeset -U path
-path=("$HOME/scripts" "$HOME/.cargo/bin" "$HOME/.local/bin" $path)
+path=("$HOME/scripts" "$HOME/.cargo/bin" "$HOME/.local/share/bob/nvim-bin" "$HOME/.local/bin" $path)
 export PATH
 
 # ZSH Configuration

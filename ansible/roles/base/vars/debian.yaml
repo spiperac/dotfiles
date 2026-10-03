@@ -71,6 +71,7 @@ base_packages:
   - openssl
   - openssh-client
   - gnupg
+  - scdaemon
   - pinentry-curses
   - pinentry-gnome3
   - pass
@@ -98,6 +99,7 @@ base_packages:
   - fonts-dejavu
   - fonts-liberation
   - fonts-firacode
+  - fonts-font-awesome
 
 base_services:
   - NetworkManager.service
