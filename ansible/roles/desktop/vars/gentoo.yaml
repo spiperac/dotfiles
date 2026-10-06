@@ -20,31 +20,43 @@ desktop_sway_packages:
   - gui-apps/grim
   - gui-apps/slurp
   - gui-apps/wmenu
+  - x11-base/xwayland
+  - gui-apps/wl-clipboard
+  - media-sound/playerctl
 
   # Display manager
   - gui-libs/greetd
+  - gui-apps/tuigreet
 
   # File manager & icons
   - x11-misc/pcmanfm
   - gnome-base/gvfs
   - sys-fs/udisks
+  - sys-fs/udiskie
   - x11-themes/papirus-icon-theme
 
   # Applets
+  - net-misc/networkmanager
   - gnome-extra/nm-applet
   - media-sound/pavucontrol
   - net-wireless/blueman
+  - x11-libs/libnotify
 
   # Session
   - gnome-base/gnome-keyring
-  - gnome-extra/polkit-gnome
+  - mate-extra/mate-polkit
+
+  # GnuPG / smartcard
+  - app-crypt/gnupg
+  - app-crypt/pinentry
 
   # Portals
   - sys-apps/xdg-desktop-portal-gtk
   - gui-libs/xdg-desktop-portal-wlr
 
-  # Bluetooth
+  # Bluetooth & power
   - net-wireless/bluez
+  - sys-power/upower
 
   # Audio
   - media-video/pipewire
@@ -62,9 +74,7 @@ desktop_sway_user_units:
   - pipewire.socket
   - pipewire-pulse.socket
   - wireplumber.service
-
-desktop_sway_user_units_disabled:
-  - gnome-keyring-daemon.service
-  - gnome-keyring-daemon.socket
+  - gpg-agent.socket
+  - gpg-agent-ssh.socket
 
 desktop_greetd_user: greetd

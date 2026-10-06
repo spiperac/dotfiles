@@ -20,25 +20,41 @@ desktop_sway_packages:
   - grim
   - slurp
   - wmenu
+  - xwayland
+  - wl-clipboard
   - cliphist
   - brightnessctl
+  - playerctl
 
   # Display manager
   - greetd
+  - tuigreet
 
   # File manager & icons
   - nautilus
   - papirus-icon-theme
+  - udisks2
+  - udiskie
+  - gvfs
+  - gvfs-backends
 
   # Applets
   - blueman
+  - network-manager
   - network-manager-applet
+  - nm-connection-editor
+  - libnotify-bin
   - pavucontrol
 
   # Session
+  - dbus-user-session
   - mate-polkit
   - gnome-keyring
-  - gcr4
+  - libpam-gnome-keyring
+
+  # GnuPG / smartcard
+  - scdaemon
+  - pinentry-gnome3
 
   # Portals
   - xdg-desktop-portal-wlr
@@ -46,6 +62,7 @@ desktop_sway_packages:
 
   # Bluetooth & power
   - bluez
+  - upower
   - power-profiles-daemon
 
   # Audio
@@ -54,15 +71,6 @@ desktop_sway_packages:
   - pipewire-pulse
   - wireplumber
   - gstreamer1.0-pipewire
-
-desktop_sway_services:
-  - bluetooth.service
-  - power-profiles-daemon.service
-
-desktop_sway_user_units:
-  - gcr-ssh-agent.socket
-
-desktop_sway_user_units_disabled: []
 
 desktop_greetd_user: _greetd
 

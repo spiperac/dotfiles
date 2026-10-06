@@ -1,3 +1,5 @@
 ---
 desktop_sessions:
   - sway
+
+dotfiles_stow_ignore: []

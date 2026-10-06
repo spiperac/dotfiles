@@ -17,3 +17,5 @@ sys-apps/systemd-utils boot kernel-install
 sys-kernel/installkernel systemd systemd-boot
 sys-kernel/installkernel -dracut ugrd
 gui-apps/waybar tray wifi network
+app-crypt/gnupg usb
+app-crypt/pinentry gtk

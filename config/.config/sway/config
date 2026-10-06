@@ -27,13 +27,13 @@ input "type:keyboard" {
 }
 
 ### Autostart
-exec --no-startup-id dbus-update-activation-environment --all XDG_CURRENT_DESKTOP=sway
-exec --no-startup-id gnome-keyring-daemon --start --components=ssh,secrets,pkcs11
+exec gnome-keyring-daemon --start --components=secrets
 exec waybar
 exec nm-applet --indicator
 exec blueman-applet
-exec ~/scripts/polkit-agent.sh
-exec_always mako
+exec udiskie --tray
+exec /usr/libexec/polkit-mate-authentication-agent-1
+exec mako
 
 ### Output (wallpaper and scaling)
 
@@ -147,7 +147,7 @@ bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png | wl-copy
 
 # Clipboard history
-exec_always sh -c 'pkill wl-paste; wl-paste --watch cliphist store'
+exec wl-paste --watch cliphist store
 bindsym $mod+shift+v exec cliphist list | fuzzel --dmenu --with-nth 2 | cliphist decode | wl-copy
 
 # Mouse modifier
@@ -184,6 +184,3 @@ assign [app_id="^io\.github\.screwys\.Rufin$"] workspace 5
 for_window [workspace="^2$"] layout tabbed
 
 include /etc/sway/config.d/*
-
-exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
-exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.target

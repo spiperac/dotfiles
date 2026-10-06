@@ -14,6 +14,9 @@ PROMPT_EOL_MARK=''
 # SSH agent provided by gnome-keyring
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
 
+# SSH agent provided by gpg-agent under sway
+[[ -n $SWAYSOCK ]] && (( $+commands[gpgconf] )) && grep -qs '^enable-ssh-support' ~/.gnupg/gpg-agent.conf && [[ -S $(gpgconf --list-dirs agent-ssh-socket) ]] && export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
 # Path (-U keeps entries unique in nested shells)
 typeset -U path
 path=("$HOME/scripts" "$HOME/.cargo/bin" "$HOME/.local/share/bob/nvim-bin" "$HOME/.local/bin" $path)

@@ -31,8 +31,11 @@ if command -v pacman >/dev/null; then
 elif command -v dpkg-query >/dev/null && [[ -r /etc/debian_version ]]; then
   DISTRO=debian
   REMOVE=(doas apt-get purge)
+elif command -v emerge >/dev/null && [[ -r /etc/gentoo-release ]]; then
+  DISTRO=gentoo
+  REMOVE=(doas emerge --deselect)
 else
-  echo "reconcile.sh supports Arch and Debian only." >&2
+  echo "reconcile.sh supports Arch, Debian and Gentoo only." >&2
   exit 1
 fi
 
@@ -122,6 +125,16 @@ case "$DISTRO" in
     # The base system the installer marks as manual, like Arch's base group.
     dpkg-query -W -f='${db:Status-Abbrev}\t${Package}\t${Priority}\t${Essential}\n' \
       | awk -F'\t' '$1 ~ /^ii/ && ($3 == "required" || $3 == "important" || $4 == "yes") {print $2}' >> "$TMP/expected"
+    ;;
+  gentoo)
+    # The world file holds only explicitly installed atoms, so no dependency
+    # walk is needed. Slots (cat/pkg:slot) are dropped to match the role vars.
+    sed 's/:.*//' /var/lib/portage/world | sort -u > "$TMP/installed"
+    # /var/db/pkg/<cat>/<pkg>-<version>; strip the version, skip in-progress merges.
+    find /var/db/pkg -mindepth 2 -maxdepth 2 -type d -printf '%P\n' \
+      | grep -v '/-MERGING-' \
+      | sed -E 's/-[0-9][^-]*(-r[0-9]+)?$//' | sort -u > "$TMP/installed_all"
+    : > "$TMP/db"
     ;;
 esac
 
@@ -218,6 +231,10 @@ if [[ ${1:-} == --prune ]]; then
       mapfile -t orphans < <(apt-get -s autoremove 2>/dev/null | awk '/^Remv /{print $2}')
       prune_hint='doas apt-get autoremove --purge'
       ;;
+    gentoo)
+      mapfile -t orphans < <(emerge --pretend --quiet --depclean 2>/dev/null | awk '/^ [^ ]+\/[^ ]+$/ {print $1}')
+      prune_hint='doas emerge --ask --depclean'
+      ;;
   esac
   if (( ${#orphans[@]} )); then
     echo "ORPHANS — no longer required by anything (${#orphans[@]}):"
@@ -261,6 +278,8 @@ if [[ ${1:-} == --purge ]]; then
   fi
   if (( ${#purge_packages[@]} )); then
     "${REMOVE[@]}" "${purge_packages[@]}"
+    # Deselecting only drops them from world; depclean does the actual removal.
+    [[ $DISTRO == gentoo ]] && doas emerge --ask --depclean
   fi
 fi
 
