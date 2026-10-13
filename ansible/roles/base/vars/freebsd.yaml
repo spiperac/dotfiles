@@ -49,6 +49,9 @@ base_packages:
   - password-store
   - libfido2
   - u2f-devd
+  - pcsc-lite
+  - libccid
+  - py312-lxml
 
   # Shell & editors
   - zsh
@@ -72,6 +75,7 @@ base_packages:
   - liberation-fonts-ttf
   - firacode
   - font-awesome
+  - nerd-fonts-symbols
 
 base_services: []
 

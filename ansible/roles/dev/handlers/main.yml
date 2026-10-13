@@ -1,0 +1,5 @@
+---
+- name: Reload pf
+  ansible.builtin.service:
+    name: pf
+    state: reloaded

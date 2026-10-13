@@ -25,6 +25,14 @@ dev_packages:
   - vm-bhyve
   - bhyve-firmware
 
+  # Jails
+  - bastille
+  - debootstrap
+
+dev_bastille_releases:
+  - 15.1-RELEASE
+  - Debian13
+
 dev_go: []
 
 dev_pipx: []

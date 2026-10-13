@@ -13,7 +13,7 @@ case "$(uname -s)" in
         ;;
     FreeBSD)
         waybar -c ~/.config/waybar/config-freebsd.jsonc &
-        networkmgr &
+        wpa_gui -t &
         /usr/local/libexec/polkit-mate-authentication-agent-1 &
         ;;
 esac

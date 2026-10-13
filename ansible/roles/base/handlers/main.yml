@@ -1,0 +1,5 @@
+---
+- name: Restart pcscd
+  ansible.builtin.service:
+    name: pcscd
+    state: restarted

@@ -37,7 +37,7 @@ desktop_sway_packages:
   - gvfs
 
   # Applets
-  - networkmgr
+  - wpa_supplicant_gui
   - libnotify
 
   # Session
@@ -54,6 +54,12 @@ desktop_sway_packages:
 
   # Audio
   - sndio
+
+desktop_user_groups:
+  - video     # seatd, DRM
+  - audio     # /dev/dsp, /dev/mixer
+  - operator  # /dev/acpi, suspend
+  - u2f       # security key
 
 desktop_sway_services:
   - dbus

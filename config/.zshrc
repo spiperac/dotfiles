@@ -11,11 +11,8 @@ fi
 export LANG=en_US.UTF-8
 PROMPT_EOL_MARK=''
 
-# SSH agent provided by gnome-keyring
-export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/keyring/ssh"
-
-# SSH agent provided by gpg-agent under sway
-[[ -n $SWAYSOCK ]] && (( $+commands[gpgconf] )) && grep -qs '^enable-ssh-support' ~/.gnupg/gpg-agent.conf && [[ -S $(gpgconf --list-dirs agent-ssh-socket) ]] && export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+# SSH agent started by sway
+[[ -S $XDG_RUNTIME_DIR/ssh-agent.socket ]] && export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 # Path (-U keeps entries unique in nested shells)
 typeset -U path

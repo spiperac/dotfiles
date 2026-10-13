@@ -126,6 +126,62 @@
     mode: "0644"
   when: distro == 'freebsd'
 
+- name: Suspend on lid close
+  ansible.posix.sysctl:
+    name: hw.acpi.lid_switch_state
+    value: S3
+    sysctl_file: /etc/sysctl.conf
+  when: distro == 'freebsd'
+
+- name: Power down PCI devices without a driver
+  ansible.posix.sysctl:
+    name: hw.pci.do_power_nodriver
+    value: "3"
+    sysctl_file: /etc/sysctl.conf
+  when: distro == 'freebsd'
+
+- name: Set up smart card
+  when: distro == 'freebsd'
+  block:
+    - name: Check RS-Key in CCID reader list
+      community.general.xml:
+        path: /usr/local/lib/pcsc/drivers/ifd-ccid.bundle/Contents/Info.plist
+        xpath: /plist/dict/key[.='ifdFriendlyName']/following-sibling::array[1]/string[.='RS-Key']
+        count: true
+      register: ccid_rskey
+
+    - name: Add RS-Key to CCID reader list
+      community.general.xml:
+        path: /usr/local/lib/pcsc/drivers/ifd-ccid.bundle/Contents/Info.plist
+        xpath: "/plist/dict/key[.='{{ item.key }}']/following-sibling::array[1]"
+        add_children:
+          - string: "{{ item.value }}"
+      loop:
+        - { key: ifdVendorID, value: "0x1209" }
+        - { key: ifdProductID, value: "0x0001" }
+        - { key: ifdFriendlyName, value: RS-Key }
+      when: ccid_rskey.count == 0
+      notify: Restart pcscd
+
+    - name: Start pcscd
+      ansible.builtin.service:
+        name: pcscd
+        state: started
+
+    - name: Ensure ~/.gnupg exists
+      ansible.builtin.file:
+        path: "{{ dotfiles_home }}/.gnupg"
+        state: directory
+        mode: "0700"
+      become: false
+
+    - name: Deploy scdaemon.conf
+      ansible.builtin.copy:
+        src: scdaemon.conf
+        dest: "{{ dotfiles_home }}/.gnupg/scdaemon.conf"
+        mode: "0600"
+      become: false
+
 - name: Enable base services
   ansible.builtin.service:
     name: "{{ item }}"
@@ -218,19 +274,24 @@
 
 - name: Create Hack font directory
   ansible.builtin.file:
-    path: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/Hack"
+    path: "{{ dotfiles_home }}/.local/share/fonts/Hack"
     state: directory
-    mode: "0755"
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_gid }}"
+    recurse: true
 
 - name: Install Hack Nerd Font
   ansible.builtin.unarchive:
     src: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.zip
-    dest: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/Hack"
+    dest: "{{ dotfiles_home }}/.local/share/fonts/Hack"
     remote_src: true
-    creates: "{{ ansible_facts['env']['HOME'] }}/.local/share/fonts/Hack/HackNerdFont-Regular.ttf"
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_gid }}"
+    creates: "{{ dotfiles_home }}/.local/share/fonts/Hack/HackNerdFont-Regular.ttf"
   register: hack_font
 
 - name: Rebuild font cache
   ansible.builtin.command: fc-cache -f
+  become: false
   when: hack_font is changed
   changed_when: true

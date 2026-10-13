@@ -79,3 +79,41 @@
     enabled: true
     state: started
   when: ansible_facts['service_mgr'] == 'systemd' and dev_docker_packages | length > 0
+
+- name: Set up Bastille
+  when: distro == 'freebsd'
+  block:
+    - name: Deploy bastille.conf
+      ansible.builtin.copy:
+        src: bastille.conf
+        dest: /usr/local/etc/bastille/bastille.conf
+        owner: root
+        group: wheel
+        mode: "0644"
+
+    - name: Deploy pf.conf
+      ansible.builtin.copy:
+        src: pf.conf
+        dest: /etc/pf.conf
+        owner: root
+        group: wheel
+        mode: "0644"
+        validate: pfctl -nf %s
+      notify: Reload pf
+
+    - name: Create bastille0 loopback
+      ansible.builtin.command: service netif cloneup
+      when: "'bastille0' not in ansible_facts['interfaces']"
+      changed_when: true
+
+    - name: Start pf
+      ansible.builtin.service:
+        name: pf
+        enabled: true
+        state: started
+
+    - name: Bootstrap jail releases
+      ansible.builtin.command:
+        cmd: "bastille bootstrap {{ item }}"
+        creates: "/usr/local/bastille/releases/{{ item }}"
+      loop: "{{ dev_bastille_releases }}"

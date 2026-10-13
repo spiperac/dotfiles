@@ -1,4 +1,4 @@
 {
   "include": ["~/.config/waybar/config.jsonc"],
-  "modules-right": ["tray", "battery"]
+  "modules-right": ["tray","audio", "battery", "clock"]
 }

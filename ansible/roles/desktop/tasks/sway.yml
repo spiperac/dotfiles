@@ -31,10 +31,10 @@
         value: i915kms
         state: value_present
 
-    - name: Add user to video group for seatd
+    - name: Add user to desktop groups
       ansible.builtin.user:
         name: "{{ dotfiles_user }}"
-        groups: video
+        groups: "{{ desktop_user_groups }}"
         append: true
 
     - name: Add ly getty entry
@@ -73,14 +73,6 @@
     enabled: true
     scope: global
   loop: "{{ desktop_sway_user_units | default([]) }}"
-
-- name: Enable SSH support in gpg-agent
-  ansible.builtin.lineinfile:
-    path: "{{ dotfiles_home }}/.gnupg/gpg-agent.conf"
-    line: enable-ssh-support
-    create: true
-    mode: "0600"
-  become: false
 
 - name: Create screenshots directory
   ansible.builtin.file:

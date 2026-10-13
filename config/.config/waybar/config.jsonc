@@ -5,8 +5,8 @@
   "spacing": 6,
 
   "modules-left": ["sway/workspaces"],
-  "modules-center": ["clock"],
-  "modules-right": [ "tray", "pulseaudio", "network", "battery"],
+  "modules-center": [],
+  "modules-right": [ "tray", "pulseaudio", "network", "battery", "clock"],
 
   "clock": {
       "format": "{:%d %b %H:%M}",
