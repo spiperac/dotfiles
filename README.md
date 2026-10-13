@@ -1,6 +1,6 @@
 # Dotfiles
 
-My configuration files and the Ansible setup for my workstations (Arch Linux, Gentoo, Debian).
+My configuration files and the Ansible setup for my workstations (Arch Linux, Debian, FreeBSD).
 
 ![screenshot](./screenshot.png)
 
@@ -14,12 +14,19 @@ scripts/     helper scripts
 
 ## Installation
 
-Gentoo and Debian use doas with a nopass rule. On a fresh Debian, as root:
+Debian and FreeBSD use doas with a nopass rule. On a fresh Debian, as root:
 
 ```bash
 apt install opendoas
 echo "permit nopass <user> as root" > /etc/doas.conf
 chmod 0400 /etc/doas.conf
+```
+
+On a fresh FreeBSD, as root (setup.sh needs bash):
+
+```sh
+pkg install doas bash git
+echo "permit nopass <user> as root" > /usr/local/etc/doas.conf
 ```
 
 Then, as your user:

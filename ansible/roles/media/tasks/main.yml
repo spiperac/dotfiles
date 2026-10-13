@@ -14,3 +14,4 @@
     state: present
     method: system
     remote: flathub
+  when: media_flatpaks | length > 0

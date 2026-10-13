@@ -1,0 +1,34 @@
+---
+dev_packages:
+  # Build
+  - cmake
+  - gmake
+
+  # Languages & tools
+  - python3
+  - py312-pre-commit
+  - uv
+  - go
+  - gh
+  - ImageMagick7
+  - emacs-wayland
+  - gdb
+  - rust
+
+  # DevOps
+  - kubectl
+  - helm
+  - opentofu
+  - k9s
+
+  # Virtualization
+  - vm-bhyve
+  - bhyve-firmware
+
+dev_go: []
+
+dev_pipx: []
+
+dev_docker_packages: []
+
+dev_virt_packages: []

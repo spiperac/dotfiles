@@ -15,6 +15,7 @@
     state: present
     method: system
     remote: flathub
+  when: security_flatpaks | length > 0
 
 - name: Install security tools with Go
   ansible.builtin.command:
@@ -51,4 +52,4 @@
     depth: 1
     version: master
     update: false
-  when: distro != 'gentoo'
+  when: distro != 'freebsd'

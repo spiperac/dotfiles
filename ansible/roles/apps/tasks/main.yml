@@ -11,7 +11,7 @@
     suites: "{{ item.suites }}"
     components: "{{ item.components }}"
     signed_by: "{{ item.signed_by }}"
-  loop: "{{ apps_apt_repos }}"
+  loop: "{{ apps_apt_repos | default([]) }}"
   loop_control:
     label: "{{ item.name }}"
   register: apps_apt_repos_result
@@ -30,12 +30,11 @@
     state: present
 
 - name: Enable application services
-  ansible.builtin.systemd_service:
+  ansible.builtin.service:
     name: "{{ item }}"
     enabled: true
     state: started
   loop: "{{ apps_services }}"
-  when: ansible_facts['service_mgr'] == 'systemd'
 
 - name: Install application flatpaks
   community.general.flatpak:
@@ -43,3 +42,4 @@
     state: present
     method: system
     remote: flathub
+  when: apps_flatpaks | length > 0

@@ -8,8 +8,8 @@
     - name: Check distribution
       ansible.builtin.assert:
         that:
-          - ansible_facts['distribution'] in ['Archlinux', 'Gentoo', 'Debian']
-        fail_msg: "This playbook targets Arch Linux, Gentoo or Debian (found {{ ansible_facts['distribution'] }})."
+          - ansible_facts['distribution'] in ['Archlinux', 'Debian', 'FreeBSD']
+        fail_msg: "This playbook targets Arch Linux, Debian or FreeBSD (found {{ ansible_facts['distribution'] }})."
       tags: always
 
     - name: Resolve user

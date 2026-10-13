@@ -1,0 +1,57 @@
+---
+desktop_supported_sessions:
+  - sway
+
+desktop_packages: []
+
+desktop_services: []
+
+desktop_sway_packages:
+  # Graphics
+  - drm-kmod
+  - libva-intel-media-driver
+
+  # Core
+  - sway
+  - swaybg
+  - swaylock
+  - swayidle
+  - waybar
+  - mako
+  - fuzzel
+  - grim
+  - slurp
+  - wmenu
+  - xwayland
+  - wl-clipboard
+  - cliphist
+  - playerctl
+
+  # Display manager
+  - ly
+  - seatd
+
+  # File manager & icons
+  - nautilus
+  - papirus-icon-theme
+  - gvfs
+
+  # Applets
+  - networkmgr
+  - libnotify
+
+  # Session
+  - dbus
+  - mate-polkit
+  - gnome-keyring
+
+  # Portals
+  - xdg-desktop-portal-wlr
+  - xdg-desktop-portal-gtk
+
+  # Power
+  - upower
+
+desktop_sway_services:
+  - dbus
+  - seatd

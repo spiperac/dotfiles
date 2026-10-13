@@ -25,62 +25,6 @@
         - { regexp: '^#?\s*Color\s*$', line: "Color" }
         - { regexp: '^#?\s*ILoveCandy\s*$', line: "ILoveCandy" }
 
-- name: Configure Gentoo package manager
-  when: distro == 'gentoo'
-  block:
-    - name: Create portage config directories
-      ansible.builtin.file:
-        path: "/etc/portage/{{ item }}"
-        state: directory
-        mode: "0755"
-      loop:
-        - package.use
-        - package.accept_keywords
-        - repos.conf
-
-    - name: Sync portage package.use files
-      ansible.builtin.copy:
-        src: package.use/
-        dest: /etc/portage/package.use/
-        owner: root
-        group: root
-        mode: "0644"
-
-    - name: Sync portage package.accept_keywords files
-      ansible.builtin.copy:
-        src: package.accept_keywords/
-        dest: /etc/portage/package.accept_keywords/
-        owner: root
-        group: root
-        mode: "0644"
-
-    - name: Deploy portage make.conf
-      ansible.builtin.copy:
-        src: make.conf
-        dest: /etc/portage/make.conf
-        owner: root
-        group: root
-        mode: "0644"
-
-    - name: Configure GURU overlay
-      ansible.builtin.copy:
-        dest: /etc/portage/repos.conf/guru.conf
-        content: |
-          [guru]
-          location = /var/db/repos/guru
-          sync-type = git
-          sync-uri = https://github.com/gentoo/guru.git
-          masters = gentoo
-          auto-sync = yes
-        owner: root
-        group: root
-        mode: "0644"
-
-    - name: Sync GURU overlay
-      ansible.builtin.command:
-        argv: [emaint, sync, -r, guru]
-      changed_when: false
-
 - name: Configure Debian package sources
   when: distro == 'debian'
   block:
@@ -141,12 +85,14 @@
     name: "{{ item }}"
     state: present
   loop: "{{ base_locales }}"
+  when: distro != 'freebsd'
 
 - name: Set system locale
   ansible.builtin.copy:
     dest: "{{ base_locale_file }}"
     content: "LANG={{ base_locales[0] }}\n"
     mode: "0644"
+  when: distro != 'freebsd'
 
 - name: Set timezone
   community.general.timezone:
@@ -163,12 +109,11 @@
   when: "'iwd' in base_packages"
 
 - name: Enable base services
-  ansible.builtin.systemd_service:
+  ansible.builtin.service:
     name: "{{ item }}"
     enabled: true
     state: started
   loop: "{{ base_services }}"
-  when: ansible_facts['service_mgr'] == 'systemd'
 
 - name: Configure snapper
   when:
@@ -193,6 +138,7 @@
   ansible.builtin.package:
     name: "{{ flatpak_package }}"
     state: present
+  when: distro != 'freebsd'
 
 - name: Add Flathub remote
   community.general.flatpak_remote:
@@ -200,6 +146,7 @@
     state: present
     method: system
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+  when: distro != 'freebsd'
 
 - name: Set up nix
   when: base_nix | bool
@@ -250,21 +197,6 @@
   ansible.builtin.user:
     name: "{{ dotfiles_user }}"
     shell: "{{ base_login_shell }}"
-
-- name: Set Fira Code as default monospace font
-  ansible.builtin.copy:
-    dest: /etc/fonts/local.conf
-    content: |
-      <?xml version="1.0"?>
-      <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-      <fontconfig>
-        <alias>
-          <family>monospace</family>
-          <prefer><family>Fira Code</family></prefer>
-        </alias>
-      </fontconfig>
-    mode: "0644"
-  when: distro == 'gentoo'
 
 - name: Create Hack font directory
   ansible.builtin.file:

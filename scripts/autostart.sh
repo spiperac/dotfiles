@@ -1,17 +1,19 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-# Kill already running dublicate process
-_ps="waybar mako swaybg nm-applet"
-for _prs in $_ps; do
-    if [ "$(pidof "${_prs}")" ]; then
-         killall -9 "${_prs}"
-    fi
-done
-
-swaybg --output "*" --mode fill -i "~/.config/assets/wallpaper.png" &
-waybar &
-nm-applet &
+gnome-keyring-daemon --start --components=secrets &
 mako &
-foot --server &
 
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots
+case "$(uname -s)" in
+    Linux)
+        waybar &
+        nm-applet --indicator &
+        blueman-applet &
+        udiskie --tray &
+        /usr/libexec/polkit-mate-authentication-agent-1 &
+        ;;
+    FreeBSD)
+        waybar -c ~/.config/waybar/config-freebsd.jsonc &
+        networkmgr &
+        /usr/local/libexec/polkit-mate-authentication-agent-1 &
+        ;;
+esac

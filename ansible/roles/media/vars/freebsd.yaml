@@ -1,0 +1,14 @@
+---
+media_packages:
+  - mpv
+  - imv
+  - ytfzf
+  - aria2
+
+  # Reading
+  - foliate
+  - zathura
+  - zathura-pdf-poppler
+  - zathura-cb
+
+media_flatpaks: []

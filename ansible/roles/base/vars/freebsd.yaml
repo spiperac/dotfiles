@@ -1,0 +1,78 @@
+---
+base_packages:
+  # Privilege escalation
+  - doas
+
+  # Hardware & firmware
+  - fwupd
+  - smartmontools
+  - fprintd
+
+  # VCS
+  - git
+
+  # Core tools
+  - ripgrep
+  - fd-find
+  - fzf
+  - bat
+  - eza
+  - jq
+  - tree
+  - duf
+  - htop
+  - btop
+  - yazi
+  - rsync
+  - stow
+  - wl-clipboard
+  - mtr-nox11
+  - bind-tools
+  - whois
+  - lsof
+  - socat
+  - wget
+  - curl
+
+  # Archiving
+  - 7-zip
+  - unzip
+  - zip
+
+  # Crypto
+  - openssl
+  - gnupg
+  - pinentry-curses
+  - pinentry-gnome
+  - password-store
+  - libfido2
+  - u2f-devd
+
+  # Shell & editors
+  - zsh
+  - tmux
+  - neovim
+  - tree-sitter-cli
+  - vim
+  - nano
+
+  # Terminal emulators
+  - foot
+  - ghostty
+
+  # Package managers
+  - py312-pipx
+
+  # Fonts
+  - noto-basic
+  - noto-emoji
+  - dejavu
+  - liberation-fonts-ttf
+  - firacode
+  - font-awesome
+
+base_services: []
+
+base_login_shell: /usr/local/bin/zsh
+
+base_nix: false

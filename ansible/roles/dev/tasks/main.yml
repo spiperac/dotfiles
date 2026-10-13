@@ -11,7 +11,7 @@
     suites: "{{ item.suites }}"
     components: "{{ item.components }}"
     signed_by: "{{ item.signed_by }}"
-  loop: "{{ dev_apt_repos }}"
+  loop: "{{ dev_apt_repos | default([]) }}"
   loop_control:
     label: "{{ item.name }}"
   register: dev_apt_repos_result

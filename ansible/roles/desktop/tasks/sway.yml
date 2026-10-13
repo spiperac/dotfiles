@@ -5,7 +5,9 @@
     state: present
 
 - name: Set up greetd
-  when: "'gnome' not in desktop_sessions"
+  when:
+    - "'gnome' not in desktop_sessions"
+    - distro != 'freebsd'
   block:
     - name: Deploy greetd config
       ansible.builtin.template:
@@ -20,8 +22,35 @@
         name: greetd.service
         enabled: true
 
+- name: Set up FreeBSD graphics and seat
+  when: distro == 'freebsd'
+  block:
+    - name: Load Intel KMS driver at boot
+      community.general.sysrc:
+        name: kld_list
+        value: i915kms
+        state: value_present
+
+    - name: Add user to video group for seatd
+      ansible.builtin.user:
+        name: "{{ dotfiles_user }}"
+        groups: video
+        append: true
+
+    - name: Add ly getty entry
+      ansible.builtin.lineinfile:
+        path: /etc/gettytab
+        regexp: '^Ly:'
+        line: "Ly:lo=/usr/local/bin/ly_wrapper:al=root:"
+
+    - name: Run ly on ttyv1
+      ansible.builtin.lineinfile:
+        path: /etc/ttys
+        regexp: '^ttyv1\s'
+        line: "ttyv1\t\"/usr/libexec/getty Ly\"\txterm\ton\tsecure"
+
 - name: Enable sway services
-  ansible.builtin.systemd_service:
+  ansible.builtin.service:
     name: "{{ item }}"
     enabled: true
   loop: "{{ desktop_sway_services | default([]) }}"

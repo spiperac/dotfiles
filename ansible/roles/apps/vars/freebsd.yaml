@@ -1,0 +1,14 @@
+---
+apps_packages:
+  - firefox
+  - fastfetch
+  - halloy
+
+  # Networking
+  - openvpn
+  - tailscale
+
+apps_services:
+  - tailscaled
+
+apps_flatpaks: []

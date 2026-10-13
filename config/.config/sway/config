@@ -27,13 +27,7 @@ input "type:keyboard" {
 }
 
 ### Autostart
-exec gnome-keyring-daemon --start --components=secrets
-exec waybar
-exec nm-applet --indicator
-exec blueman-applet
-exec udiskie --tray
-exec /usr/libexec/polkit-mate-authentication-agent-1
-exec mako
+exec ~/scripts/autostart.sh
 
 ### Output (wallpaper and scaling)
 
@@ -134,14 +128,14 @@ mode "resize" {
 #bindsym $mod+r mode "resize"
 
 # Media keys
-bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym --locked XF86AudioMute exec ~/scripts/media-keys.sh mute
+bindsym --locked XF86AudioLowerVolume exec ~/scripts/media-keys.sh volume-down
+bindsym --locked XF86AudioRaiseVolume exec ~/scripts/media-keys.sh volume-up
+bindsym --locked XF86AudioMicMute exec ~/scripts/media-keys.sh mic-mute
 
 # Brightness
-bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec ~/scripts/media-keys.sh brightness-down
+bindsym --locked XF86MonBrightnessUp exec ~/scripts/media-keys.sh brightness-up
 
 # Screenshot
 bindsym $mod+Shift+p exec grim -g "$(slurp)" - | tee ~/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png | wl-copy

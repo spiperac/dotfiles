@@ -18,12 +18,11 @@
   when: desktop_packages | length > 0
 
 - name: Enable desktop services
-  ansible.builtin.systemd_service:
+  ansible.builtin.service:
     name: "{{ item }}"
     enabled: true
     state: started
   loop: "{{ desktop_services }}"
-  when: ansible_facts['service_mgr'] == 'systemd'
 
 - name: Clone pixora-icons
   ansible.builtin.git:

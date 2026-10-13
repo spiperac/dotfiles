@@ -6,6 +6,7 @@ app_dirs=(
     "$HOME/.local/share/flatpak/exports/share/applications"
     /var/lib/flatpak/exports/share/applications
     /usr/share/applications
+    /usr/local/share/applications
 )
 
 # Find the desktop entry for an app_id / X11 class

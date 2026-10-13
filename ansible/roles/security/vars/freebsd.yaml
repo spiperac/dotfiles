@@ -1,0 +1,29 @@
+---
+security_packages:
+  - wireshark
+
+  # Pentest
+  - nmap
+  - gobuster
+  - proxychains-ng
+  - rlwrap
+  - freerdp3
+  - rizin
+  - cutter
+  - binwalk
+  - ffuf
+  - subfinder
+  - dnsx
+  - seclists
+
+  # Exploit dev
+  - py312-pwntools
+  - py312-ropgadget
+
+security_flatpaks: []
+
+security_go: []
+
+security_go_links: {}
+
+security_pipx: []

@@ -35,12 +35,15 @@ power_profile() {
 
 power_menu() {
     choice=$(printf '1    Lock\n2    Suspend\n3    Log out\n4    Reboot\n5    Shut down\n' | menu "power: ")
-    case $(num "$choice") in
-        1) swaylock -f -c 000000 ;;
-        2) systemctl suspend ;;
-        3) swaymsg exit ;;
-        4) systemctl reboot ;;
-        5) systemctl poweroff ;;
+    case "$(uname -s):$(num "$choice")" in
+        *:1) swaylock -f -c 000000 ;;
+        Linux:2) systemctl suspend ;;
+        FreeBSD:2) doas zzz ;;
+        *:3) swaymsg exit ;;
+        Linux:4) systemctl reboot ;;
+        FreeBSD:4) doas shutdown -r now ;;
+        Linux:5) systemctl poweroff ;;
+        FreeBSD:5) doas shutdown -p now ;;
     esac
 }
 
@@ -57,10 +60,22 @@ kill_process() {
     fi
 }
 
-choice=$(printf '1    Pass Store\n2    Power Profile\n3    Power Menu\n4  󰓾  Kill Process\n' | menu "system: ")
-case $(num "$choice") in
-    1) pass_store ;;
-    2) power_profile ;;
-    3) power_menu ;;
-    4) kill_process ;;
+case "$(uname -s)" in
+    FreeBSD)
+        choice=$(printf '1    Pass Store\n2    Power Menu\n3  󰓾  Kill Process\n' | menu "system: ")
+        case $(num "$choice") in
+            1) pass_store ;;
+            2) power_menu ;;
+            3) kill_process ;;
+        esac
+        ;;
+    *)
+        choice=$(printf '1    Pass Store\n2    Power Profile\n3    Power Menu\n4  󰓾  Kill Process\n' | menu "system: ")
+        case $(num "$choice") in
+            1) pass_store ;;
+            2) power_profile ;;
+            3) power_menu ;;
+            4) kill_process ;;
+        esac
+        ;;
 esac
