@@ -108,6 +108,15 @@
     enabled: false
   when: "'iwd' in base_packages"
 
+- name: Deploy rc.conf
+  ansible.builtin.copy:
+    src: rc.conf
+    dest: /etc/rc.conf
+    owner: root
+    group: wheel
+    mode: "0644"
+  when: distro == 'freebsd'
+
 - name: Enable base services
   ansible.builtin.service:
     name: "{{ item }}"
