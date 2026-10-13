@@ -4,7 +4,7 @@
   "height": 30,
   "spacing": 6,
 
-  "modules-left": ["custom/logo", "sway/workspaces"],
+  "modules-left": ["sway/workspaces"],
   "modules-center": ["clock"],
   "modules-right": [ "tray", "pulseaudio", "network", "battery"],
 

@@ -52,6 +52,9 @@ desktop_sway_packages:
   # Power
   - upower
 
+  # Audio
+  - sndio
+
 desktop_sway_services:
   - dbus
   - seatd

@@ -49,6 +49,18 @@
         regexp: '^ttyv1\s'
         line: "ttyv1\t\"/usr/libexec/getty Ly\"\txterm\ton\tsecure"
 
+    - name: Add sway session with D-Bus for ly
+      ansible.builtin.copy:
+        dest: /usr/local/share/wayland-sessions/sway-dbus.desktop
+        content: |
+          [Desktop Entry]
+          Name=Sway (D-Bus)
+          Exec=dbus-run-session sway
+          Type=Application
+        owner: root
+        group: wheel
+        mode: "0644"
+
 - name: Enable sway services
   ansible.builtin.service:
     name: "{{ item }}"
